@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta charset="utf-8"></meta>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
+	<title>Proszę o zgłaszanie awarii za pomocą formularza</title>
+
+	<style>
+.form_input {
+	width: 96%;
+}
+
+.form_textarea {
+	
+}
+</style>
+</h:head>
+<h:body>
+	<h:outputText value="Width: #{param['width']}" />
+	<br />
+	<h:outputText value="Height: #{param['height']}" />
+	<h:form>
+		<input type="hidden" value="#{param['key']}" name="companyKey"/>
+		<p:messages></p:messages>
+		<p:panelGrid columns="2"
+			style="width:#{param['width']}px; height:#{param['height']}px;">
+			<p:outputLabel>Imię i nazwisko</p:outputLabel>
+			<p:inputText styleClass="form_input" value="#{ticket.name}"></p:inputText>
+			<p:outputLabel>Email</p:outputLabel>
+			<p:inputText styleClass="form_input" value="#{ticket.email}"></p:inputText>
+			<p:outputLabel>Treść wiadomości:</p:outputLabel>
+			<p:inputTextarea styleClass="form_input form_textarea" value="#{ticket.content}"></p:inputTextarea>
+			<f:facet name="footer">
+				<p:commandButton action="#{ticketBean.newTicket}" value="Save" icon="ui-icon-check"
+					style="#{empty param['width'] ? '' : 'width: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' :'px;'} 
+						#{empty param['width'] ? '' : 'margin-left: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' : 'px;'}" />
+			</f:facet>
+
+		</p:panelGrid>
+	</h:form>
+
+	<ui:debug
+		rendered="#{initParam['javax.faces.PROJECT_STAGE'] eq 'Development'}"
+		hotkey="3" />
+</h:body>
+</html>

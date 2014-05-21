@@ -1,8 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!DOCTYPE html>
+<html lang="en" 
+	xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"> 
+<h:head>
+  <meta charset="utf-8"></meta>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
   <title>Welcome to OpenShift</title>
 
 <style>
@@ -204,8 +209,9 @@
 
 </style>
 
-</head>
-<body>
+</h:head>
+<h:body>
+<p:spinner></p:spinner>
 
  <section class='container'>
           <hgroup>
@@ -280,7 +286,7 @@ git pull -s recursive -X theirs upstream master</pre>
                     <li><a href="https://www.openshift.com/user-guide">User Guide</a></li>
                     <li><a href="https://www.openshift.com/support">OpenShift Support</a></li>
                     <li><a href="http://stackoverflow.com/questions/tagged/openshift">Stack Overflow questions for OpenShift</a></li>
-                    <li><a href="http://webchat.freenode.net/?randomnick=1&channels=openshift&uio=d4">IRC channel at #openshift on freenode.net</a></li>
+                    <li><a href="http://webchat.freenode.net/?randomnick=1&amp;channels=openshift&amp;uio=d4">IRC channel at #openshift on freenode.net</a></li>
                     <li><a href="http://git-scm.com/documentation">Git documentation</a></li>
                   </ul>
 
@@ -292,7 +298,6 @@ git pull -s recursive -X theirs upstream master</pre>
           <div class="logo"><a href="https://www.openshift.com/"></a></div>
         </footer>
 </section>
-
-
-</body>
+<ui:debug rendered="#{initParam['javax.faces.PROJECT_STAGE'] eq 'Development'}" hotkey="3"/>
+</h:body>
 </html>
