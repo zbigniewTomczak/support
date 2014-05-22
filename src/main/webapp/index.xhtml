@@ -24,18 +24,19 @@
 	<br />
 	<h:outputText value="Height: #{param['height']}" />
 	<h:form>
-		<input type="hidden" value="#{param['key']}" name="companyKey"/>
+		<input type="hidden" value="#{param['key']}" name="key"/>
 		<p:messages></p:messages>
+		<h:outputText value="#{configuration.noKeyWarning}" />
 		<p:panelGrid columns="2"
 			style="width:#{param['width']}px; height:#{param['height']}px;">
 			<p:outputLabel>Imię i nazwisko</p:outputLabel>
-			<p:inputText styleClass="form_input" value="#{ticket.name}"></p:inputText>
+			<p:inputText styleClass="form_input" value="#{supportFormResponse.name}"></p:inputText>
 			<p:outputLabel>Email</p:outputLabel>
-			<p:inputText styleClass="form_input" value="#{ticket.email}"></p:inputText>
+			<p:inputText styleClass="form_input" value="#{supportFormResponse.email}"></p:inputText>
 			<p:outputLabel>Treść wiadomości:</p:outputLabel>
-			<p:inputTextarea styleClass="form_input form_textarea" value="#{ticket.content}"></p:inputTextarea>
+			<p:inputTextarea styleClass="form_input form_textarea" value="#{supportFormResponse.content}"></p:inputTextarea>
 			<f:facet name="footer">
-				<p:commandButton action="#{ticketBean.newTicket}" value="Save" icon="ui-icon-check"
+				<p:commandButton action="#{supportFormBean.newSupportFormResponse()}" value="Save" icon="ui-icon-check"
 					style="#{empty param['width'] ? '' : 'width: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' :'px;'} 
 						#{empty param['width'] ? '' : 'margin-left: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' : 'px;'}" />
 			</f:facet>
