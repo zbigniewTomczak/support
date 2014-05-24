@@ -1,7 +1,7 @@
-package pomoc.company;
+package pomoc.partner;
 
 public class SupportForm {
 
-	Company company;
+	Partner partner;
 	String key;
 }

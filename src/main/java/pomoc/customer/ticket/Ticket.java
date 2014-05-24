@@ -1,6 +1,6 @@
 package pomoc.customer.ticket;
 
-import pomoc.company.SupportForm;
+import pomoc.partner.SupportForm;
 
 public class Ticket {
 

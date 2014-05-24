@@ -1,6 +1,6 @@
 package pomoc.customer;
 
-import pomoc.company.SupportForm;
+import pomoc.partner.SupportForm;
 
 public class SupportFormResponse {
 	private String name;

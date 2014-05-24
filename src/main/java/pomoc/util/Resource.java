@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
 
 public class Resource {
 
@@ -19,4 +20,10 @@ public class Resource {
     public Logger produceLog(InjectionPoint injectionPoint) {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
+    
+    //@Produces
+    //@PersistenceContext
+    private EntityManager em;
+
+
 }

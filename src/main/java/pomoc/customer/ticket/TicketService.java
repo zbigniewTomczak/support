@@ -1,6 +1,6 @@
 package pomoc.customer.ticket;
 
-import pomoc.company.Company;
+import pomoc.partner.Partner;
 
 public class TicketService {
 

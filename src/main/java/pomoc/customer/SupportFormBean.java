@@ -2,6 +2,7 @@ package pomoc.customer;
 
 import java.util.logging.Logger;
 
+import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
@@ -9,7 +10,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import pomoc.company.SupportForm;
 import pomoc.company.form.SupportFormService;
 
 @Model
@@ -22,9 +22,6 @@ public class SupportFormBean {
 	@Inject
 	private SupportFormService supportFormService;
 	
-	@Inject
-	private SupportFormResponseService supportFormResponseService;
-
 	@Inject
 	private FacesContext facesContext;
 	
@@ -40,9 +37,12 @@ public class SupportFormBean {
 			return;
 		}
 		
-		SupportForm ticketForm = supportFormService.get(key);
-		supportFormResponse.setSupportForm(ticketForm);
-		supportFormResponseService.save(supportFormResponse);
+		try {
+			supportFormService.saveNewFormResponse(supportFormResponse, key);
+		} catch (EJBException e) {
+			//TODO info to user
+			e.printStackTrace();
+		}
 		
 		// TODO message to user
 	}
