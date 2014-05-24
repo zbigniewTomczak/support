@@ -25,7 +25,7 @@ public class NewPartnerBean {
 	
 	private String passwordConfirm = "";
 	
-	public void register() {
+	public String register() {
 		if (!passwordConfirm.equals(newAdmin.getPassword())) {
 			//TODO Faces message to user
 		}
@@ -37,8 +37,10 @@ public class NewPartnerBean {
 		} catch (EJBException e) {
 			//TODO error message
 			e.printStackTrace();
+			return null;
 		}
 		//TODO success message
+		return "/support/administration/newform?faces-redirect=true";
 	}
 
 	public Partner getNewPartner() {

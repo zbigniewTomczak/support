@@ -1,0 +1,23 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:define name="subtitle">
+    <div
+      class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+      <span class="ui-menuitem-text" style="font-weight: bold;">Stwórz
+        nowy formularz do umieszczenia na stronie.</span>
+      <p:button icon="ui-icon-cancel" value="Anuluj"
+        styleClass="float-right" outcome="forms" />
+      <p:commandButton icon="ui-icon-disk" value="Zapisz"
+        styleClass="float-right"
+        action="#{supportFormBean.newSupportForm()}" />
+    </div>
+  </ui:define>
+  <ui:define name="page">
+Tutaj tworzysz nowy formularz
+</ui:define>
+</ui:composition>

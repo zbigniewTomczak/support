@@ -13,7 +13,7 @@ import javax.inject.Named;
 import pomoc.company.form.SupportFormService;
 
 @Model
-public class SupportFormBean {
+public class SupportFormResponseBean {
 
 	@Produces
 	@Named

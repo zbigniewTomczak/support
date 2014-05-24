@@ -26,9 +26,23 @@ public class LoginBean {
 			return null;
 		}
 		
-		return "dashboard?faces-redirect=true";
+		if (person.isAdmin() && !person.getPartner().hasForms()) {
+			return "/support/administration/newform?faces-redirect=true";
+		} else {
+			return "/support/dashboard?faces-redirect=true";
+		}
 	}
 
+	public String logout() {
+		try {
+			personService.logout();
+		} catch (EJBException e) {
+			e.printStackTrace();
+			//TODO error message
+		}
+		return "/support/signin?faces-redirect=true";
+	}
+	
 	public String getEmail() {
 		return email;
 	}

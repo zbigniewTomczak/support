@@ -33,6 +33,13 @@ public class Person {
 	public void setPartner(Partner partner) {
 		this.partner = partner;
 	}
+	public boolean isAdmin() {
+		if (role != null && role == Role.ADMIN) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	
 	

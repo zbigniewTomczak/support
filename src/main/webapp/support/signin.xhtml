@@ -6,8 +6,8 @@
   xmlns:p="http://primefaces.org/ui">
 
 <h:head></h:head>
-<h:body> 
-	<h:form>
+<h:body>
+  <h:form>
     <p:panelGrid columns="2">
       <f:facet name="header">Zaloguj się</f:facet>
       <p:outputLabel value="Email"></p:outputLabel>
@@ -17,6 +17,10 @@
       <f:facet name="footer">
         <p:commandButton action="#{loginBean.login()}" value="Zaloguj"
           icon="ui-icon-check"></p:commandButton>
+        <br />
+        <h:outputText value="Nie masz konta?" />
+        <br />
+        <p:link value="Przejdź do strony rejestracji" outcome="signup"></p:link>
       </f:facet>
     </p:panelGrid>
   </h:form>

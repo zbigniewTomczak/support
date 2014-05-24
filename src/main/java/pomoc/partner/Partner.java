@@ -11,6 +11,11 @@ public class Partner {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public boolean hasForms() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 }

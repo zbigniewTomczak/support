@@ -1,0 +1,22 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:define name="subtitle">
+    <div
+      class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+      <span class="ui-button-text">Formularz</span>
+      <p:button title="Stwórz nowy formularz" icon="ui-icon-plusthick"
+        value="Stwórz nowy" styleClass="float-right" outcome="newform" />
+      <p:button title="Rozpocznij od gotowego formularza"
+        icon="ui-icon-plusthick" value="Wybierz gotowy"
+        styleClass="float-right" outcome="selectform" />
+    </div>
+  </ui:define>
+  <ui:define name="page">
+Lista aktywnych i nieaktywnych formularzy
+</ui:define>
+</ui:composition>
