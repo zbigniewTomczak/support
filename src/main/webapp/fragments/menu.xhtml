@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+  <style>
+    .ui-menu-list {
+      float:right;
+    }
+    .ui-submenu-link {
+      margin-right: 10px;
+    }
+  </style>
+  <h:form>
+    <p:menubar>
+      
+      <p:submenu label="Administracja" rendered="#{person.role eq 'ADMIN'}">
+        <p:menuitem value="Użytkownicy" url="people" />
+        <p:menuitem value="Formularze" url="forms" />
+      </p:submenu>
+      <f:facet name="options">
+        <p:inputText style="margin-right:10px" placeholder="Wyszukaj" />
+        <p:menuitem value="Profil" url="myprofile" />
+        <p:commandButton type="button" title="Wyloguj"
+          icon="ui-icon-power" />
+      </f:facet>
+    </p:menubar>
+        <p:tabMenu>
+      <p:menuitem value="Podsumowanie" outcome="dashboard" />
+       <p:menuitem value="Przydzielone do mnie" url="mine" />
+      <p:menuitem value="Nieobsłużone zgłoszenia" url="notanswered" />
+      <p:menuitem value="Klienci" url="customers" />
+        </p:tabMenu>  
+  </h:form>
+</ui:composition>

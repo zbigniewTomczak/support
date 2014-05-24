@@ -1,16 +1,11 @@
 package pomoc.customer.ticket;
 
-import pomoc.partner.SupportForm;
+import pomoc.customer.SupportFormResponse;
+import pomoc.partner.person.Person;
 
 public class Ticket {
 
-	private SupportForm ticketForm;
-
-	public SupportForm getTicketForm() {
-		return ticketForm;
-	}
-
-	public void setTicketForm(SupportForm ticketForm) {
-		this.ticketForm = ticketForm;
-	}
+	private SupportFormResponse supportFormResponse;
+	private Status status;
+	private Person assignee;
 }

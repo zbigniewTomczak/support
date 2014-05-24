@@ -19,7 +19,7 @@ public class LoginBean {
 	public String login() {
 		Person person;
 		try {
-			person = personService.getPerson(email, password);
+			person = personService.loginPerson(email, password);
 		} catch (EJBException e) {
 			e.printStackTrace();
 			//TODO error message
