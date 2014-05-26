@@ -10,8 +10,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import pomoc.company.form.SupportFormService;
-
 @Model
 public class SupportFormResponseBean {
 
@@ -20,7 +18,7 @@ public class SupportFormResponseBean {
 	private SupportFormResponse supportFormResponse = new SupportFormResponse();
 	
 	@Inject
-	private SupportFormService supportFormService;
+	private SupportFormResponseService supportFormResponseService;
 	
 	@Inject
 	private FacesContext facesContext;
@@ -38,7 +36,7 @@ public class SupportFormResponseBean {
 		}
 		
 		try {
-			supportFormService.saveNewFormResponse(supportFormResponse, key);
+			supportFormResponseService.saveNewFormResponse(supportFormResponse, key);
 		} catch (EJBException e) {
 			//TODO info to user
 			e.printStackTrace();

@@ -1,0 +1,31 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+  <ui:param name="tabIndex" value="3" />
+  <ui:define name="page">
+Lista partnerów
+<p:dataTable var="partner" value="#{partnersBean.partnersList}">
+      <p:column headerText="Id">
+        <h:outputText value="#{partner.id}" />
+      </p:column>
+      <p:column headerText="Nazwa">
+        <h:outputText value="#{partner.name}" />
+      </p:column>
+      <p:column headerText="Admin id">
+        <h:outputText value="#{partner.admins[0].id}" />
+      </p:column>
+      <p:column headerText="Admin email">
+        <h:outputText value="#{partner.admins[0].email}" />
+      </p:column>
+      <p:column headerText="Admin hasło">
+        <h:outputText value="#{partner.admins[0].password}" />
+      </p:column>
+            <p:column headerText="Admin rola">
+        <h:outputText value="#{partner.admins[0].role}" />
+      </p:column>
+    </p:dataTable>
+  </ui:define>
+</ui:composition>

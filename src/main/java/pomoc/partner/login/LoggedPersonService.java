@@ -1,4 +1,4 @@
-package pomoc.login;
+package pomoc.partner.login;
 
 import java.io.Serializable;
 
@@ -18,7 +18,9 @@ public class LoggedPersonService implements Serializable {
 	@Produces 
 	@Named("person")
 	public Person getLoggedPerson() {
-		return loggedPerson;
+		Person p = new Person();
+		p.setId(0L);
+		return p;
 	}
 
 	public void setLoggedPerson(Person loggedPerson) {

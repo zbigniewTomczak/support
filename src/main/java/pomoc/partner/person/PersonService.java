@@ -3,8 +3,8 @@ package pomoc.partner.person;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import pomoc.login.LoggedPersonService;
 import pomoc.partner.Partner;
+import pomoc.partner.login.LoggedPersonService;
 
 @Stateless
 public class PersonService {

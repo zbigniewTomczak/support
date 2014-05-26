@@ -6,6 +6,29 @@
   xmlns:p="http://primefaces.org/ui">
   <ui:param name="tabIndex" value="0" />
   <ui:define name="page">
-Lista zgłoszonych formularzy
-</ui:define>
+    <p:dataTable var="ticket" value="#{ticketBean.partnerTickets}">
+      <f:facet name="header">
+        Lista nieprzydzielonych zgłoszeń
+      </f:facet>
+      <p:column headerText="Numer">
+        <h:outputText value="#{ticket.number}" />
+      </p:column>
+
+      <p:column headerText="Formularz">
+        <h:outputText value="#{ticket.formName}" />
+      </p:column>
+
+      <p:column headerText="Od kogo [email]">
+        <h:outputText value="#{ticket.fromName} [#{ticket.fromEmail}]" />
+      </p:column>
+
+      <p:column headerText="Data zarejestrowania">
+        <h:outputText value="#{ticket.date}" />
+      </p:column>
+      
+      <p:column headerText="Status">
+        <h:outputText value="#{ticket.status}" />
+      </p:column>
+    </p:dataTable>
+  </ui:define>
 </ui:composition>

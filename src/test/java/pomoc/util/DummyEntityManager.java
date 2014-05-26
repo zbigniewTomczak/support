@@ -3,6 +3,7 @@ package pomoc.util;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.metamodel.Metamodel;
 
+@Alternative
 final class DummyEntityManager implements EntityManager {
 	@Inject
 	Logger log;

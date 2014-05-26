@@ -1,33 +1,29 @@
 package pomoc.company.form;
 
+import java.util.List;
+
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
-import pomoc.customer.SupportFormResponse;
-import pomoc.customer.SupportFormResponseService;
 import pomoc.partner.SupportForm;
 
-import com.google.common.base.Preconditions;
-
+@Stateless
 public class SupportFormService {
 
 	@Inject
 	private EntityManager em;
-	
-	@Inject
-	private SupportFormResponseService supportFormResponseService;
 
 	public SupportForm getSupportForm(String key) {
-		return new SupportForm();
+		TypedQuery<SupportForm> query = em.createQuery("SELECT sp from SupportForm sp WHERE sp.key=:key", SupportForm.class);
+		query.setParameter("key", key);
+		List<SupportForm> list = query.getResultList();
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+		return null;
 	}
 
-	public void saveNewFormResponse(SupportFormResponse supportFormResponse,
-			String key) {
-		Preconditions.checkNotNull(supportFormResponse);
-		Preconditions.checkNotNull(key);
-		SupportForm supportForm = getSupportForm(key);
-		supportFormResponse.setSupportForm(supportForm);
-		em.persist(supportFormResponse);
-	}
 
 }

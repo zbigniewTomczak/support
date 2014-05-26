@@ -36,7 +36,7 @@
         value="#{supportFormResponse.content}"></p:inputTextarea>
       <f:facet name="footer">
         <p:commandButton
-          action="#{supportFormBean.newSupportFormResponse()}"
+          action="#{supportFormResponseBean.newSupportFormResponse()}"
           value="Save" icon="ui-icon-check"
           style="#{empty param['width'] ? '' : 'width: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' :'px;'} 
 						#{empty param['width'] ? '' : 'margin-left: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' : 'px;'}" />

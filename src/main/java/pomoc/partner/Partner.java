@@ -1,8 +1,33 @@
 package pomoc.partner;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import pomoc.partner.person.Person;
+
+@Entity
 public class Partner {
 
+    @Id
+    @GeneratedValue
+    private Long id;
 	private String name;
+	@OneToMany(mappedBy="partner", fetch=FetchType.EAGER)
+	List<Person> admins;
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -15,6 +40,14 @@ public class Partner {
 	public boolean hasForms() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public List<Person> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(List<Person> admins) {
+		this.admins = admins;
 	}
 	
 	

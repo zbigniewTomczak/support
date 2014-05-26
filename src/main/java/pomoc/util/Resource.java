@@ -7,6 +7,7 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class Resource {
 
@@ -21,8 +22,8 @@ public class Resource {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
     
-    //@Produces
-    //@PersistenceContext
+    @Produces
+    @PersistenceContext
     private EntityManager em;
 
 

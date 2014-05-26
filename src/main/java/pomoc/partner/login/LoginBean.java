@@ -1,4 +1,4 @@
-package pomoc.login;
+package pomoc.partner.login;
 
 import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
@@ -27,7 +27,7 @@ public class LoginBean {
 		}
 		
 		if (person.isAdmin() && !person.getPartner().hasForms()) {
-			return "/support/administration/newform?faces-redirect=true";
+			return "/support/administration/forms?faces-redirect=true";
 		} else {
 			return "/support/dashboard?faces-redirect=true";
 		}

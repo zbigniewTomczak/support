@@ -1,5 +1,6 @@
 package pomoc.customer.ticket;
 
+
 public enum Status {
-	OPEN, RESOLVED;
+	NEW, OPEN, RESOLVED;
 }
