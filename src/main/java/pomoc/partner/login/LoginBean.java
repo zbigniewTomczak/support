@@ -1,5 +1,7 @@
 package pomoc.partner.login;
 
+import java.util.logging.Logger;
+
 import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
@@ -10,6 +12,9 @@ import pomoc.partner.person.PersonService;
 @Model
 public class LoginBean {
 
+	@Inject
+	private Logger log;
+	
 	private String email;
 	private String password;
 	
@@ -34,6 +39,7 @@ public class LoginBean {
 	}
 
 	public String logout() {
+		log.info("Logging out");
 		try {
 			personService.logout();
 		} catch (EJBException e) {

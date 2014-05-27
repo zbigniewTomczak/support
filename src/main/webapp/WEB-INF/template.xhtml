@@ -3,7 +3,8 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:p="http://primefaces.org/ui">
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:pe="http://primefaces.org/ui/extensions">
 
 <h:head>
   <ui:insert name="head"></ui:insert>
@@ -51,6 +52,8 @@
     </h:form>
   </ui:insert>
   <ui:insert name="subtitle"></ui:insert>
+  <p:messages></p:messages>
+  <pe:ajaxErrorHandler />
   <ui:insert name="page"></ui:insert>
   <ui:debug
     rendered="#{initParam['javax.faces.PROJECT_STAGE'] eq 'Development'}"

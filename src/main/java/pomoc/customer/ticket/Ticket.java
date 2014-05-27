@@ -3,6 +3,8 @@ package pomoc.customer.ticket;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,7 @@ public class Ticket {
 	private String number;
 	@ManyToOne
 	private SupportFormResponse supportFormResponse;
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	@ManyToOne
 	private Person assignee;

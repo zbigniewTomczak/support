@@ -2,6 +2,8 @@ package pomoc.customer.ticket;
 
 import java.util.Date;
 
+import pomoc.partner.person.Person;
+
 public final class TicketData {
 	private final String number;
 	private final String formName;
@@ -9,6 +11,7 @@ public final class TicketData {
 	private final String fromEmail;
 	private final Date date;
 	private final Status status;
+	private final Person assignee;
 	
 	public TicketData(Ticket ticket) {
 		this.number = ticket.getNumber();
@@ -17,7 +20,9 @@ public final class TicketData {
 		this.fromEmail = ticket.getSupportFormResponse().getEmail();
 		this.date = ticket.getDate();
 		this.status = ticket.getStatus();
+		this.assignee = ticket.getAssignee();
 	}
+	
 	public String getNumber() {
 		return number;
 	}
@@ -39,6 +44,19 @@ public final class TicketData {
 	}
 	public Status getStatus() {
 		return status;
+	}
+	
+	public Person getAssignee() {
+		return assignee;
+	}
+
+	@Override
+	public int hashCode() {
+		return number.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return this.equals(obj);
 	}
 	
 }
