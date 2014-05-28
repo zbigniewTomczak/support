@@ -32,6 +32,6 @@
     <exception-type>java.lang.Throwable</exception-type>
     <location>/WEB-INF/error.jsf</location>
 </error-page>    
-     
+
 </web-app>
 
