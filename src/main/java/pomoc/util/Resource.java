@@ -23,7 +23,7 @@ public class Resource {
     }
     
     @Produces
-    @PersistenceContext
+    @PersistenceContext()
     private EntityManager em;
 
 

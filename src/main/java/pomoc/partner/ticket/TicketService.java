@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import pomoc.partner.Partner;
 import pomoc.partner.person.Person;
+import pomoc.partner.person.PersonService;
 
 import com.google.common.base.Preconditions;
 
@@ -19,6 +20,9 @@ public class TicketService {
 
 	@Inject
 	private EntityManager em;
+	
+	@Inject
+	private PersonService personService;
 	
 	public void save(Ticket ticket) {
 		// TODO Auto-generated method stub
@@ -108,6 +112,16 @@ public class TicketService {
 		Preconditions.checkNotNull(person);
 		Preconditions.checkNotNull(person.getId());
 		return new TicketEditableData(findTicketByNumber(number, person));
+	}
+
+	public void save(TicketStaticData staticData, TicketEditableData editable, Person person) {
+		Preconditions.checkNotNull(staticData);
+		Preconditions.checkNotNull(editable);
+		Preconditions.checkNotNull(staticData.getNumber());
+		Preconditions.checkNotNull(person);
+		Ticket ticket= findTicketByNumber(staticData.getNumber(), person);
+		ticket.setStatus(editable.getStatus());
+		ticket.setAssignee(personService.getPerson(editable.getAssigneeEmail()));
 	}
 
 }

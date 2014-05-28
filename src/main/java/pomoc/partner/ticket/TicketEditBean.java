@@ -44,7 +44,15 @@ public class TicketEditBean {
 	}
 	
 	public String save() {
-		log.info("saving ticket");
+		if (staticData == null || editable == null) {
+			//todo post faces error
+			return null;
+		}
+		if (loggedPersonService.getLoggedPerson() == null) {
+			//todo post faces error
+			return null;
+		}
+		ticketService.save(staticData, editable, loggedPersonService.getLoggedPerson());
 		return "dashboard";
 	}
 
