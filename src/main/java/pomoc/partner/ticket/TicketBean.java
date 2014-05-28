@@ -1,8 +1,7 @@
-package pomoc.customer.ticket;
+package pomoc.partner.ticket;
 
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -15,7 +14,7 @@ import pomoc.partner.person.Person;
 @ViewScoped
 public class TicketBean {
 	@Inject
-	private Logger logger;
+	private Logger log;
 	
 	@Inject
 	private LoggedPersonService loggedPersonService;
@@ -24,23 +23,13 @@ public class TicketBean {
 	private TicketService ticketService;
 	
 	private TicketData selectedTicket;
-
-	@PostConstruct
-	public void init() {
-		//String number = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("submenuForm:selectedTicketNumber");
-		//System.out.println(number);
-		//if (number != null) {
-		//	selectedTicket = new TicketData(ticketService.findTicketByNumber(number, loggedPersonService.getLoggedPerson()));
-		//}
-		
-	}
 	
-	public String assignToMe() {
-		logger.info("assigning");
+	public void assignToMe() {
 		if (selectedTicket == null) {
 			//Faces error
 		}
 		Person loggedPerson = loggedPersonService.getLoggedPerson();
+		log.info("assigning ticket to: "+loggedPerson.getEmail());
 		if (loggedPerson == null) {
 			//Error
 		}
@@ -51,7 +40,7 @@ public class TicketBean {
 			e.printStackTrace();
 		}
 		selectedTicket = null;
-		return null;
+		return;
 	}
 	
 	public TicketData getSelectedTicket() {

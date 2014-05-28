@@ -8,10 +8,10 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import pomoc.company.form.SupportFormService;
-import pomoc.customer.ticket.Status;
-import pomoc.customer.ticket.Ticket;
-import pomoc.customer.ticket.TicketService;
 import pomoc.partner.SupportForm;
+import pomoc.partner.ticket.Status;
+import pomoc.partner.ticket.Ticket;
+import pomoc.partner.ticket.TicketService;
 
 import com.google.common.base.Preconditions;
 

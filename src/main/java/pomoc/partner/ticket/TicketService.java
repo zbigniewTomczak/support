@@ -1,6 +1,5 @@
-package pomoc.customer.ticket;
+package pomoc.partner.ticket;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -34,17 +33,11 @@ public class TicketService {
 		loggedPerson = em.find(Person.class, loggedPerson.getId());
 		Preconditions.checkNotNull(loggedPerson);
 		
-		TypedQuery<Ticket> query = em.createQuery(
-				"SELECT t from Ticket t WHERE t.partner.id=:id AND t.assignee IS NULL order by t.date ASC", 
-				Ticket.class);
+		TypedQuery<TicketData> query = em.createQuery(
+				"SELECT new pomoc.partner.ticket.TicketData(t) from Ticket t WHERE t.partner.id=:id AND t.assignee IS NULL order by t.date ASC", 
+				TicketData.class);
 		query.setParameter("id", loggedPerson.getPartner().getId());
-		List<Ticket> tickets = query.getResultList();
-		List<TicketData> ticketsData = new ArrayList<TicketData>();
-		for (Ticket ticket : tickets) {
-			TicketData ticketData = new TicketData(ticket);
-			ticketsData.add(ticketData);
-		}
-		return ticketsData;
+		return query.getResultList();
 	}
 
 	public String getNewTicketNumber(Partner partner) {
@@ -60,7 +53,7 @@ public class TicketService {
 		Preconditions.checkNotNull(loggedPerson);
 		
 		TypedQuery<TicketData> query = em.createQuery(
-				"SELECT new pomoc.customer.ticket.TicketData(t) from Ticket t WHERE t.partner.id=:partnerId AND t.assignee.id=:personId order by t.date ASC", 
+				"SELECT new pomoc.partner.ticket.TicketData(t) from Ticket t WHERE t.partner.id=:partnerId AND t.assignee.id=:personId order by t.date ASC", 
 				TicketData.class);
 		query.setParameter("partnerId", loggedPerson.getPartner().getId());
 		query.setParameter("personId", loggedPerson.getId());
@@ -73,7 +66,6 @@ public class TicketService {
 		Preconditions.checkNotNull(selectedTicket);
 		Ticket ticket = findTicketByNumber(selectedTicket.getNumber(), em.find(Person.class, loggedPerson.getId()).getPartner());
 		ticket.setAssignee(em.find(Person.class, loggedPerson.getId()));
-		//em.persist(ticket);
 	}
 
 	public Ticket findTicketByNumber(String number, Partner partner) {
@@ -102,6 +94,20 @@ public class TicketService {
 		Preconditions.checkNotNull(person);
 		Preconditions.checkNotNull(person.getId());
 		return findTicketByNumber(number, em.find(Person.class, person.getId()).getPartner());
+	}
+
+	public TicketStaticData getStaticData(String number, Person person) {
+		Preconditions.checkNotNull(number);
+		Preconditions.checkNotNull(person);
+		Preconditions.checkNotNull(person.getId());
+		return new TicketStaticData(findTicketByNumber(number, person));
+	}
+
+	public TicketEditableData getEditableData(String number, Person person) {
+		Preconditions.checkNotNull(number);
+		Preconditions.checkNotNull(person);
+		Preconditions.checkNotNull(person.getId());
+		return new TicketEditableData(findTicketByNumber(number, person));
 	}
 
 }

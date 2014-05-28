@@ -1,8 +1,6 @@
-package pomoc.customer.ticket;
+package pomoc.partner.ticket;
 
 import java.util.Date;
-
-import pomoc.partner.person.Person;
 
 public final class TicketData {
 	private final String number;
@@ -11,7 +9,7 @@ public final class TicketData {
 	private final String fromEmail;
 	private final Date date;
 	private final Status status;
-	private final Person assignee;
+	private final String assigneeEmail;
 	
 	public TicketData(Ticket ticket) {
 		this.number = ticket.getNumber();
@@ -20,7 +18,12 @@ public final class TicketData {
 		this.fromEmail = ticket.getSupportFormResponse().getEmail();
 		this.date = ticket.getDate();
 		this.status = ticket.getStatus();
-		this.assignee = ticket.getAssignee();
+		if (ticket.getAssignee() != null) {
+			this.assigneeEmail = ticket.getAssignee().getEmail();
+		} else {
+			this.assigneeEmail = null;
+		}
+		
 	}
 	
 	public String getNumber() {
@@ -46,10 +49,10 @@ public final class TicketData {
 		return status;
 	}
 	
-	public Person getAssignee() {
-		return assignee;
+	public String getAssigneeEmail() {
+		return assigneeEmail;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return number.hashCode();

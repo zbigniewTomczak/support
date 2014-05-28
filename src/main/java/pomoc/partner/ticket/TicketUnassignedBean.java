@@ -1,4 +1,4 @@
-package pomoc.customer.ticket;
+package pomoc.partner.ticket;
 
 import java.util.List;
 

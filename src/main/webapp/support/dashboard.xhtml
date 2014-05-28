@@ -7,26 +7,32 @@
   <ui:param name="tabIndex" value="0" />
   <ui:define name="subtitle">
     <h:form id="submenuForm">
-      <h:panelGroup 
+      <h:panelGroup
         class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
         <span class="ui-button-text">#{ticketBean.selectedTicket.number}</span>
-        <p:commandButton title="Przypisz do mnie" icon="ui-icon-plusthick"
-          value="Przypisz do mnie" styleClass="float-right" update=":unassignedDataForm, :assignedDataForm, :submenuForm"
-          action="#{ticketBean.assignToMe()}"  
-          rendered="#{not empty ticketBean.selectedTicket and empty ticketBean.selectedTicket.assignee}" >
-          </p:commandButton>
-        <p:commandButton title="Przejdź do zgłoszenia" icon="ui-icon-plusthick"
+        <p:commandButton title="Przypisz do mnie"
+          icon="ui-icon-plusthick" value="Przypisz do mnie"
+          styleClass="float-right"
+          update=":unassignedDataForm, :assignedDataForm, :submenuForm"
+          action="#{ticketBean.assignToMe()}"
+          rendered="#{not empty ticketBean.selectedTicket and empty ticketBean.selectedTicket.assigneeEmail}">
+        </p:commandButton>
+        <p:button title="Przejdź do zgłoszenia" icon="ui-icon-plusthick"
           value="Przejdź do zgłoszenia" styleClass="float-right"
-          action="#{loginBean.logout()}" actionListener="#{loginBean.logout()}"
-          rendered="#{not empty ticketBean.selectedTicket}" />
+          outcome="ticket" rendered="#{not empty ticketBean.selectedTicket}">
+          <f:param name="number"
+            value="#{ticketBean.selectedTicket.number}"></f:param>
+        </p:button>
 
       </h:panelGroup>
     </h:form>
   </ui:define>
   <ui:define name="page">
     <h:form id="unassignedDataForm">
-      <p:dataTable id="unassignedDataTable" var="ticket" value="#{ticketUnassignedBean.partnerTickets}" rowKey="#{ticket.number}" selectionMode="single"
-        selection="#{ticketBean.selectedTicket}" >
+      <p:dataTable id="unassignedDataTable" var="ticket"
+        value="#{ticketUnassignedBean.partnerTickets}"
+        rowKey="#{ticket.number}" selectionMode="single"
+        selection="#{ticketBean.selectedTicket}">
         <p:ajax event="rowSelect" update=":submenuForm" />
         <f:facet name="header">
           Lista nieprzydzielonych zgłoszeń
@@ -51,9 +57,11 @@
           <h:outputText value="#{ticket.status}" />
         </p:column>
       </p:dataTable>
-      </h:form>
-      <h:form id="assignedDataForm">
-       <p:dataTable id="assignedDataTable" var="ticket" value="#{ticketAssignedBean.partnerTickets}" rowKey="#{ticket.number}" selectionMode="single"
+    </h:form>
+    <h:form id="assignedDataForm">
+      <p:dataTable id="assignedDataTable" var="ticket"
+        value="#{ticketAssignedBean.partnerTickets}"
+        rowKey="#{ticket.number}" selectionMode="single"
         selection="#{ticketBean.selectedTicket}">
         <p:ajax event="rowSelect" update=":submenuForm" />
         <f:facet name="header">
@@ -74,9 +82,9 @@
         <p:column headerText="Data zarejestrowania">
           <h:outputText value="#{ticket.date}" />
         </p:column>
-        
+
         <p:column headerText="Odpowiedzialność">
-          <h:outputText value="#{ticket.assignee}" />
+          <h:outputText value="#{ticket.assigneeEmail}" />
         </p:column>
 
         <p:column headerText="Status">
