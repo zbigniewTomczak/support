@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import pomoc.partner.person.Person;
+import pomoc.partner.preferences.Preferences;
 
 @Entity
 public class Partner {
@@ -19,7 +21,8 @@ public class Partner {
 	private String name;
 	@OneToMany(mappedBy="partner", fetch=FetchType.EAGER)
 	List<Person> admins;
-	
+	@ManyToOne
+	private Preferences preferences;
 	
 	public Long getId() {
 		return id;
@@ -48,6 +51,14 @@ public class Partner {
 
 	public void setAdmins(List<Person> admins) {
 		this.admins = admins;
+	}
+
+	public Preferences getPreferences() {
+		return preferences;
+	}
+
+	public void setPreferences(Preferences preferences) {
+		this.preferences = preferences;
 	}
 	
 	

@@ -1,14 +1,24 @@
 package pomoc.partner.ticket;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.mail.EmailException;
+
+import pomoc.customer.communication.CommunicationCase;
+import pomoc.customer.communication.CommunicationCaseData;
+import pomoc.customer.communication.Direction;
+import pomoc.email.EmailSender;
 import pomoc.partner.Partner;
 import pomoc.partner.person.Person;
 import pomoc.partner.person.PersonService;
@@ -17,12 +27,21 @@ import com.google.common.base.Preconditions;
 
 @Stateless
 public class TicketService {
+	
+	@Resource
+	private EJBContext context;
 
 	@Inject
 	private EntityManager em;
 	
 	@Inject
 	private PersonService personService;
+
+	@Inject
+	private EmailSender sender;
+	
+	@Inject
+	private Logger log;
 	
 	public void save(Ticket ticket) {
 		// TODO Auto-generated method stub
@@ -114,7 +133,23 @@ public class TicketService {
 		return new TicketEditableData(findTicketByNumber(number, person));
 	}
 
-	public void save(TicketStaticData staticData, TicketEditableData editable, Person person) {
+	public CommunicationCase saveResponse(String response, Long ticketNumber) {
+		Preconditions.checkNotNull(response);
+		Preconditions.checkState(response.isEmpty()==false);
+		Preconditions.checkNotNull(ticketNumber);
+		CommunicationCase communicationCase = new CommunicationCase();
+		communicationCase.setDirection(Direction.OUTGOING);
+		Ticket ticket = em.find(Ticket.class, ticketNumber);
+		communicationCase.setTicket(em.find(Ticket.class, ticketNumber));
+		communicationCase.setResponsible(ticket.getAssignee());
+		communicationCase.setDate(new Date());
+		communicationCase.setContent(response);
+		em.persist(communicationCase);
+		return communicationCase;
+	}
+
+	public void saveAllAndSendResponse(TicketStaticData staticData,
+			TicketEditableData editable, Person person) {
 		Preconditions.checkNotNull(staticData);
 		Preconditions.checkNotNull(editable);
 		Preconditions.checkNotNull(staticData.getNumber());
@@ -122,6 +157,39 @@ public class TicketService {
 		Ticket ticket= findTicketByNumber(staticData.getNumber(), person);
 		ticket.setStatus(editable.getStatus());
 		ticket.setAssignee(personService.getPerson(editable.getAssigneeEmail()));
+		saveAndSendResponse(staticData, editable, person);
+	}
+
+	public void saveAndSendResponse(TicketStaticData staticData,
+			TicketEditableData editable, Person person) {
+		Preconditions.checkNotNull(staticData);
+		Preconditions.checkNotNull(editable);
+		Preconditions.checkNotNull(staticData.getNumber());
+		Preconditions.checkNotNull(person);
+		Ticket ticket= findTicketByNumber(staticData.getNumber(), person);
+		if (editable.getResponse() != null && editable.getResponse().isEmpty() == false) {
+			CommunicationCase communicationCase = saveResponse(editable.getResponse(), ticket.getId());
+			try {
+				sender.send(communicationCase);
+			} catch (EmailException e) {
+				log.severe(e.getMessage());
+				context.setRollbackOnly();
+			}
+		}
+		
+	}
+
+	public List<CommunicationCaseData> getCommunicationCasesForTicket(
+			String number, Person person) {
+		Preconditions.checkNotNull(number);
+		Preconditions.checkNotNull(person);
+		Ticket ticket= findTicketByNumber(number, person);
+		TypedQuery<CommunicationCaseData> query = em.createQuery(
+				"SELECT new pomoc.customer.communication.CommunicationCaseData(cc.direction, cc.responsible.email, cc.date, cc.content) from CommunicationCase cc WHERE cc.ticket.id=:id ORDER BY cc.date DESC", 
+				CommunicationCaseData.class);
+		query.setParameter("id", ticket.getId());
+		return query.getResultList();
+		
 	}
 
 }

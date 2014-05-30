@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:define name="page">
+    <h:form>
+      <div
+        class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+        <span class="ui-menuitem-text" style="font-weight: bold;"></span>
+        <p:button icon="ui-icon-cancel" value="Anuluj"
+          styleClass="float-right" outcome="/support/dashboard" />
+        <p:commandButton icon="ui-icon-disk" value="Zapisz"
+          styleClass="float-right" action="#{preferencesBean.save()}" />
+      </div>
+      <p:panelGrid columns="2">
+        <p:outputLabel value="Nazwa"
+          title="Ukaże się w polu 'Od' wysyłanych e-maili"></p:outputLabel>
+        <p:inputText value="#{preferencesBean.preferences.fromName}"></p:inputText>
+
+        <p:outputLabel value="Server SMTP"></p:outputLabel>
+        <p:inputText value="#{preferencesBean.preferences.smtpHost}"></p:inputText>
+
+        <p:outputLabel value="Server POP3"></p:outputLabel>
+        <p:inputText value="#{preferencesBean.preferences.pop3Host}"></p:inputText>
+        
+        <p:outputLabel value="Adres E-mail"></p:outputLabel>
+        <p:inputText value="#{preferencesBean.preferences.address}"></p:inputText>
+
+        <p:outputLabel value="Hasło E-mail"></p:outputLabel>
+        <p:inputText value="#{preferencesBean.preferences.password}"></p:inputText>
+
+      </p:panelGrid>
+    </h:form>
+  </ui:define>
+</ui:composition>

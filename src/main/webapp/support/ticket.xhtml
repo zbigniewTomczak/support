@@ -13,7 +13,7 @@
         <span class="ui-menuitem-text" style="font-weight: bold;">#{ticketEditBean.static.number}</span>
         <p:button icon="ui-icon-cancel" value="Anuluj"
           styleClass="float-right" outcome="dashboard" />
-        <p:commandButton icon="ui-icon-disk" value="Zapisz"
+        <p:commandButton icon="ui-icon-disk" value="Zapisz i wyślij"
           styleClass="float-right" action="#{ticketEditBean.save()}">
           <f:param name="number" value="#{ticketEditBean.static.number}"></f:param>
 
@@ -31,22 +31,32 @@
         <p:outputLabel value="Status: " />
         <p:outputLabel value="#{ticketEditBean.editable.status}" />
       </p:panelGrid>
-      <p:panelGrid columns="2">
-        <h:outputText value="Od: " />
-        <h:outputText
-          value="#{ticketEditBean.static.fromName} - #{ticketEditBean.static.fromEmail}" />
-        <h:outputText value="Zarejestrowano: " />
-        <h:outputText value="#{ticketEditBean.static.registeredDate}" />
-      </p:panelGrid>
-      <p:panelGrid columns="1">
-        <h:outputText value="Treść: " />
-        <h:outputText value="#{ticketEditBean.static.content}" />
-      </p:panelGrid>
+
       <p:panelGrid columns="1">
         <h:outputText value="Odpowiedź: " />
         <p:editor value="#{ticketEditBean.editable.response}" />
       </p:panelGrid>
 
     </h:form>
+    Historia komunikacji:
+    <p:dataList value="#{ticketEditBean.communicationHistory}" var="case">
+    <p:panelGrid columns="1">
+      <p:panelGrid columns="2">
+        <h:outputText value="Od: #{ticketEditBean.static.fromEmail}" rendered="#{case.direction eq 'INCOMING'}"/>
+        <h:outputText value="Od: #{case.responsibleEmail}" rendered="#{case.direction eq 'OUTGOING'}"/>
+        <h:outputText
+          value="Dnia: #{case.date}" />
+      </p:panelGrid>
+      <h:outputText value="#{case.content}" />
+    </p:panelGrid>
+    </p:dataList>
+    <p:panelGrid columns="1">
+      <p:panelGrid columns="2">
+        <h:outputText value="Od: #{ticketEditBean.static.fromEmail}" />
+        <h:outputText
+          value="Dnia: #{ticketEditBean.static.registeredDate}" />
+      </p:panelGrid>
+      <h:outputText value="#{ticketEditBean.static.content}" />
+    </p:panelGrid>
   </ui:define>
 </ui:composition>

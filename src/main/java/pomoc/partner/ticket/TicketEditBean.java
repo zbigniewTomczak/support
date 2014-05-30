@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
+import pomoc.customer.communication.CommunicationCaseData;
 import pomoc.partner.login.LoggedPersonService;
 
 @Model
@@ -52,10 +54,43 @@ public class TicketEditBean {
 			//todo post faces error
 			return null;
 		}
-		ticketService.save(staticData, editable, loggedPersonService.getLoggedPerson());
+		try {
+			ticketService.saveAllAndSendResponse(staticData, editable, loggedPersonService.getLoggedPerson());
+		} catch (EJBException e) {
+			//todo post faces error
+			//todo log error
+			return null;
+		}
 		return "dashboard";
 	}
 
+	public void send() {
+		if (staticData == null || editable == null) {
+			//todo post faces error
+			return;
+		}
+		if (loggedPersonService.getLoggedPerson() == null) {
+			//todo post faces error
+			return;
+		}
+		try {
+			ticketService.saveAndSendResponse(staticData, editable, loggedPersonService.getLoggedPerson());
+		} catch (EJBException e) {
+			//todo post faces error
+			//todo log error
+			return;
+		}
+
+	}
+	
+	private List<CommunicationCaseData> communicationHistory;
+	public List<CommunicationCaseData> getCommunicationHistory() {
+		if (communicationHistory == null) {
+			communicationHistory = ticketService.getCommunicationCasesForTicket(staticData.getNumber(), loggedPersonService.getLoggedPerson());
+		}
+		return communicationHistory;
+	}
+	
 	public List<SelectItem> getEmptyOption() {
 		if (editable.getAssigneeEmail() == null) {
 			return Arrays.asList(new SelectItem(null, "---"));
