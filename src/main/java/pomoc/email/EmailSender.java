@@ -2,7 +2,6 @@ package pomoc.email;
 
 import java.util.logging.Logger;
 
-import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -50,7 +49,7 @@ public class EmailSender {
 		log.info("Heartbeat");
 	}
 	
-	@Schedule(hour="*/1", persistent=false)
+	//@Schedule(minute="*/1",hour="*/1", persistent=false)
 	public void heatbeatEmail() throws EmailException {
 		Preferences preferences = em.find(Preferences.class, 0L);
 		Email email = new SimpleEmail();
@@ -59,7 +58,7 @@ public class EmailSender {
 		email.setAuthenticator(new DefaultAuthenticator(preferences.getAddress(), preferences.getPassword()));
 		email.setSSLOnConnect(true);
 		email.setFrom(preferences.getAddress());
-		email.setSubject("Heartbeat");
+		email.setSubject("#111 Heartbeat");
 		email.setMsg("Pinging");
 		email.addTo(preferences.getAddress());
 		email.send();

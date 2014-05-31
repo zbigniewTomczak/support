@@ -18,6 +18,12 @@
           <f:param name="number" value="#{ticketEditBean.static.number}"></f:param>
 
         </p:commandButton>
+        <p:commandButton icon="ui-icon-disk" value="Sprawdz"
+          styleClass="float-right" action="#{ticketEditBean.check()}">
+          <f:param name="number" value="#{ticketEditBean.static.number}"></f:param>
+
+        </p:commandButton>
+        
       </h:panelGroup>
       <p:panelGrid columns="6">
         <h:outputText value="Numer" />

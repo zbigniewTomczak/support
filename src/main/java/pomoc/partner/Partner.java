@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
+import pomoc.email.MailboxCheckHistory;
 import pomoc.partner.person.Person;
 import pomoc.partner.preferences.Preferences;
 
@@ -23,6 +25,9 @@ public class Partner {
 	List<Person> admins;
 	@ManyToOne
 	private Preferences preferences;
+	@OneToMany(mappedBy="partner")
+	@OrderBy("date DESC")
+	private List<MailboxCheckHistory> history;
 	
 	public Long getId() {
 		return id;
@@ -60,6 +65,15 @@ public class Partner {
 	public void setPreferences(Preferences preferences) {
 		this.preferences = preferences;
 	}
+
+	public List<MailboxCheckHistory> getHistory() {
+		return history;
+	}
+
+	public void setHistory(List<MailboxCheckHistory> history) {
+		this.history = history;
+	}
+
 	
 	
 }
