@@ -14,9 +14,11 @@ public class PersonRegistrationService {
 	@Inject
 	private EntityManager em;
 	
-	public void registerNewAdmin(Person newAdmin, Partner newPartner) {
+	public void registerNewPartner(Person newAdmin, Partner newPartner) {
 		checkNotNull(newAdmin);
 		checkNotNull(newPartner);
+		// TODO duplicate account validation 
+		// TODO server side validation 
 		newAdmin.setRole(Role.ADMIN);
 		newAdmin.setPartner(newPartner);
 		em.persist(newPartner);

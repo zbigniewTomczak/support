@@ -5,30 +5,45 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
+<h:head>
+<style>
+.signinform  {
+  width: 500px;
+  height: 300px;
+  margin: auto;
+}
+.ui-inputfield {
+  width: 96%;
+}
+</style>
+</h:head>
 <h:body>
-
-  <h:form>
-    <p:panelGrid columns="2">
-      <f:facet name="header">
+  <div class="signinform">
+    <h:form>
+      <p:messages autoUpdate="true"></p:messages>
+      <p:panelGrid columns="2" styleClass="signinform">
+        <f:facet name="header">
 		Zarejestruj swoją firmę lub stronę.
       </f:facet>
-      <p:outputLabel value="Nazwa"></p:outputLabel>
-      <p:inputText value="#{newPartner.name}"></p:inputText>
-      <p:outputLabel value="Email"></p:outputLabel>
-      <p:inputText value="#{newAdmin.email}"></p:inputText>
-      <p:outputLabel value="Hasło"></p:outputLabel>
-      <p:password value="#{newAdmin.password}" />
-      <p:outputLabel value="Powtórz hasło"></p:outputLabel>
-      <p:password value="#{newPartnerBean.passwordConfirm}" />
+        <p:outputLabel value="Nazwa"></p:outputLabel>
+        <p:inputText value="#{newPartner.name}" required="true" requiredMessage="Podaj nazwę"></p:inputText>
+        <p:outputLabel value="Email"></p:outputLabel>
+        <p:inputText value="#{newAdmin.email}" required="true" requiredMessage="Podaj email" validatorMessage="Podaj poprawny adres email">
+          <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+        </p:inputText>
+        <p:outputLabel value="Hasło"></p:outputLabel>
+        <p:password value="#{newAdmin.password}" required="true" requiredMessage="Podaj hasło"/>
+        <p:outputLabel value="Powtórz hasło"></p:outputLabel>
+        <p:password value="#{newPartnerBean.passwordConfirm}" required="true" requiredMessage="Pwtórz hasło"/>
 
-      <f:facet name="footer">
-        <p:commandButton action="#{newPartnerBean.register()}"
-          value="Zarejestruj" icon="ui-icon-check" />
-        <br />
-        <p:link value="Przejdź do strony logowania" outcome="signin"></p:link>
-      </f:facet>
-    </p:panelGrid>
-  </h:form>
+        <f:facet name="footer">
+          <p:commandButton action="#{newPartnerBean.register()}"
+            value="Zarejestruj" icon="ui-icon-check" />
+          <br /><hr />
+          <p:link value="Przejdź do strony logowania" outcome="signin"></p:link>
+        </f:facet>
+      </p:panelGrid>
+    </h:form>
+  </div>
 </h:body>
 </html>

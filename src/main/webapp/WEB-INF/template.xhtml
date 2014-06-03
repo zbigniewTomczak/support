@@ -5,7 +5,7 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui"
   xmlns:pe="http://primefaces.org/ui/extensions">
-
+<f:event listener="#{personBean.checkPermissions}" type="preRenderView" />
 <h:head>
   <ui:insert name="head"></ui:insert>
   <meta charset="utf-8"></meta>
@@ -20,7 +20,7 @@
 }
 </style>
 </h:head>
-<h:body>
+<h:body >
   <ui:insert name="1-st-menubar">
     <h:form>
       <p:menubar>
@@ -31,6 +31,10 @@
             outcome="/support/administration/forms" />
           <p:menuitem value="Ustawienia"
             outcome="/support/administration/preferences" />  
+          <p:menuitem value="Sprawdź pocztę"
+            action="ticketEditBean.check()" onstart="PF('growl').renderMessage({summary: 'Rozpoczęto sprawdzanie poczty', detail:'',severity: 'info'});"
+            oncomplete="PF('growl').renderMessage({summary: 'Sprawdzanie poczty zostało zakończone', detail:'',severity: 'info'});"
+            onerror="PF('growl').renderMessage({summary: 'Sprawdzanie poczty nie powiodło się', detail:'',severity: 'error'});"/>
         </p:submenu>
         <f:facet name="options">
           <p:inputText style="margin-right:10px" placeholder="Wyszukaj" />
@@ -46,15 +50,15 @@
     <h:form>
       <p:tabMenu activeIndex="#{empty tabIndex ? '-1' : tabIndex}">
         <p:menuitem value="Podsumowanie" outcome="/support/dashboard" />
-        <p:menuitem value="Przydzielone do mnie" outcome="/support/mine" />
-        <p:menuitem value="Nieobsłużone zgłoszenia"
-          outcome="/support/notanswered" />
         <p:menuitem value="Klienci" outcome="/support/customers" />
       </p:tabMenu>
+        <!-- p:menuitem value="Nieobsłużone zgłoszenia" outcome="/support/notanswered" /-->
+        <!-- p:menuitem value="Przydzielone do mnie" outcome="/support/mine" /-->
     </h:form>
   </ui:insert>
   <ui:insert name="subtitle"></ui:insert>
-  <p:messages></p:messages>
+  <p:growl widgetVar="growl" ></p:growl>
+  <p:messages ></p:messages>
   <!-- pe:ajaxErrorHandler button="Close warning!" widgetVar="myAjaxErrorHandler">  
     <div>  
         <h2 class="ui-dialog-titlebar" style="border-bottom: 2px solid blue; border-top: 2px solid blue;padding: 15px; text-align:center;background:#ccc;">  

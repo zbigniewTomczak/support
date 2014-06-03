@@ -2,6 +2,7 @@ package pomoc.email;
 
 import java.util.logging.Logger;
 
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -49,7 +50,7 @@ public class EmailSender {
 		log.info("Heartbeat");
 	}
 	
-	//@Schedule(minute="*/1",hour="*/1", persistent=false)
+	@Schedule(hour="*/2", persistent=false)
 	public void heatbeatEmail() throws EmailException {
 		Preferences preferences = em.find(Preferences.class, 0L);
 		Email email = new SimpleEmail();

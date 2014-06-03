@@ -12,11 +12,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
-import org.apache.james.mime4j.MimeException;
-
 import pomoc.customer.communication.CommunicationCaseData;
-import pomoc.email.EmailParser;
 import pomoc.partner.login.LoggedPersonService;
+import pomoc.util.faces.FacesMessage;
 
 @Model
 public class TicketEditBean {
@@ -28,20 +26,14 @@ public class TicketEditBean {
 
 	@Inject
 	private TicketService ticketService;
-	@Inject
-	private EmailParser emailParser;
 	
+	@Inject
+	private FacesMessage facesMessage;
+	@Inject
+	private FacesContext facesContext;
 	private TicketStaticData staticData;
 	private TicketEditableData editable;
 
-	public void check() {
-		try {
-			emailParser.checkMailbox();
-		} catch (MimeException e) {
-			e.printStackTrace();
-			//todo user message
-		}
-	}
 	@PostConstruct
 	public void init() {
 		String number = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("number");
@@ -67,33 +59,23 @@ public class TicketEditBean {
 			return null;
 		}
 		try {
-			ticketService.saveAllAndSendResponse(staticData, editable, loggedPersonService.getLoggedPerson());
+			if (!editable.getResponse().isEmpty()) {
+				
+				if (ticketService.saveAllAndSendResponse(staticData, editable, loggedPersonService.getLoggedPerson())) {
+					facesMessage.postInfo("Wiadomość została wysłana");
+				} else {
+					facesMessage.postError("Wysyłanie wiadomości nie powiodło się.");
+				}
+			}
 		} catch (EJBException e) {
 			//todo post faces error
 			//todo log error
 			return null;
 		}
+		facesContext.getExternalContext().getFlash().setKeepMessages(true);
 		return "dashboard";
 	}
 
-	public void send() {
-		if (staticData == null || editable == null) {
-			//todo post faces error
-			return;
-		}
-		if (loggedPersonService.getLoggedPerson() == null) {
-			//todo post faces error
-			return;
-		}
-		try {
-			ticketService.saveAndSendResponse(staticData, editable, loggedPersonService.getLoggedPerson());
-		} catch (EJBException e) {
-			//todo post faces error
-			//todo log error
-			return;
-		}
-
-	}
 	
 	private List<CommunicationCaseData> communicationHistory;
 	public List<CommunicationCaseData> getCommunicationHistory() {

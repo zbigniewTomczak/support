@@ -3,11 +3,13 @@ package pomoc.partner;
 import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import pomoc.partner.person.Person;
 import pomoc.partner.person.PersonRegistrationService;
+import pomoc.util.faces.FacesMessage;
 
 @Model
 public class NewPartnerBean {
@@ -23,24 +25,31 @@ public class NewPartnerBean {
 	@Inject
 	private PersonRegistrationService personRegistrationService;
 	
+	@Inject
+	private FacesMessage facesMessage;
+	
+	@Inject 
+	private FacesContext facesContext;
+	
 	private String passwordConfirm = "";
 	
 	public String register() {
 		if (!passwordConfirm.equals(newAdmin.getPassword())) {
-			//TODO Faces message to user
+			facesMessage.postError("Hasła muszą być zgodne.");
+			return null;
 		}
 		
-		//newAdmin.setRole(Roles.ADMIN);
-		//newAdmin.setPartner(newPartner);
 		try {
-			personRegistrationService.registerNewAdmin(newAdmin, newPartner);
+			personRegistrationService.registerNewPartner(newAdmin, newPartner);
 		} catch (EJBException e) {
-			//TODO error message
+			Throwable t = e.getCause();
+			facesMessage.postError("Błąd rejestracji. " + t.getMessage());
 			e.printStackTrace();
 			return null;
 		}
-		//TODO success message
-		return "/support/administration/newform?faces-redirect=true";
+		facesMessage.postInfo("Rejestracja przebiegła pomyślnie. Zaloguj się na swoje konto.");
+		facesContext.getExternalContext().getFlash().setKeepMessages(true);
+		return "/support/signin?faces-redirect=true";
 	}
 
 	public Partner getNewPartner() {
@@ -66,8 +75,4 @@ public class NewPartnerBean {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-	
-	
-	
-	
 }

@@ -7,7 +7,7 @@
 <h:head>
   <meta charset="utf-8"></meta>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
-  <style>
+<style>
 .form_input {
 	width: 96%;
 }
@@ -15,29 +15,35 @@
 .form_textarea {
 	
 }
+.ui-growl {
+  left: #{(param['width'] - 301)/2}px;
+  top: #{param['height']/8}px;
+}
 </style>
 </h:head>
 <h:body>
-  <p:messages></p:messages>
   <h:outputText value="#{configuration.noKeyWarning}" />
   <h:form>
+  <p:growl life="2500" id="messages"/>
     <input type="hidden" value="#{param['key']}" name="key" />
     <p:panelGrid columns="2"
       style="width:#{param['width']}px; height:#{param['height']}px;">
       <f:facet name="header">Podziel się swoimi uwagami o produkcie.</f:facet>
       <p:outputLabel>Imię i nazwisko</p:outputLabel>
-      <p:inputText styleClass="form_input"
-        value="#{supportFormResponse.name}"></p:inputText>
+      <p:inputText styleClass="form_input" required="true" requiredMessage="Proszę podać imię i nazwisko."
+        value="#{supportFormResponse.name}" id="name"></p:inputText>
       <p:outputLabel>Email</p:outputLabel>
-      <p:inputText styleClass="form_input"
-        value="#{supportFormResponse.email}"></p:inputText>
+      <p:inputText id="email" styleClass="form_input" required="true" requiredMessage="Proszę email."
+        value="#{supportFormResponse.email}" validatorMessage="Proszę podać poprawny adres email.">
+          <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+      </p:inputText>
       <p:outputLabel>Treść wiadomości:</p:outputLabel>
-      <p:inputTextarea styleClass="form_input form_textarea"
+      <p:inputTextarea id="message" styleClass="form_input form_textarea" required="true" requiredMessage="Proszę wpisać treść wiadomości."
         value="#{supportFormResponse.content}"></p:inputTextarea>
       <f:facet name="footer">
         <p:commandButton
           action="#{supportFormResponseBean.newSupportFormResponse()}"
-          value="Save" icon="ui-icon-check"
+          value="Save" icon="ui-icon-check" update="messages, name, email, message"
           style="#{empty param['width'] ? '' : 'width: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' :'px;'} 
 						#{empty param['width'] ? '' : 'margin-left: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' : 'px;'}" />
       </f:facet>

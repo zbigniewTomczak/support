@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import pomoc.partner.person.Person;
 import pomoc.partner.person.PersonService;
+import pomoc.util.faces.FacesMessage;
 
 @Model
 public class LoginBean {
@@ -21,21 +22,23 @@ public class LoginBean {
 	@Inject
 	private PersonService personService;
 	
+	@Inject
+	private FacesMessage facesMessage;
+	
 	public String login() {
 		Person person;
 		try {
 			person = personService.loginPerson(email, password);
 		} catch (EJBException e) {
+			facesMessage.postError("Błąd logowania. " + e.getCause().getMessage());
 			e.printStackTrace();
-			//TODO error message
 			return null;
 		}
-		
-		if (person.isAdmin() && !person.getPartner().hasForms()) {
-			return "/support/administration/forms?faces-redirect=true";
-		} else {
-			return "/support/dashboard?faces-redirect=true";
+		if (person == null) {
+			facesMessage.postError("Nieudane logowanie. Sprawdź email i hasło i spróbuj ponownie.");
+			return null;
 		}
+		return "/support/dashboard?faces-redirect=true";
 	}
 
 	public String logout() {

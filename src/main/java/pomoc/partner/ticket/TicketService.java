@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -148,7 +150,7 @@ public class TicketService {
 		return communicationCase;
 	}
 
-	public void saveAllAndSendResponse(TicketStaticData staticData,
+	public boolean saveAllAndSendResponse(TicketStaticData staticData,
 			TicketEditableData editable, Person person) {
 		Preconditions.checkNotNull(staticData);
 		Preconditions.checkNotNull(editable);
@@ -156,11 +158,12 @@ public class TicketService {
 		Preconditions.checkNotNull(person);
 		Ticket ticket= findTicketByNumber(staticData.getNumber(), person);
 		ticket.setStatus(editable.getStatus());
-		ticket.setAssignee(personService.getPerson(editable.getAssigneeEmail()));
-		saveAndSendResponse(staticData, editable, person);
+		ticket.setAssignee(personService.getPerson(person.getEmail()));
+		return saveAndSendResponse(staticData, editable, person);
 	}
 
-	public void saveAndSendResponse(TicketStaticData staticData,
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public boolean saveAndSendResponse(TicketStaticData staticData,
 			TicketEditableData editable, Person person) {
 		Preconditions.checkNotNull(staticData);
 		Preconditions.checkNotNull(editable);
@@ -174,8 +177,10 @@ public class TicketService {
 			} catch (EmailException e) {
 				log.severe(e.getMessage());
 				context.setRollbackOnly();
+				return false;
 			}
 		}
+		return true;
 		
 	}
 

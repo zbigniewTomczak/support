@@ -18,9 +18,10 @@ public class LoggedPersonService implements Serializable {
 	@Produces 
 	@Named("person")
 	public Person getLoggedPerson() {
-		Person p = new Person();
-		p.setId(0L);
-		return p;
+		//Person p = new Person();
+		//p.setId(0L);
+		//return p;
+		return loggedPerson;
 	}
 
 	public void setLoggedPerson(Person loggedPerson) {

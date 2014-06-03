@@ -5,24 +5,47 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head>
+<h:head>
+  <style>
+.signinform {
+	width: 500px;
+	height: 240px;
+	margin: auto;
+}
+.link {
+  display: block;
+  padding-top: 8px;
+}
+.ui-inputfield {
+  width: 96%;
+}
+</style>
+</h:head>
 <h:body>
-  <h:form>
-    <p:panelGrid columns="2">
-      <f:facet name="header">Zaloguj się</f:facet>
-      <p:outputLabel value="Email"></p:outputLabel>
-      <p:inputText value="#{loginBean.email}"></p:inputText>
-      <p:outputLabel value="Hasło"></p:outputLabel>
-      <p:password value="#{loginBean.password}"></p:password>
-      <f:facet name="footer">
-        <p:commandButton action="#{loginBean.login()}" value="Zaloguj"
-          icon="ui-icon-check"></p:commandButton>
-        <br />
-        <h:outputText value="Nie masz konta?" />
-        <br />
-        <p:link value="Przejdź do strony rejestracji" outcome="signup"></p:link>
-      </f:facet>
-    </p:panelGrid>
-  </h:form>
+  <div class="signinform">
+    <h:form>
+      <p:messages autoUpdate="true"></p:messages>
+      <p:panelGrid columns="2" styleClass="signinform">
+        <f:facet name="header">Zaloguj się</f:facet>
+        <p:outputLabel value="Email"></p:outputLabel>
+        <p:inputText value="#{loginBean.email}" required="true"
+          requiredMessage="Podaj email"
+          validatorMessage="Podaj poprawny adres email">
+          <f:validateRegex
+            pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+        </p:inputText>
+        <p:outputLabel value="Hasło"></p:outputLabel>
+        <p:password value="#{loginBean.password}" required="true"
+          requiredMessage="Podaj hasło"></p:password>
+        <f:facet name="footer">
+          <p:commandButton action="#{loginBean.login()}" value="Zaloguj"
+            icon="ui-icon-check"></p:commandButton>
+          <br /><hr/>
+          <h:outputText value="Nie masz konta?" />
+          <p:link value="Przejdź do strony rejestracji" outcome="signup" styleClass="link"></p:link>
+        </f:facet>
+      </p:panelGrid>
+    </h:form>
+  </div>
 </h:body>
 </html>

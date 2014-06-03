@@ -10,37 +10,33 @@
       rendered="#{not empty ticketEditBean.static.number}">
       <h:panelGroup
         class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-        <span class="ui-menuitem-text" style="font-weight: bold;">#{ticketEditBean.static.number}</span>
+        <span class="ui-menuitem-text" style="font-weight: bold;"></span>
         <p:button icon="ui-icon-cancel" value="Anuluj"
           styleClass="float-right" outcome="dashboard" />
         <p:commandButton icon="ui-icon-disk" value="Zapisz i wyślij"
-          styleClass="float-right" action="#{ticketEditBean.save()}">
+          styleClass="float-right" action="#{ticketEditBean.save()}" 
+          onstart="PF('growl').renderMessage({summary: 'Rozpoczęto sprawdzanie poczty', detail:'',severity: 'info'});"
+            oncomplete="PF('growl').renderMessage({summary: 'Sprawdzanie poczty zostało zakończone', detail:'',severity: 'info'});"
+            onerror="PF('growl').renderMessage({summary: 'Sprawdzanie poczty nie powiodło się', detail:'',severity: 'error'});">
           <f:param name="number" value="#{ticketEditBean.static.number}"></f:param>
 
         </p:commandButton>
-        <p:commandButton icon="ui-icon-disk" value="Sprawdz"
-          styleClass="float-right" action="#{ticketEditBean.check()}">
-          <f:param name="number" value="#{ticketEditBean.static.number}"></f:param>
-
-        </p:commandButton>
-        
+       
       </h:panelGroup>
-      <p:panelGrid columns="6">
-        <h:outputText value="Numer" />
-        <h:outputText value="#{ticketEditBean.static.number}" />
-        <p:outputLabel
+      <p:panelGrid columns="1">
+        <h:outputText value="Numer: ##{ticketEditBean.static.number}" />
+        <!-- p:outputLabel
           value="Przpisany do: #{ticketEditBean.editable.assigneeEmail}k" />
         <p:selectOneMenu
           value="#{ticketEditBean.editable.assigneeEmail}">
           <f:selectItems value="#{partnerPersons}"></f:selectItems>
-        </p:selectOneMenu>
-        <p:outputLabel value="Status: " />
-        <p:outputLabel value="#{ticketEditBean.editable.status}" />
+        </p:selectOneMenu-->
+        <p:outputLabel value="Status: #{ticketEditBean.editable.status}" />
       </p:panelGrid>
 
       <p:panelGrid columns="1">
         <h:outputText value="Odpowiedź: " />
-        <p:editor value="#{ticketEditBean.editable.response}" />
+        <p:editor value="#{ticketEditBean.editable.response}" widgetVar="response"/>
       </p:panelGrid>
 
     </h:form>
@@ -48,7 +44,7 @@
     <p:dataList value="#{ticketEditBean.communicationHistory}" var="case">
     <p:panelGrid columns="1">
       <p:panelGrid columns="2">
-        <h:outputText value="Od: #{ticketEditBean.static.fromEmail}" rendered="#{case.direction eq 'INCOMING'}"/>
+        <h:outputText value="Od: #{ticketEditBean.static.fromName} (#{ticketEditBean.static.fromEmail})" rendered="#{case.direction eq 'INCOMING'}"/>
         <h:outputText value="Od: #{case.responsibleEmail}" rendered="#{case.direction eq 'OUTGOING'}"/>
         <h:outputText
           value="Dnia: #{case.date}" />
@@ -58,7 +54,7 @@
     </p:dataList>
     <p:panelGrid columns="1">
       <p:panelGrid columns="2">
-        <h:outputText value="Od: #{ticketEditBean.static.fromEmail}" />
+        <h:outputText value="Od: #{ticketEditBean.static.fromName} (#{ticketEditBean.static.fromEmail})" />
         <h:outputText
           value="Dnia: #{ticketEditBean.static.registeredDate}" />
       </p:panelGrid>
