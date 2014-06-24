@@ -26,9 +26,13 @@
       <p:menubar>
         <p:submenu label="Administracja">
           <p:menuitem value="Użytkownicy"
-            outcome="/support/administration/people" />
+            outcome="/support/administration/people" 
+            title="Lista użytkowników powiązanych z partnerem. Możliwość dodania, usunięcia i edycji użytkownika. "
+            disabled="true"/>
           <p:menuitem value="Formularze"
-            outcome="/support/administration/forms" />
+            outcome="/support/administration/forms" 
+            title="Lista aktywnych i nieaktywnych formularzy "
+            disabled="true"/>
           <p:menuitem value="Ustawienia"
             outcome="/support/administration/preferences" />  
           <p:menuitem value="Sprawdź pocztę"
@@ -37,9 +41,11 @@
             onerror="PF('growl').renderMessage({summary: 'Sprawdzanie poczty nie powiodło się', detail:'',severity: 'error'});"/>
         </p:submenu>
         <f:facet name="options">
-          <p:inputText style="margin-right:10px" placeholder="Wyszukaj" />
+          <p:inputText style="margin-right:10px" placeholder="Wyszukaj" disabled="true"/>
           <p:button value="Profil" outcome="/support/myprofile"
-            icon="ui-icon-person" />
+            icon="ui-icon-person" 
+            title="Mój profil użytkownika "
+            disabled="true"/>
           <p:commandButton title="Wyloguj"
             action="#{loginBean.logout()}" icon="ui-icon-power" />
         </f:facet>
@@ -50,7 +56,7 @@
     <h:form>
       <p:tabMenu activeIndex="#{empty tabIndex ? '-1' : tabIndex}">
         <p:menuitem value="Podsumowanie" outcome="/support/dashboard" />
-        <p:menuitem value="Klienci" outcome="/support/customers" />
+        <p:menuitem value="Klienci" outcome="/support/customers" disabled="true" title="Lista klientów, którzy przysłali zgłoszenie za pomocą formularza."/>
       </p:tabMenu>
         <!-- p:menuitem value="Nieobsłużone zgłoszenia" outcome="/support/notanswered" /-->
         <!-- p:menuitem value="Przydzielone do mnie" outcome="/support/mine" /-->

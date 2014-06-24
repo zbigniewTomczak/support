@@ -15,6 +15,12 @@ public class SupportForm {
 	@ManyToOne
 	Partner partner;
 	String key;
+	String title;
+	String confirmationMessage;
+	Integer width;
+	Integer height;
+	String css;
+	String filename;
 	
 	public Long getId() {
 		return id;

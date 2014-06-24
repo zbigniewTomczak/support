@@ -1,3 +1,5 @@
-The OpenShift `jbossas` cartridge documentation can be found at:
+The app can be found at:
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-jbossas/README.md
+http://skylight-pomoc.rhcloud.com/index.html
+
+http://pomoc-pomoc.rhcloud.com
