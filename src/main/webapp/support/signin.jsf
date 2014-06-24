@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+This one is to trick web server to think index.jsf exists.
+</body>
+</html>
