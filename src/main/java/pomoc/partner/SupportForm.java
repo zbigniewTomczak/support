@@ -46,6 +46,42 @@ public class SupportForm {
 	public void setKey(String key) {
 		this.key = key;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getConfirmationMessage() {
+		return confirmationMessage;
+	}
+	public void setConfirmationMessage(String confirmationMessage) {
+		this.confirmationMessage = confirmationMessage;
+	}
+	public Integer getWidth() {
+		return width;
+	}
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+	public Integer getHeight() {
+		return height;
+	}
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+	public String getCss() {
+		return css;
+	}
+	public void setCss(String css) {
+		this.css = css;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 	
 	
 }

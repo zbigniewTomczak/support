@@ -53,7 +53,7 @@ public class TicketBean {
 			TicketData ticketData = (TicketData) e.getObject();
 			if (ticketData.getNumber() != null) {
 				FacesContext fc = FacesContext.getCurrentInstance();
-			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/ticket?faces-redirect=true&number="+ticketData.getNumber());
+			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/form?faces-redirect=true&number="+ticketData.getNumber());
 			}
 		}
 		facesMessage.postError("Wystąpił błąd. Nie można przejść do wybranego zgłoszenia.");

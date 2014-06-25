@@ -8,15 +8,33 @@
   <ui:define name="subtitle">
     <div
       class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-      <span class="ui-button-text">Formularz</span>
+      <!-- span class="ui-button-text">Formularz</span-->
       <p:button title="Stwórz nowy formularz" icon="ui-icon-plusthick"
-        value="Stwórz nowy" styleClass="float-right" outcome="newform" />
+        value="Stwórz nowy" styleClass="float-right" outcome="form" disabled="true"/>
       <p:button title="Rozpocznij od gotowego formularza"
         icon="ui-icon-plusthick" value="Wybierz gotowy"
-        styleClass="float-right" outcome="selectform" />
+        styleClass="float-right" outcome="selectform" disabled="true"/>
     </div>
   </ui:define>
   <ui:define name="page">
-Lista aktywnych i nieaktywnych formularzy
+<h:form id="formsListForm">
+      <p:dataTable id="formsListDataTable" var="form"
+        value="#{supportFormBean.partnerForms}"
+        rowKey="#{form.key}" selectionMode="single"
+        selection="#{supportFormBean.selectedForm}">
+        <p:ajax event="rowSelect" listener="#{supportFormBean.onRowSelect}"/>
+        <f:facet name="header">
+          Twoje formularze
+        </f:facet>
+        <p:column headerText="Nazwa">
+          <h:outputText value="#{form.name}" />
+        </p:column>
+
+        <p:column headerText="Tytuł">
+          <h:outputText value="#{form.title}" />
+        </p:column>
+
+      </p:dataTable>
+    </h:form>
 </ui:define>
 </ui:composition>
