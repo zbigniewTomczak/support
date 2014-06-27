@@ -8,13 +8,14 @@
   <ui:define name="subtitle">
     <div
       class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-      <span class="ui-menuitem-text" style="font-weight: bold;">Stwórz
-        nowy formularz do umieszczenia na stronie.</span>
+      <!-- span class="ui-menuitem-text" style="font-weight: bold;">Stwórz
+        nowy formularz do umieszczenia na stronie.</span-->
       <p:button icon="ui-icon-cancel" value="Anuluj"
         styleClass="float-right" outcome="forms" />
       <p:commandButton icon="ui-icon-disk" value="Zapisz"
         styleClass="float-right"
-        action="#{supportFormBean.newSupportForm()}" />
+        action="#{supportFormEditBean.save()}" />
+      <h:outputText value="#{supportFormEditBean.supportForm.key}" />
     </div>
   </ui:define>
   <ui:define name="page">

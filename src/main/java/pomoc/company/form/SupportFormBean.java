@@ -8,14 +8,13 @@ import javax.inject.Inject;
 
 import org.primefaces.event.SelectEvent;
 
-import pomoc.partner.SupportForm;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.faces.FacesMessage;
 
 @Model
 public class SupportFormBean {
 
-	private SupportForm selectedForm;
+	private SupportFormListData selectedForm;
 	
 	@Inject
 	private LoggedPersonService loggedPersonService;
@@ -42,24 +41,26 @@ public class SupportFormBean {
 	}
 	
 	public void onRowSelect(SelectEvent e) {
-		if (e.getObject() instanceof SupportForm) {
-			SupportForm form = (SupportForm) e.getObject();
+		if (e.getObject() instanceof SupportFormListData) {
+			SupportFormListData form = (SupportFormListData) e.getObject();
 			if (form.getKey() != null) {
 				FacesContext fc = FacesContext.getCurrentInstance();
-			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/ticket?faces-redirect=true&id="+form.getKey());
+			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/form?faces-redirect=true&id="+form.getKey());
 			}
 		}
 		facesMessage.postError("Wystąpił błąd. Nie można przejść do wybranego formularza.");
 			
 	}
 
-	public SupportForm getSelectedForm() {
+	public SupportFormListData getSelectedForm() {
 		return selectedForm;
 	}
 
-	public void setSelectedForm(SupportForm selectedForm) {
+	public void setSelectedForm(SupportFormListData selectedForm) {
 		this.selectedForm = selectedForm;
 	}
+
+	
 	
 	
 }

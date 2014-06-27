@@ -44,5 +44,10 @@ public class SupportFormService {
 		return query.getResultList();
 	}
 
+	public boolean hasAccess(SupportForm sF, Person loggedPerson) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 
 }
