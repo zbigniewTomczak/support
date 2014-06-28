@@ -53,4 +53,12 @@ public class SupportFormService {
 		em.merge(supportForm);
 	}
 
+	public String getFormFile(String key) {
+		SupportForm supportForm = getSupportForm(key);
+		if (supportForm.getSupportFormTemplate() != null) {
+			return supportForm.getSupportFormTemplate().getFilename();
+		}
+		return null;
+	}
+
 }

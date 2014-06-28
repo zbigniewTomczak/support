@@ -63,7 +63,11 @@ public class SupportFormEditBean {
 			facesMessage.postError("Wystąpił błąd podczas zapisywania.");
 		}
 		facesContext.getExternalContext().getFlash().setKeepMessages(true);
-		facesMessage.postInfo("Zmiany zostały zapisane.");
+		try {
+			facesMessage.postInfo("Zmiany zostały zapisane. Wymagane jest ponowne wklejenie kodu na stronę: " + getPasteCode());
+		} catch (MalformedURLException e) {
+			facesMessage.postError("Błąd generacji kodu");
+		}
 		return "/support/administration/forms?faces-redirect=true";
 	}
 	
@@ -92,7 +96,7 @@ public class SupportFormEditBean {
 	    		pasteCode += String.format(" height=\"%d\"",supportForm.getHeight()); 
 	    	}
 
-	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"/>";
+	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"></iframe>";
 	    	return pasteCode;
 	    }
 	    
@@ -116,7 +120,7 @@ public class SupportFormEditBean {
 	    		pasteCode += String.format(" height=\"%d\"",supportForm.getHeight()); 
 	    	}
 
-	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"/>";
+	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"></iframe>";
 	    	return pasteCode;
 	    }
 	    

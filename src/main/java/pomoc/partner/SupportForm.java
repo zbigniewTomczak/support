@@ -5,22 +5,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import pomoc.form.SupportFormTemplate;
+
 @Entity
 public class SupportForm {
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	String name;
+	private String name;
 	@ManyToOne
-	Partner partner;
-	String key;
-	String title;
-	String confirmationMessage;
-	Integer width;
-	Integer height;
-	String css;
-	String filename;
+	private Partner partner;
+	private String key;
+	private String title;
+	private String confirmationMessage;
+	private Integer width;
+	private Integer height;
+	private String css;
+	@ManyToOne
+	private SupportFormTemplate supportFormTemplate;
 	
 	public Long getId() {
 		return id;
@@ -76,12 +79,13 @@ public class SupportForm {
 	public void setCss(String css) {
 		this.css = css;
 	}
-	public String getFilename() {
-		return filename;
+	public SupportFormTemplate getSupportFormTemplate() {
+		return supportFormTemplate;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setSupportFormTemplate(SupportFormTemplate supportFormTemplate) {
+		this.supportFormTemplate = supportFormTemplate;
 	}
+	
 	
 	
 }

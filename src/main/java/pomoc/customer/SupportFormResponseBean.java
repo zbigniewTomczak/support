@@ -37,7 +37,7 @@ public class SupportFormResponseBean {
 	private FacesMessage facesMessage;
 	
 	private SupportForm supportForm;
-	
+	private String formFile;
 	private Integer width;
 	private Integer height;
 	
@@ -55,6 +55,7 @@ public class SupportFormResponseBean {
 			return;			
 		}
 		supportForm = sF;
+		formFile = supportFormService.getFormFile(key);
 	}
 
 	public String newSupportFormResponse() {
@@ -104,6 +105,14 @@ public class SupportFormResponseBean {
 			height = (int) Math.round(supportForm.getHeight() * 0.98);
 		}
 		return height;
+	}
+
+	public String getFormFile() {
+		return formFile;
+	}
+
+	public void setFormFile(String formFile) {
+		this.formFile = formFile;
 	}
 	
 	
