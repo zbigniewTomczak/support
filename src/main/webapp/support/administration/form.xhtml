@@ -5,7 +5,8 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <ui:define name="subtitle">
+  <ui:define name="page">
+    <h:form>
     <div
       class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
       <!-- span class="ui-menuitem-text" style="font-weight: bold;">Stwórz
@@ -13,12 +14,56 @@
       <p:button icon="ui-icon-cancel" value="Anuluj"
         styleClass="float-right" outcome="forms" />
       <p:commandButton icon="ui-icon-disk" value="Zapisz"
-        styleClass="float-right"
-        action="#{supportFormEditBean.save()}" />
-      <h:outputText value="#{supportFormEditBean.supportForm.key}" />
+        styleClass="float-right" action="#{supportFormEditBean.save()}" >
+        <f:param name="key" value="#{supportFormEditBean.supportForm.key}"></f:param>
+      </p:commandButton>
     </div>
+      <p:messages autoUpdate="true"></p:messages>
+      <p:panelGrid columns="2" styleClass="editform">
+        <p:outputLabel value="Nazwa"></p:outputLabel>
+        <p:inputText value="#{supportFormEditBean.supportForm.name}"
+          required="true" requiredMessage="Podaj nazwę formularza."
+          title="Nazwa formularza nie będzie pokazywana na stronie. ">
+        </p:inputText>
+        <p:outputLabel value="Tytuł"></p:outputLabel>
+        <p:inputText value="#{supportFormEditBean.supportForm.title}"
+          required="true" requiredMessage="Podaj tytuł"
+          title="Tytuł będzie pokazywany na stronie jako nagłówek formularza" >
+           <p:ajax update="preview" oncomplete="var iframe = document.getElementById('formFrame');iframe.src = iframe.src;"/>
+            <f:param name="key" value="#{supportFormEditBean.supportForm.key}"></f:param>
+          </p:inputText>
+        <p:outputLabel value="Tekst potwierdzenia" />
+        <p:inputText
+          value="#{supportFormEditBean.supportForm.confirmationMessage}"
+          required="false" requiredMessage="Podaj tekst potwierdzenia"
+          title="Tekst potweirdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza." />
+        <p:outputLabel value="Szerokość" />
+        <h:panelGroup>
+          <p:spinner value="#{supportFormEditBean.supportForm.width}"
+            min="0" stepFactor="10" >
+            <p:ajax update="pasteCode preview" />
+            <f:param name="key" value="#{supportFormEditBean.supportForm.key}"></f:param>
+            </p:spinner>
+          <h:outputText value=" px" />
+        </h:panelGroup>
+          <p:outputLabel value="Wysokość" />
+        <h:panelGroup>
+          <p:spinner value="#{supportFormEditBean.supportForm.height}"
+            min="0" stepFactor="10" >
+            <p:ajax update="pasteCode preview" />
+            <f:param name="key" value="#{supportFormEditBean.supportForm.key}"></f:param>
+            </p:spinner>
+          <h:outputText value=" px" />
+        </h:panelGroup>
+         <p:outputLabel value="Styl CSS" 
+         title="Styl CSS daje możliwość dostosowania formularza do wyglądu strony."/>
+         <p:inputTextarea value="#{supportFormEditBean.supportForm.css}"></p:inputTextarea>
+         <p:outputLabel value="Kod do wklejenia na stronę"/>
+         <h:outputText id="pasteCode" value="#{supportFormEditBean.pasteCode}" />
+          
+      <h:outputText value="Podgląd:"/>
+       <h:outputText id="preview" value="#{supportFormEditBean.previewCode}" escape="false"/>
+       </p:panelGrid>
+    </h:form>
   </ui:define>
-  <ui:define name="page">
-Tutaj tworzysz nowy formularz
-</ui:define>
 </ui:composition>

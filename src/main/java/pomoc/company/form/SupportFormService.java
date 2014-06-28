@@ -49,5 +49,8 @@ public class SupportFormService {
 		return true;
 	}
 
+	public void save(SupportForm supportForm) {
+		em.merge(supportForm);
+	}
 
 }

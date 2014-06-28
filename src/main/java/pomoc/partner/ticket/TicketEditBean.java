@@ -73,7 +73,7 @@ public class TicketEditBean {
 			return null;
 		}
 		facesContext.getExternalContext().getFlash().setKeepMessages(true);
-		return "dashboard";
+		return "/support/dashboard?faces-redirect=true";
 	}
 
 	

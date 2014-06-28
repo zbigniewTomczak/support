@@ -45,7 +45,8 @@ public class SupportFormBean {
 			SupportFormListData form = (SupportFormListData) e.getObject();
 			if (form.getKey() != null) {
 				FacesContext fc = FacesContext.getCurrentInstance();
-			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/form?faces-redirect=true&id="+form.getKey());
+			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/administration/form?faces-redirect=true&key="+form.getKey());
+			    return;
 			}
 		}
 		facesMessage.postError("Wystąpił błąd. Nie można przejść do wybranego formularza.");

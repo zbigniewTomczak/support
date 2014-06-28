@@ -16,8 +16,8 @@
 	
 }
 .ui-growl {
-  left: #{(param['width'] - 301)/2}px;
-  top: #{param['height']/8}px;
+  left: #{(supportFormResponseBean.width - 301)/2}px;
+  top: #{supportFormResponseBean.height/8}px;
 }
 </style>
 </h:head>
@@ -27,8 +27,8 @@
   <p:growl life="2500" id="messages"/>
     <input type="hidden" value="#{param['key']}" name="key" />
     <p:panelGrid columns="2"
-      style="width:#{param['width']}px; height:#{param['height']}px;">
-      <f:facet name="header">Podziel się swoimi uwagami o produkcie.</f:facet>
+      style="width:#{supportFormResponseBean.width}px; height:#{supportFormResponseBean.height}px;">
+      <f:facet name="header">#{supportFormResponseBean.supportForm.title}</f:facet>
       <p:outputLabel>Imię i nazwisko</p:outputLabel>
       <p:inputText styleClass="form_input" required="true" requiredMessage="Proszę podać imię i nazwisko."
         value="#{supportFormResponse.name}" id="name"></p:inputText>
@@ -43,9 +43,9 @@
       <f:facet name="footer">
         <p:commandButton
           action="#{supportFormResponseBean.newSupportFormResponse()}"
-          value="Save" icon="ui-icon-check" update="messages, name, email, message"
-          style="#{empty param['width'] ? '' : 'width: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' :'px;'} 
-						#{empty param['width'] ? '' : 'margin-left: '} #{empty param['width'] ? '' : param['width']/3}#{empty param['width'] ? '' : 'px;'}" />
+          value="Wyślij" icon="ui-icon-check" update="messages, name, email, message"
+          style="#{empty supportFormResponseBean.width ? '' : 'width: '} #{empty supportFormResponseBean.width ? '' : supportFormResponseBean.width/3}#{empty supportFormResponseBean.width ? '' :'px;'} 
+						#{empty supportFormResponseBean.width ? '' : 'margin-left: '} #{empty supportFormResponseBean.width ? '' : supportFormResponseBean.width/3}#{empty supportFormResponseBean.width ? '' : 'px;'}" />
       </f:facet>
 
     </p:panelGrid>

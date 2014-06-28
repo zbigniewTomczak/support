@@ -1,9 +1,14 @@
 package pomoc.company.form;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import pomoc.partner.SupportForm;
 import pomoc.partner.login.LoggedPersonService;
@@ -21,7 +26,11 @@ public class SupportFormEditBean {
 	@Inject
 	private LoggedPersonService loggedPersonService;
 	
+	@Inject
+	private FacesContext facesContext;
+	
 	private SupportForm supportForm;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -44,12 +53,18 @@ public class SupportFormEditBean {
 			//todo post faces error
 			return;
 		}
-		
 		supportForm = sF;
 	}
 
 	public String save() {
-		return null;
+		try {
+			supportFormService.save(supportForm);
+		} catch (EJBException e) {
+			facesMessage.postError("Wystąpił błąd podczas zapisywania.");
+		}
+		facesContext.getExternalContext().getFlash().setKeepMessages(true);
+		facesMessage.postInfo("Zmiany zostały zapisane.");
+		return "/support/administration/forms?faces-redirect=true";
 	}
 	
 	public SupportForm getSupportForm() {
@@ -60,5 +75,52 @@ public class SupportFormEditBean {
 		this.supportForm = supportForm;
 	}
 	
+	public String getPasteCode() throws MalformedURLException {
+	    if (supportForm != null && supportForm.getKey() != null) { 
+	    	HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+	    	URL url = new URL(request.getRequestURL().toString());
+	    	URL newUrl = new URL(url.getProtocol(),
+	    			url.getHost(),
+	    			url.getPort(),
+	    			request.getContextPath());
+	    	String sUrl  = newUrl.toString();
+	    	String pasteCode = String.format("<iframe src=\"%s/index.jsf?key=%s\"", sUrl, supportForm.getKey());
+	    	if (supportForm.getWidth() != null && supportForm.getWidth() > 0) {
+	    		pasteCode += String.format(" width=\"%d\"",supportForm.getWidth()); 
+	    	}
+	    	if (supportForm.getHeight() != null && supportForm.getHeight() > 0) {
+	    		pasteCode += String.format(" height=\"%d\"",supportForm.getHeight()); 
+	    	}
+
+	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"/>";
+	    	return pasteCode;
+	    }
+	    
+	    return "Błąd w generacji kodu";
+	}
+
+	public String getPreviewCode() throws MalformedURLException {
+	    if (supportForm != null && supportForm.getKey() != null) { 
+	    	HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+	    	URL url = new URL(request.getRequestURL().toString());
+	    	URL newUrl = new URL(url.getProtocol(),
+	    			url.getHost(),
+	    			url.getPort(),
+	    			request.getContextPath());
+	    	String sUrl  = newUrl.toString();
+	    	String pasteCode = String.format("<iframe id=\"formFrame\" src=\"%s/index.jsf?key=%s\"", sUrl, supportForm.getKey());
+	    	if (supportForm.getWidth() != null && supportForm.getWidth() > 0) {
+	    		pasteCode += String.format(" width=\"%d\"",supportForm.getWidth()); 
+	    	}
+	    	if (supportForm.getHeight() != null && supportForm.getHeight() > 0) {
+	    		pasteCode += String.format(" height=\"%d\"",supportForm.getHeight()); 
+	    	}
+
+	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"/>";
+	    	return pasteCode;
+	    }
+	    
+	    return "Błąd w generacji podglądu";
+	}
 	
 }
