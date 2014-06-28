@@ -9,21 +9,23 @@
     <h:form id="submenuForm">
       <h:panelGroup
         class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-        <!-- span class="ui-button-text">#{ticketBean.selectedTicket.number}</span-->
-        <!-- p:commandButton title="Przypisz do mnie"
-          icon="ui-icon-plusthick" value="Przypisz do mnie"
-          styleClass="float-right"
-          update=":unassignedDataForm, :assignedDataForm, :submenuForm"
-          action="#{ticketBean.assignToMe()}"
-          rendered="#{not empty ticketBean.selectedTicket and empty ticketBean.selectedTicket.assigneeEmail}">
-        </p:commandButton-->
-        <!-- p:button title="Przejdź do zgłoszenia" icon="ui-icon-plusthick"
-          value="Przejdź do zgłoszenia" styleClass="float-right"
-          outcome="ticket" rendered="#{not empty ticketBean.selectedTicket}">
-          <f:param name="number"
-            value="#{ticketBean.selectedTicket.number}"></f:param>
-        </p:button-->
-
+        <ui:remove>
+          <span class="ui-button-text">#{ticketBean.selectedTicket.number}</span>
+          <p:commandButton title="Przypisz do mnie"
+            icon="ui-icon-plusthick" value="Przypisz do mnie"
+            styleClass="float-right"
+            update=":unassignedDataForm, :assignedDataForm, :submenuForm"
+            action="#{ticketBean.assignToMe()}"
+            rendered="#{not empty ticketBean.selectedTicket and empty ticketBean.selectedTicket.assigneeEmail}">
+          </p:commandButton>
+          <p:button title="Przejdź do zgłoszenia"
+            icon="ui-icon-plusthick" value="Przejdź do zgłoszenia"
+            styleClass="float-right" outcome="ticket"
+            rendered="#{not empty ticketBean.selectedTicket}">
+            <f:param name="number"
+              value="#{ticketBean.selectedTicket.number}"></f:param>
+          </p:button>
+        </ui:remove>
       </h:panelGroup>
     </h:form>
   </ui:define>
@@ -33,7 +35,7 @@
         value="#{ticketUnassignedBean.partnerTickets}"
         rowKey="#{ticket.number}" selectionMode="single"
         selection="#{ticketBean.selectedTicket}">
-        <p:ajax event="rowSelect" listener="#{ticketBean.onRowSelect}"/>
+        <p:ajax event="rowSelect" listener="#{ticketBean.onRowSelect}" />
         <f:facet name="header">
           Lista nowych zgłoszeń
         </f:facet>
@@ -63,7 +65,7 @@
         value="#{ticketAssignedBean.partnerTickets}"
         rowKey="#{ticket.number}" selectionMode="single"
         selection="#{ticketBean.selectedTicket}">
-        <p:ajax event="rowSelect" listener="#{ticketBean.onRowSelect}"/>
+        <p:ajax event="rowSelect" listener="#{ticketBean.onRowSelect}" />
         <f:facet name="header">
           Lista obsługiwanych zgłoszeń
         </f:facet>

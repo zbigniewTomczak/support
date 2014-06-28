@@ -32,11 +32,13 @@ public class TicketBean {
 	public void assignToMe() {
 		if (selectedTicket == null) {
 			// Faces error
+			return;
 		}
 		Person loggedPerson = loggedPersonService.getLoggedPerson();
 		log.info("assigning ticket to: " + loggedPerson.getEmail());
 		if (loggedPerson == null) {
 			// Error
+			return;
 		}
 		try {
 			ticketService.assignTo(selectedTicket,
@@ -53,7 +55,8 @@ public class TicketBean {
 			TicketData ticketData = (TicketData) e.getObject();
 			if (ticketData.getNumber() != null) {
 				FacesContext fc = FacesContext.getCurrentInstance();
-			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/form?faces-redirect=true&number="+ticketData.getNumber());
+			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/ticket?faces-redirect=true&number="+ticketData.getNumber());
+			    return;
 			}
 		}
 		facesMessage.postError("Wystąpił błąd. Nie można przejść do wybranego zgłoszenia.");

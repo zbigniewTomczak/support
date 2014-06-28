@@ -25,12 +25,14 @@
       </h:panelGroup>
       <p:panelGrid columns="1">
         <h:outputText value="Numer: ##{ticketEditBean.static.number}" />
-        <!-- p:outputLabel
-          value="Przpisany do: #{ticketEditBean.editable.assigneeEmail}k" />
-        <p:selectOneMenu
-          value="#{ticketEditBean.editable.assigneeEmail}">
-          <f:selectItems value="#{partnerPersons}"></f:selectItems>
-        </p:selectOneMenu-->
+        <ui:remove>
+          <p:outputLabel
+            value="Przpisany do: #{ticketEditBean.editable.assigneeEmail}k" />
+          <p:selectOneMenu
+            value="#{ticketEditBean.editable.assigneeEmail}">
+            <f:selectItems value="#{partnerPersons}"></f:selectItems>
+          </p:selectOneMenu>
+        </ui:remove>
         <p:outputLabel value="Status: #{ticketEditBean.editable.status}" />
       </p:panelGrid>
 
