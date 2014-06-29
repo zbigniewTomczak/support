@@ -25,6 +25,4 @@ public class SupportFormListData {
 	public String getTitle() {
 		return title;
 	}
-	
-	
 }

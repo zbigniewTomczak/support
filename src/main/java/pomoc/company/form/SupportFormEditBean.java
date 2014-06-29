@@ -19,18 +19,14 @@ public class SupportFormEditBean {
 
 	@Inject
 	private FacesMessage facesMessage;
-	
 	@Inject
 	private SupportFormService supportFormService;
-	
 	@Inject
 	private LoggedPersonService loggedPersonService;
-	
 	@Inject
 	private FacesContext facesContext;
 	
 	private SupportForm supportForm;
-	
 	
 	@PostConstruct
 	public void init() {
@@ -55,6 +51,8 @@ public class SupportFormEditBean {
 		}
 		supportForm = sF;
 	}
+
+	
 
 	public String save() {
 		try {

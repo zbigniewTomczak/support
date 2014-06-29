@@ -20,13 +20,10 @@ public class SupportFormResponseService {
 
 	@Inject
 	private EntityManager em;
-	
 	@Inject 
 	private Logger logger;
-	
 	@Inject
 	private SupportFormService supportFormService;
-	
 	@Inject
 	private TicketService ticketService;
 	

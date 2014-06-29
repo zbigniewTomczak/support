@@ -17,11 +17,15 @@ public class MailboxCheckHistory {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
+	
 	private Integer processedNumber;
+	
 	@ManyToOne
 	private Partner partner;
+	
 	public Long getId() {
 		return id;
 	}

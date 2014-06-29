@@ -1,5 +1,6 @@
 package pomoc.customer;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -7,6 +8,7 @@ import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,36 +19,33 @@ import pomoc.util.faces.FacesMessage;
 
 @Model
 public class SupportFormResponseBean {
-
-	@Produces
-	@Named
-	private SupportFormResponse supportFormResponse = new SupportFormResponse();
 	
 	@Inject
 	private SupportFormResponseService supportFormResponseService;
-	
 	@Inject
 	private SupportFormService supportFormService;
-	
 	@Inject
 	private FacesContext facesContext;
-	
 	@Inject
 	private Logger logger;
-
 	@Inject
 	private FacesMessage facesMessage;
 	
+	@Produces
+	@Named
+	private SupportFormResponse supportFormResponse = new SupportFormResponse();
+
 	private SupportForm supportForm;
 	
 	private FormStyle formStyle;
 
 	private String formFile;
 
+	private String key;
 	
 	@PostConstruct
 	public void init() {
-		String key = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("key");
+		key = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("key");
 		if (key == null) {
 			//todo post faces error
 			return;
@@ -61,6 +60,13 @@ public class SupportFormResponseBean {
 		formFile = supportFormService.getFormFile(key);
 	}
 
+	public void checkKey(ComponentSystemEvent event) throws IOException {
+		if (supportForm == null) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+		    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/noKey?faces-redirect=true");
+		}
+	}
+	
 	public String newSupportFormResponse() {
 		String key = facesContext.getExternalContext().getRequestParameterMap().get("key");
 		logger.info("Creating ticket for form key: " + key);
@@ -106,12 +112,10 @@ public class SupportFormResponseBean {
 	}
 
 	public String getFormFile() {
+		if (formFile == null) {
+			return "noKey.xhtml";
+		}
 		return formFile;
 	}
-
-	public void setFormFile(String formFile) {
-		this.formFile = formFile;
-	}
-	
 	
 }

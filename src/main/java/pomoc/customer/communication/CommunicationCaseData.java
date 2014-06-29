@@ -2,7 +2,6 @@ package pomoc.customer.communication;
 
 import java.util.Date;
 
-
 public class CommunicationCaseData {
 	private final Direction direction;
 	private final String responsibleEmail;
@@ -20,13 +19,9 @@ public class CommunicationCaseData {
 		return direction;
 	}
 
-
-
 	public String getResponsibleEmail() {
 		return responsibleEmail;
 	}
-
-
 
 	public Date getDate() {
 		return (Date) date.clone();
@@ -35,6 +30,4 @@ public class CommunicationCaseData {
 	public String getContent() {
 		return content;
 	}
-	
-	
 }

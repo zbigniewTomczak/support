@@ -12,7 +12,7 @@ public class Configuration {
 	
 	public String getNoKeyWarning() {
 		if(!facesContext.getExternalContext().getRequestParameterMap().containsKey("key")) {
-			return "Uwaga! Formularz jest niepoprawnie skonfigurowany. Brak możliwości wysyłania. Proszę ustawić parametr 'key'.";
+			return "Uwaga! Formularz jest niepoprawnie skonfigurowany. Proszę ustawić parametr 'key'.";
 		}
 		return null;
 	}

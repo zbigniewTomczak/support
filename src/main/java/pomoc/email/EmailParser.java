@@ -30,6 +30,7 @@ import pomoc.partner.preferences.Preferences;
 
 @Stateless
 public class EmailParser {
+	
 	@Inject
 	private CommunicationService communicationService;
 	@Inject

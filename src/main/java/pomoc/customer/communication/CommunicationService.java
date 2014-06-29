@@ -19,6 +19,7 @@ public class CommunicationService {
 	private EntityManager em;
 	@Inject
 	private Logger log;
+	
 	public void registerClientResponse(String number, String from,
 			Date date, String content, Partner partner) {
 		Preconditions.checkNotNull(number);

@@ -13,24 +13,18 @@ import pomoc.util.faces.FacesMessage;
 
 @Model
 public class SupportFormBean {
-
-	private SupportFormListData selectedForm;
 	
 	@Inject
 	private LoggedPersonService loggedPersonService;
-	
 	@Inject
 	private FacesMessage facesMessage;
-	
 	@Inject
 	private SupportFormService formService;
 	
 	private List<SupportFormListData> partnerForms;
 	
-	public String newSupportForm() {
-		return "forms?faces-redirect=true";
-	}
-	
+	private SupportFormListData selectedForm;
+
 	public List<SupportFormListData> getPartnerForms() {
 		if (partnerForms == null) {
 			partnerForms = 
@@ -60,8 +54,4 @@ public class SupportFormBean {
 	public void setSelectedForm(SupportFormListData selectedForm) {
 		this.selectedForm = selectedForm;
 	}
-
-	
-	
-	
 }

@@ -7,6 +7,7 @@ import pomoc.util.faces.FacesMessage;
 
 @Model
 public class EmailBean {
+	
 	@Inject
 	private EmailParser emailParser;
 	@Inject

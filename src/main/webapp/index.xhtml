@@ -9,10 +9,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
 </h:head>
 <h:body>
-  <h:outputText value="#{configuration.noKeyWarning}" />
   <h:form>
   <p:growl life="2500" id="messages"/>
+  <h:panelGroup >
     <ui:include src="/WEB-INF/forms/#{supportFormResponseBean.formFile}" />
+  </h:panelGroup>
     
   </h:form>
 
