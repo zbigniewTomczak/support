@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import pomoc.company.form.SupportFormService;
+import pomoc.form.FormStyle;
 import pomoc.partner.SupportForm;
 import pomoc.util.faces.FacesMessage;
 
@@ -37,9 +38,11 @@ public class SupportFormResponseBean {
 	private FacesMessage facesMessage;
 	
 	private SupportForm supportForm;
+	
+	private FormStyle formStyle;
+
 	private String formFile;
-	private Integer width;
-	private Integer height;
+
 	
 	@PostConstruct
 	public void init() {
@@ -81,6 +84,15 @@ public class SupportFormResponseBean {
 		return null;
 	}
 
+	@Produces
+	@Named
+	public FormStyle getFormStyle() {
+		if (formStyle == null) {
+			formStyle = new FormStyle(supportForm);
+		}
+		return formStyle;
+	}
+	
 	public SupportFormResponse getSupportFormResponse() {
 		return supportFormResponse;
 	}
@@ -91,20 +103,6 @@ public class SupportFormResponseBean {
 
 	public SupportForm getSupportForm() {
 		return supportForm;
-	}
-
-	public int getWidth() {
-		if (width == null && supportForm != null) {
-			width = (int) Math.round(supportForm.getWidth() * 0.98);
-		}
-		return width;
-	}
-
-	public int getHeight() {
-		if (height  == null && supportForm != null) {
-			height = (int) Math.round(supportForm.getHeight() * 0.98);
-		}
-		return height;
 	}
 
 	public String getFormFile() {

@@ -4,9 +4,20 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
+<style>
+.form_input {
+  width: 96%;
+}
+
+.ui-growl {
+  left: #{formStyle.uiGrowlLeft}px;
+  top: #{formStyle.uiGrowlTop}px;
+}
+</style>
+
 <input type="hidden" value="#{param['key']}" name="key" />
     <p:panelGrid columns="2"
-      style="width:#{supportFormResponseBean.width}px; height:#{supportFormResponseBean.height}px;">
+      style="width:#{formStyle.panelWidth}px; height:#{formStyle.panelHeight}px;">
       <f:facet name="header">#{supportFormResponseBean.supportForm.title}</f:facet>
       <p:outputLabel>Imię i nazwisko</p:outputLabel>
       <p:inputText styleClass="form_input" required="true" requiredMessage="Proszę podać imię i nazwisko."
@@ -23,8 +34,8 @@
         <p:commandButton
           action="#{supportFormResponseBean.newSupportFormResponse()}"
           value="Wyślij" icon="ui-icon-check" update="messages, name, email, message"
-          style="#{empty supportFormResponseBean.width ? '' : 'width: '} #{empty supportFormResponseBean.width ? '' : supportFormResponseBean.width/3}#{empty supportFormResponseBean.width ? '' :'px;'} 
-            #{empty supportFormResponseBean.width ? '' : 'margin-left: '} #{empty supportFormResponseBean.width ? '' : supportFormResponseBean.width/3}#{empty supportFormResponseBean.width ? '' : 'px;'}" />
+          style="#{formStyle.submitButtonWidthStyle} 
+            #{formStyle.submitButtonMarginLeftStyle}" />
       </f:facet>
 
     </p:panelGrid>
