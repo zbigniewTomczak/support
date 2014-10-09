@@ -6,6 +6,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
+import pomoc.partner.Partner;
 import pomoc.partner.person.Person;
 
 //@Stateful
@@ -24,6 +25,12 @@ public class LoggedPersonService implements Serializable {
 		return loggedPerson;
 	}
 
+	@Produces
+	@Named("partner")
+	public Partner getPartnerForLoggedPerson() {
+		return loggedPerson.getPartner();
+	}
+	
 	public void setLoggedPerson(Person loggedPerson) {
 		this.loggedPerson = loggedPerson;
 	}

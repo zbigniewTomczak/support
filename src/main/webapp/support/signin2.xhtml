@@ -14,7 +14,6 @@
 
 	<title>Logowanie do panelu klienta</title>
 
-	<!-- Bootstrap Core CSS -->
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 
 	<style>
@@ -33,7 +32,7 @@
 						<h3 class="panel-title">Zaloguj się</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form">
+						<h:form>
 							<fieldset>
 								<div class="form-group">
 									<ui:remove><input class="form-control" placeholder="E-mail" name="email"
@@ -54,7 +53,7 @@
 								</div>
 								<ui:remove><a href="index.html" class="btn btn-lg btn-success btn-block">Login</a></ui:remove>
 								<p:commandLink action="#{loginBean.login()}" value="Zaloguj"
-            						class="btn btn-lg btn-success btn-block"/>
+            						class="btn btn-lg btn-success btn-block" ajax="false"/>
 								<div class="checkbox">
 									<ui:remove><label> <input name="remember" type="checkbox"
 										value="Remember Me" />Remember Me
@@ -69,7 +68,7 @@
 										</small>
 								</div>
 							</fieldset>
-						</form>
+						</h:form>
 					</div>
 				</div>
 			</div>
