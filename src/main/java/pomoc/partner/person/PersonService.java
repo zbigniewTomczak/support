@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import pomoc.partner.login.LoggedPersonService;
+import pomoc.util.Mailing;
 
 import com.google.common.base.Preconditions;
 
@@ -24,6 +25,8 @@ public class PersonService {
 	
 	@Inject
 	private EntityManager em;
+	
+	@Inject Mailing mailing;
 	
 	public Person getPerson(String email) {
 		Preconditions.checkNotNull(email);
@@ -56,5 +59,25 @@ public class PersonService {
 		TypedQuery<SelectItem> query = em.createQuery("SELECT new javax.faces.model.SelectItem(p.email) FROM Person p WHERE p.partner.id=:id", SelectItem.class);
 		query.setParameter("id", em.find(Person.class, person.getId()).getPartner().getId());
 		return query.getResultList();
+	}
+	
+	public Boolean emailExists(String email) {
+		Preconditions.checkNotNull(email);
+		TypedQuery<Boolean> query = em.createQuery("SELECT "
+				+ "CASE WHEN count(p)=0 THEN 0 "
+				+ "ELSE 1 END "
+				+ "FROM Person p WHERE p.email=:email",Boolean.class);
+		query.setParameter("email", email);
+		return query.getSingleResult();
+	}
+
+	public Person saveAndNotifyUser(Person user) {
+		Person p = saveUser(user);
+		mailing.notifyNewUser(user);
+		return p;
+	}
+
+	public Person saveUser(Person user) {
+		return em.merge(user);
 	}
 }

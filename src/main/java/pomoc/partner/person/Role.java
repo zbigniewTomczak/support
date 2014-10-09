@@ -1,5 +1,7 @@
 package pomoc.partner.person;
 
 public enum Role {
-	ADMIN
+	ADMIN,
+	USER,
+	SYSTEM_ADMIN
 }
