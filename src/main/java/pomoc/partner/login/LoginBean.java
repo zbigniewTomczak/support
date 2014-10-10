@@ -38,7 +38,7 @@ public class LoginBean {
 			facesMessage.postError("Nieudane logowanie. Sprawdź email i hasło i spróbuj ponownie.");
 			return null;
 		}
-		return "/support/dashboard?faces-redirect=true";
+		return "pretty:dashboard";
 	}
 
 	public String logout() {
