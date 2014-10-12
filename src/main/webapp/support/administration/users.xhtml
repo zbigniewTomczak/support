@@ -11,23 +11,22 @@
     <h:outputStylesheet library="css" name="jasny-bootstrap.min.css" />
   </ui:define>
 
-<ui:define name="header">
-<ul class="nav nav-pills">
-<li>
-<p:link outcome="/support/administration/useredit.jsf" styleClass="btn btn-default navbar-btn">
-  <i class="fa fa-plus fa-fw"></i>Nowy użytkownik
-</p:link>
-</li>
-</ul>
-</ui:define>
+  <ui:define name="header">
+    <ul class="nav nav-pills">
+      <li><p:link outcome="/support/administration/useredit.jsf"
+          styleClass="btn btn-default navbar-btn">
+          <i class="fa fa-plus fa-fw"></i>Nowy użytkownik
+</p:link></li>
+    </ul>
+  </ui:define>
 
   <ui:define name="page">
     <h:dataTable id="usersDataTable" var="user"
       value="#{usersBean.allPartnerUsers}"
-      styleClass="table table-striped table-bordered table-hover table-condensed rowlink">
+      styleClass="table table-striped table-bordered table-hover table-condensed rowlink"
+      columnClasses=",,,rowlink-skip">
       <f:facet name="header">
-          Lista użytkowników powiązanych z partnerem. Możliwość dodania, usunięcia i edycji użytkownika.
-        </f:facet>
+      </f:facet>
       <h:column>
         <f:facet name="header">Nazwa</f:facet>
         <p:link outcome="/support/administration/useredit.jsf">#{user.name}
@@ -44,9 +43,37 @@
           <f:converter converterId="pomoc.converter.BooleanToTick"></f:converter>
         </h:outputText>
       </h:column>
+      <h:column>
+        <f:facet name="header"></f:facet>
+  
+        
+        <div class="btn-group">
+          <p:link outcome="/support/administration/useraccess.jsf"
+             styleClass="btn btn-default" title="Uprawnienia">
+              <i class="fa fa-sliders"></i>
+              <f:param name="id" value="#{user.id}"></f:param>
+          </p:link>
+          <p:link outcome="/support/administration/useredit.jsf"
+             styleClass="btn btn-default" title="Edycja">
+              <i class="fa fa-edit"></i>
+              <f:param name="id" value="#{user.id}"></f:param>
+          </p:link> 
+          <p:link outcome="/support/administration/useredit.jsf"
+             styleClass="btn btn-default" title="Dezaktywacja">
+              <i class="fa fa-toggle-on"></i>
+              <f:param name="id" value="#{user.id}"></f:param>
+              <f:param name="disable" value="true"></f:param>
+          </p:link> 
+          <p:link outcome="/support/administration/useredit.jsf"
+             styleClass="btn btn-default" title="Usuń">
+              <i class="fa fa-trash"></i>
+              <f:param name="id" value="#{user.id}"></f:param>
+              <f:param name="delete" value="true"></f:param>
+          </p:link> 
 
+        </div>
+      </h:column>
     </h:dataTable>
-
 
   </ui:define>
   <ui:define name="footer-meta">
