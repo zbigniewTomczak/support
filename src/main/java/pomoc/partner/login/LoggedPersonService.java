@@ -15,7 +15,7 @@ import pomoc.partner.person.Person;
 public class LoggedPersonService implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Person loggedPerson;
-
+	
 	@Produces 
 	@Named("person")
 	public Person getLoggedPerson() {

@@ -38,7 +38,7 @@ public class LoginBean {
 			facesMessage.postError("Nieudane logowanie. Sprawdź email i hasło i spróbuj ponownie.");
 			return null;
 		}
-		return "pretty:dashboard";
+		return "/support/dashboard2.jsf?faces-redirect=true";
 	}
 
 	public String logout() {
@@ -49,7 +49,7 @@ public class LoginBean {
 			e.printStackTrace();
 			//TODO error message
 		}
-		return "/support/signin?faces-redirect=true";
+		return "signin2.jsf?faces-redirect=true";
 	}
 	
 	public String getEmail() {

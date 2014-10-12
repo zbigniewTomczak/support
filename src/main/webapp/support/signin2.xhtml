@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+<f:view transient="true">
 <h:head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -63,7 +63,7 @@
 									<p:link value="Przejdź do strony rejestracji"
 										outcome="/support/signup" styleClass="link"></p:link>
 										<br/>
-									<h:outputText value="Konto testowe: 't@t.pl', Hasło: 'asd'."
+									<h:outputText value="Konto testowe: 'admin@example.com', Hasło: 'asd'."
 										style="font-weight:normal;" styleClass="link" />
 										</small>
 								</div>
@@ -79,4 +79,5 @@
 	<h:outputScript library="js" name="bootstrap.min.js" />
 
 </h:body>
+</f:view>
 </html>

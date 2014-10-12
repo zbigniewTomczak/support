@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import pomoc.partner.Partner;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.Mailing;
 
@@ -64,8 +65,8 @@ public class PersonService {
 	public Boolean emailExists(String email) {
 		Preconditions.checkNotNull(email);
 		TypedQuery<Boolean> query = em.createQuery("SELECT "
-				+ "CASE WHEN count(p)=0 THEN 0 "
-				+ "ELSE 1 END "
+				+ "CASE WHEN count(p)=0 THEN false "
+				+ "ELSE true END "
 				+ "FROM Person p WHERE p.email=:email",Boolean.class);
 		query.setParameter("email", email);
 		return query.getSingleResult();
@@ -79,5 +80,40 @@ public class PersonService {
 
 	public Person saveUser(Person user) {
 		return em.merge(user);
+	}
+
+	public Long getPartnerPeopleCount(Partner partner) {
+		Preconditions.checkNotNull(partner);
+		Preconditions.checkNotNull(partner.getId());
+		return em.createQuery("SELECT count(p) FROM Person p WHERE p.partner.id=:id", Long.class)
+			.setParameter("id", partner.getId()).getSingleResult();
+		
+	}
+	
+	public List<Person> getPartnerPeople(Partner partner) {
+		Preconditions.checkNotNull(partner);
+		Preconditions.checkNotNull(partner.getId());
+		return em.createQuery("SELECT p FROM Person p WHERE p.partner.id=:id", Person.class)
+			.setParameter("id", partner.getId()).getResultList();
+		
+	}
+
+	public Person getUserById(Long id) {
+		Preconditions.checkNotNull(id);
+		return em.find(Person.class, id);
+	}
+
+	public boolean willBeNoAdmin(Long id, Partner partner) {
+		Preconditions.checkNotNull(id);
+		Preconditions.checkNotNull(partner);
+		Preconditions.checkNotNull(partner.getId());
+		if ( em.createQuery("SELECT count(p) FROM Person p WHERE p.partner.id=:partnerId AND p.role=:role AND p.id != :id", Long.class)
+				.setParameter("partnerId", partner.getId())
+				.setParameter("role", Role.ADMIN)
+				.setParameter("id", id)
+				.getSingleResult() > 0) {
+			return false;
+		}
+		return true;
 	}
 }

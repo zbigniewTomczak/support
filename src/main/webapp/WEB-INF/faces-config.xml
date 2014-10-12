@@ -6,4 +6,10 @@
 		<phase-listener>
 			com.ocpsoft.pretty.application.MultiPageMessagesSupport</phase-listener>
 	</lifecycle-->
+	<application>
+		<resource-bundle>
+			<base-name>pomoc.locale.bundles.Paths</base-name>
+			<var>Paths</var>
+		</resource-bundle>
+	</application>
 </faces-config>

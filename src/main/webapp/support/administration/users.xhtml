@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template2.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:define name="meta">
+    <h:outputStylesheet library="css" name="jquery.dataTables.css" />
+    <h:outputStylesheet library="css" name="dataTables.bootstrap.css" />
+    <h:outputStylesheet library="css" name="jasny-bootstrap.min.css" />
+  </ui:define>
+
+<ui:define name="header">
+<ul class="nav nav-pills">
+<li>
+<p:link outcome="/support/administration/useredit.jsf" styleClass="btn btn-default navbar-btn">
+  <i class="fa fa-plus fa-fw"></i>Nowy użytkownik
+</p:link>
+</li>
+</ul>
+</ui:define>
+
+  <ui:define name="page">
+    <h:dataTable id="usersDataTable" var="user"
+      value="#{usersBean.allPartnerUsers}"
+      styleClass="table table-striped table-bordered table-hover table-condensed rowlink">
+      <f:facet name="header">
+          Lista użytkowników powiązanych z partnerem. Możliwość dodania, usunięcia i edycji użytkownika.
+        </f:facet>
+      <h:column>
+        <f:facet name="header">Nazwa</f:facet>
+        <p:link outcome="/support/administration/useredit.jsf">#{user.name}
+            <f:param name="id" value="#{user.id}"></f:param>
+        </p:link>
+      </h:column>
+      <h:column>
+        <f:facet name="header">Email</f:facet>
+        <h:outputText value="#{user.email}" />
+      </h:column>
+      <h:column>
+        <f:facet name="header">Administrator</f:facet>
+        <h:outputText value="#{user.admin}" escape="false">
+          <f:converter converterId="pomoc.converter.BooleanToTick"></f:converter>
+        </h:outputText>
+      </h:column>
+
+    </h:dataTable>
+
+
+  </ui:define>
+  <ui:define name="footer-meta">
+    <h:outputScript library="js" name="jquery.dataTables.js"></h:outputScript>
+    <h:outputScript library="js" name="jasny-bootstrap.min.js"></h:outputScript>
+    <script>
+ 
+ $(document).ready( function () {
+     $('#usersDataTable').DataTable();
+     $('#usersDataTable').rowlink();
+
+ } );
+ </script>
+  </ui:define>
+
+</ui:composition>

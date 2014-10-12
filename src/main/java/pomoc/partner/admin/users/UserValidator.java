@@ -16,27 +16,36 @@ public class UserValidator {
 	@Inject
 	private PersonService personService;
 
-	public boolean validate(Person user) {
-		if (user == null) {
-			fm.postError("Peron null");
-			return false;
-		}
-		if (StringUtils.isEmpty(user.getEmail())) {
-			fm.postError("Person email cannot be empty");
-			return false;
-		}
-		if (StringUtils.isEmpty(user.getName())) {
-			fm.postError("Person name cannot be empty");
-			return false;
+	public boolean validateNew(Person user) {
+		boolean result = true;
+		if (!validate(user)) {
+			result = false;
 		}
 		if (personService.emailExists(user.getEmail())) {
 			fm.postError("Person with this email already exists ("+user.getEmail()+")");
-			return false;
+			result = false;
 		}
 		
-		return true;
+		return result;
 	}
 	
+	public boolean validate(Person user) {
+		boolean result = true;
+		if (user == null) {
+			fm.postError("Peron null");
+			result = false;
+		}
+		if (StringUtils.isEmpty(user.getEmail())) {
+			fm.postError("Person email cannot be empty");
+			result = false;
+		}
+		if (StringUtils.isEmpty(user.getName())) {
+			fm.postError("Person name cannot be empty");
+			result = false;
+		}
+		
+		return result;
+	}
 	
 	
 }
