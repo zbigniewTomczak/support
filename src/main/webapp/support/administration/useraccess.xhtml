@@ -6,108 +6,87 @@
   xmlns:p="http://primefaces.org/ui">
 
   <ui:define name="meta">
-    <style>
-.form-button {
-	margin-left: 5px;
-}
-</style>
+    <h:outputStylesheet library="css" name="bootstrap-switch.min.css"></h:outputStylesheet>
   </ui:define>
-<ui:define name="header"></ui:define>
+  <ui:define name="header"></ui:define>
   <ui:define name="page">
     <div class="clearfix"></div>
     <div class="row">
       <div class="col-lg-12">
-        <h:form>
+        <h:form id="accessForm" prependId="true">
           <ul class="nav nav-pills">
-            <li><p:commandLink action="#{userEditBean.saveUser()}"
+            <li><p:commandLink action="#{userAccessBean.save()}"
                 styleClass="btn btn-default navbar-btn" value="Zapisz"
-                ajax="false" validateClient="true"></p:commandLink>
-                </li><li>
-               <p:link outcome="/support/administration/users.jsf"
+                ajax="false" validateClient="true"></p:commandLink></li>
+            <li><p:link outcome="/support/administration/users.jsf"
                 value="Anuluj" styleClass="btn btn-default navbar-btn">
-              </p:link>
-            </li>
-            </ul>
-              <div class="">
-                <ui:remove><div class="panel-heading">
-                  <div class="row">
-                    <div class="col-lg-4 col-lg-offset-2 btn-group">
-                      <p:commandLink action="#{userEditBean.saveUser()}"
-                        styleClass="btn btn-default form-button"
-                        value="Zapisz" ajax="false"
-                        validateClient="true">
-                      </p:commandLink>
-                      <p:link
-                        outcome="/support/administration/users.jsf"
-                        value="Anuluj"
-                        styleClass="btn btn-default form-button">
-                      </p:link>
+              </p:link></li>
+          </ul>
+          <div class="row">
+            <div class="col-sm-12">
+              <p:messages styleClass="help-block"></p:messages>
+              <div class="form-horizontal">
+                <h2 class="page-header col-sm-2 col-sm-offset-4">Odczyt</h2>
+                <h2 class="page-header col-sm-2">Edycja</h2>
+                <div class="clearfix" />
+                <ui:repeat var="form"
+                  value="#{userAccessBean.userAccessModel.forms}"
+                  varStatus="status">
+                  <div class="form-group #{form.key}">
+                    <p:outputLabel value="#{form.name}"
+                      styleClass="control-label col-sm-4"></p:outputLabel>
+                    <div class="col-sm-2">
+                      <h:selectBooleanCheckbox
+                        readonly="#{userAccessBean.disabled}"
+                        value="#{userAccessBean.userAccessModel.readRights[status.index]}"
+                        styleClass="toogle-switch read #{form.key}">
+                      </h:selectBooleanCheckbox>
+                    </div>
+                    <div class="col-sm-2">
+                      <h:selectBooleanCheckbox
+                        readonly="#{userAccessBean.disabled}"
+                        value="#{userAccessBean.userAccessModel.writeRights[status.index]}"
+                        styleClass="toogle-switch write #{form.key}">
+                      </h:selectBooleanCheckbox>
                     </div>
                   </div>
-                </div></ui:remove>
-                <div class="panel-body">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <p:messages styleClass="help-block"></p:messages>
-                      <div class="form-horizontal">
-                        <div class="form-group">
-                          <p:outputLabel for="name" value="Imię"
-                            styleClass="control-label col-sm-2"></p:outputLabel>
-                          <div class="col-sm-6">
-                            <p:inputText id="name"
-                              value="#{userEditBean.user.name}"
-                              placeholder="Imię" required="true"
-                              styleClass="form-control">
-                              <p:clientValidator />
-                            </p:inputText>
-                          </div>
-                          <div class="col-sm-4 help-block">
-                            <p:message for="name" errorClass="has-error" />
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <p:outputLabel for="email" value="Email"
-                            styleClass="control-label col-sm-2"></p:outputLabel>
-                          <div class="col-sm-6">
-                            <p:inputText id="email"
-                              value="#{userEditBean.user.email}"
-                              placeholder="Email" required="true"
-                              styleClass="form-control">
-                              <p:clientValidator />
-                            </p:inputText>
-                          </div>
-                          <div class="col-sm-4 help-block">
-                            <p:message for="email"
-                              errorClass="has-error" />
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <p:outputLabel for="admin"
-                            value="Administrator"
-                            styleClass="control-label col-sm-2"></p:outputLabel>
-                          <div class="col-sm-6 checkbox">
-                            <p:selectBooleanCheckbox id="admin"
-                              value="#{userEditBean.admin}">
-                              <p:clientValidator />
-                            </p:selectBooleanCheckbox>
-                          </div>
-                          <div class="col-sm-4 help-block">
-                            <p:message for="admin"
-                              errorClass="has-error" />
-                          </div>
-                        </div>
-                      </div>
-                      <!--/.form-horizontal  -->
-                    </div>
-                  </div>
-                </div>
-                <!--/.panel-body-->
-              </div> <!--/.panel -->
+                </ui:repeat>
+
+
+
+              </div>
+              <!--/.form-horizontal  -->
+            </div>
+          </div>
         </h:form>
       </div>
       <!-- /.col-lg-12 (nested) -->
     </div>
     <!-- /.row -->
 
+  </ui:define>
+  <ui:define name="footer-meta">
+    <h:outputScript library="js" name="bootstrap-switch.min.js"></h:outputScript>
+    <script type="text/javascript">
+    $(".toogle-switch").bootstrapSwitch({onColor: 'success', offColor: 'danger'});
+    $('.toogle-switch.write').on('switchChange.bootstrapSwitch', function(event, state) {
+        if (state) {
+        	 var key = $(this).prop("class")
+        	.replace('toogle-switch','')
+        	.replace('write','')
+        	.replace(/(\s)/g,'');
+        	$('div.'+key).find('.read').bootstrapSwitch('state', true);
+        }
+    });
+    $('.toogle-switch.read').on('switchChange.bootstrapSwitch', function(event, state) {
+        if (!state) {
+        	 var key = $(this).prop("class")
+        	.replace('toogle-switch','')
+        	.replace('read','')
+        	.replace(/(\s)/g,'');
+        	$('div.'+key).find('.write').bootstrapSwitch('state', false);
+        }
+    });
+    </script>
   </ui:define>
 </ui:composition>

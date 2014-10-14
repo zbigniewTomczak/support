@@ -16,7 +16,8 @@ public class LoggedPersonService implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Person loggedPerson;
 	
-	@Produces 
+	@Current
+	@Produces
 	@Named("person")
 	public Person getLoggedPerson() {
 		//Person p = new Person();
@@ -25,10 +26,14 @@ public class LoggedPersonService implements Serializable {
 		return loggedPerson;
 	}
 
+	@Current 
 	@Produces
 	@Named("partner")
 	public Partner getPartnerForLoggedPerson() {
-		return loggedPerson.getPartner();
+		if (loggedPerson != null) {
+			return loggedPerson.getPartner();
+		}
+		return null;
 	}
 	
 	public void setLoggedPerson(Person loggedPerson) {

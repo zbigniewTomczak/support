@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import pomoc.partner.Partner;
 import pomoc.partner.SupportForm;
 import pomoc.partner.person.Person;
 
@@ -59,6 +60,14 @@ public class SupportFormService {
 			return supportForm.getSupportFormTemplate().getFilename();
 		}
 		return null;
+	}
+
+	public List<SupportForm> getPartnerForms(Partner partner) {
+		Preconditions.checkNotNull(partner);
+		Preconditions.checkNotNull(partner.getId());
+		TypedQuery<SupportForm> query = em.createQuery("SELECT sp from SupportForm sp WHERE sp.partner.id=:id", SupportForm.class);
+		query.setParameter("id", partner.getId());
+		return query.getResultList();
 	}
 
 }

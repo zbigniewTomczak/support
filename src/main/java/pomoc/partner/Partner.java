@@ -21,13 +21,20 @@ public class Partner {
     @GeneratedValue
     private Long id;
 	private String name;
+	
 	@OneToMany(mappedBy="partner", fetch=FetchType.EAGER)
 	List<Person> admins;
+	
 	@ManyToOne
 	private Preferences preferences;
+	
 	@OneToMany(mappedBy="partner")
 	@OrderBy("date DESC")
 	private List<MailboxCheckHistory> history;
+	
+	@OneToMany(mappedBy="partner")
+	@OrderBy("name")
+	private List<SupportForm> partnerForms;
 	
 	public Long getId() {
 		return id;
@@ -72,6 +79,14 @@ public class Partner {
 
 	public void setHistory(List<MailboxCheckHistory> history) {
 		this.history = history;
+	}
+
+	public List<SupportForm> getPartnerForms() {
+		return partnerForms;
+	}
+
+	public void setPartnerForms(List<SupportForm> partnerForms) {
+		this.partnerForms = partnerForms;
 	}
 
 	

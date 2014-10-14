@@ -25,6 +25,29 @@ public class SupportForm {
 	@ManyToOne
 	private SupportFormTemplate supportFormTemplate;
 	
+	@Override
+	public int hashCode() {
+		if (id != null) {
+			return id.hashCode();
+		} else {
+			return this.hashCode();
+		}
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SupportForm other = (SupportForm) obj;
+		if (id == null || other.id == null) {
+			return false;
+		} else if (id.equals(other.id))
+			return true;
+		return false;
+	}
 	public Long getId() {
 		return id;
 	}

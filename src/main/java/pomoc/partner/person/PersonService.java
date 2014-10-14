@@ -1,6 +1,7 @@
 package pomoc.partner.person;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import pomoc.partner.Partner;
+import pomoc.partner.SupportForm;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.Mailing;
 
@@ -115,5 +117,11 @@ public class PersonService {
 			return false;
 		}
 		return true;
+	}
+
+	public Map<SupportForm, Right> getFormRights(Person person) {
+		Preconditions.checkNotNull(person);
+		Preconditions.checkNotNull(person.getId());
+		return em.find(Person.class, person.getId()).getFormRights();
 	}
 }

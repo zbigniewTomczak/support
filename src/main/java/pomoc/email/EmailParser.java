@@ -60,8 +60,8 @@ public class EmailParser {
         }
         catch (IOException e)
         {
-            log.severe("Could not connect to server.");
-            e.printStackTrace();
+            log.severe("Could not contact mail server " + preferences.getPop3Host());
+            //e.printStackTrace();
             return;
         }
         try
