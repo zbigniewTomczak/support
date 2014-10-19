@@ -1,4 +1,4 @@
-package pomoc.company.form;
+package pomoc.partner.form;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.faces.FacesMessage;
 

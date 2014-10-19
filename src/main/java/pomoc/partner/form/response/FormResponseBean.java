@@ -1,4 +1,4 @@
-package pomoc.customer;
+package pomoc.partner.form.response;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -12,9 +12,9 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import pomoc.company.form.FormPublicationService;
 import pomoc.form.FormStyle;
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.FormPublicationService;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.util.faces.FacesMessage;
 
 @Model

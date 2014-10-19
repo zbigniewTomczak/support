@@ -13,7 +13,7 @@ public final class TicketData {
 	
 	public TicketData(Ticket ticket) {
 		this.number = ticket.getNumber();
-		this.formName = ticket.getFormResponse().getFormPublication().getName();
+		this.formName = ticket.getFormResponse().getFormDefinition().getName();
 		this.fromName = ticket.getFormResponse().getName();
 		this.fromEmail = ticket.getFormResponse().getEmail();
 		this.date = ticket.getDate();

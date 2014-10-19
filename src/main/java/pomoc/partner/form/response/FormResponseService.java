@@ -1,4 +1,4 @@
-package pomoc.customer;
+package pomoc.partner.form.response;
 
 import java.util.Date;
 import java.util.logging.Logger;
@@ -7,8 +7,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import pomoc.company.form.FormPublicationService;
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.FormPublicationService;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.partner.ticket.Status;
 import pomoc.partner.ticket.Ticket;
 import pomoc.partner.ticket.TicketService;
@@ -38,7 +38,7 @@ public class FormResponseService {
 		Preconditions.checkNotNull(key);
 		FormPublication formPublication= formPublicationervice.getFormPublicationFormPublication(key);
 		Preconditions.checkNotNull(formPublication);
-		formResponse.setFormPublication(formPublication);
+//		formResponse.setPublication(formPublication);
 		em.persist(formResponse);
 		Ticket newTicket = new Ticket();
 		newTicket.setFormResponse(formResponse);

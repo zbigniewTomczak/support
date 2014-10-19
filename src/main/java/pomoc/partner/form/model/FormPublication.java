@@ -1,13 +1,14 @@
-package pomoc.partner;
+package pomoc.partner.form.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
-import pomoc.form.SupportFormTemplate;
+import pomoc.partner.Partner;
 
 @Entity
 public class FormPublication {
@@ -17,22 +18,23 @@ public class FormPublication {
 	private Long id;
 	@Version
 	private Integer version;
-	@Column(nullable=false)
+	@Deprecated
 	private String name;
 	@ManyToOne
-	@Column(nullable=false)
+	@Deprecated
 	private Partner partner;
 	@Column(nullable=false)
 	private String key;
+	
+	private boolean active = true;
 	
 	private String title;
 	private String confirmationMessage;
 	private Integer width;
 	private Integer height;
 	private String css;
-	@ManyToOne
-	@Column(nullable=false)
-	private SupportFormTemplate supportFormTemplate;
+	@OneToOne(optional=false)
+	private FormDefinition formDefinition;
 	
 	@Override
 	public int hashCode() {
@@ -63,15 +65,19 @@ public class FormPublication {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	@Deprecated
 	public String getName() {
 		return name;
 	}
+	@Deprecated
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Deprecated
 	public Partner getPartner() {
 		return partner;
 	}
+	@Deprecated
 	public void setPartner(Partner partner) {
 		this.partner = partner;
 	}
@@ -111,11 +117,17 @@ public class FormPublication {
 	public void setCss(String css) {
 		this.css = css;
 	}
-	public SupportFormTemplate getSupportFormTemplate() {
-		return supportFormTemplate;
+	public FormDefinition getFormDefinition() {
+		return formDefinition;
 	}
-	public void setSupportFormTemplate(SupportFormTemplate supportFormTemplate) {
-		this.supportFormTemplate = supportFormTemplate;
+	public void setFormDefinition(FormDefinition formDefinition) {
+		this.formDefinition = formDefinition;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 	

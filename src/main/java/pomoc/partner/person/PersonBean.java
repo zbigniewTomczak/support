@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import pomoc.partner.login.LoggedPersonService;
+import pomoc.util.bootstrap.SetUpSampleData;
 
 @Model
 public class PersonBean {
@@ -29,13 +30,20 @@ public class PersonBean {
 	@Inject
 	private Logger log;
 	
+	@Inject
+	private SetUpSampleData sampleData;
+	
 	public String newPerson() {
 		return "people?faces-redirect=true";
 	}
 	
 	public void checkPermissions(ComponentSystemEvent event) throws IOException {
-		String email = fc.getExternalContext().getInitParameter("pomoc.logged.person.email");
 		if (loggedPersonService.getLoggedPerson()==null) {
+			String bootstrapData = fc.getExternalContext().getInitParameter("pomoc.hooks.bootstrap.data");
+			if (Boolean.valueOf(bootstrapData)) {
+				sampleData.setUp();
+			}
+			String email = fc.getExternalContext().getInitParameter("pomoc.logged.person.email");
 			if (email != null) {
 				log.warning("Backdoor logging to " + email);
 				Person person = personService.getPerson(email);

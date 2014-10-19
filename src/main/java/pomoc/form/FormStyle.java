@@ -1,6 +1,6 @@
 package pomoc.form;
 
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.model.FormPublication;
 
 public class FormStyle {
 

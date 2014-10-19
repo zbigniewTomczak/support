@@ -3,6 +3,10 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<context-param>
+		<param-name>pomoc.hooks.bootstrap.data</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
 		<param-name>pomoc.logged.person.email</param-name>
 		<param-value>admin@example.com</param-value>
 	</context-param>

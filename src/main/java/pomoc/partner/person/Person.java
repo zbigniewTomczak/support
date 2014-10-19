@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import pomoc.partner.Partner;
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.model.FormPublication;
 
 @Entity
 public class Person {

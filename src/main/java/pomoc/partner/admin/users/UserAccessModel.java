@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.partner.person.Right;
 
 public class UserAccessModel {

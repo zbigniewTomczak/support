@@ -1,4 +1,4 @@
-package pomoc.company.form;
+package pomoc.partner.form;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import pomoc.partner.FormPublication;
 import pomoc.partner.Partner;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.partner.person.Person;
 
 import com.google.common.base.Preconditions;
@@ -56,8 +56,8 @@ public class FormPublicationService {
 
 	public String getFormFile(String key) {
 		FormPublication formPublication= getFormPublicationFormPublication(key);
-		if (formPublication.getSupportFormTemplate() != null) {
-			return formPublication.getSupportFormTemplate().getFilename();
+		if (formPublication.getFormDefinition() != null) {
+			return formPublication.getFormDefinition().getFilename();
 		}
 		return null;
 	}

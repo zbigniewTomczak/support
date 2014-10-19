@@ -1,6 +1,7 @@
-package pomoc.company.form;
+package pomoc.partner.form;
 
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.model.FormPublication;
+
 
 public class FormPublicationListData {
 	

@@ -8,6 +8,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
+import pomoc.partner.form.model.FormDefinition;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class FormElement {
@@ -18,7 +20,7 @@ public class FormElement {
 	private Integer version;
 	
 	@ManyToOne
-	private SupportFormTemplate form;
+	private FormDefinition form;
 	private String label;
 	private String placeholder;
 	private String pattern;

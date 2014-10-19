@@ -1,4 +1,4 @@
-package pomoc.company.form;
+package pomoc.partner.form;
 
 import java.util.List;
 
@@ -6,16 +6,13 @@ import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.ocpsoft.rewrite.annotation.Join;
-import org.ocpsoft.rewrite.annotation.Rule;
 import org.primefaces.event.SelectEvent;
 
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.faces.FacesMessage;
 
 @Model
-@Rule("forms")
-@Join(path="/admin/forms", to="/support/administration/forms.jsf")
+
 public class FormPublicationBean {
 	
 	@Inject

@@ -14,9 +14,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import pomoc.customer.FormResponse;
 import pomoc.customer.communication.CommunicationCase;
 import pomoc.partner.Partner;
+import pomoc.partner.form.response.FormResponse;
 import pomoc.partner.person.Person;
 @Entity
 public class Ticket {

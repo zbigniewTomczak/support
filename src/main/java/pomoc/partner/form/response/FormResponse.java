@@ -1,11 +1,11 @@
-package pomoc.customer;
+package pomoc.partner.form.response;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.model.FormDefinition;
 
 @Entity
 public class FormResponse {
@@ -16,7 +16,7 @@ public class FormResponse {
 	private String email;
 	private String content;
 	@ManyToOne
-	private FormPublication formPublication;
+	private FormDefinition formDefinition;
 	
 	@Override
 	public String toString() {
@@ -52,11 +52,15 @@ public class FormResponse {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public FormPublication getFormPublication() {
-		return formPublication;
+
+
+	public FormDefinition getFormDefinition() {
+		return formDefinition;
 	}
-	public void setFormPublication(FormPublication formPublication) {
-		this.formPublication= formPublication;
+
+
+	public void setFormDefinition(FormDefinition formDefinition) {
+		this.formDefinition = formDefinition;
 	}
 	
 	

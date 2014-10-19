@@ -12,16 +12,14 @@
 
   <ui:define name="header">
     <ui:decorate template="/WEB-INF/templates/newItemLink.xhtml">
-        <ui:param name="outcome" value="/support/administration/form.jsf" />
-        <ui:param name="value" value="Nowy formularz" />
+      <ui:param name="outcome" value="/support/administration/form.jsf" />
+      <ui:param name="value" value="Nowy formularz" />
     </ui:decorate>
   </ui:define>
-  
+
   <ui:define name="page">
-    <h:dataTable id="formsDataTable" var="form"
-      value="#{formPublicationBean.partnerForms}"
-      styleClass="table table-striped table-bordered table-hover table-condensed rowlink"
-      columnClasses=",,,rowlink-skip">
+    <h:dataTable id="formsDataTable" var="form" value="#{allForms}"
+      styleClass="table table-striped table-bordered table-hover table-condensed rowlink">
       <f:facet name="header">
       </f:facet>
       <h:column>
@@ -31,78 +29,31 @@
         </p:link>
       </h:column>
       <h:column>
-        <f:facet name="header">Publikacje</f:facet>
-        #{form.formPublication.size()}
+        <f:facet name="header">Odpowiedzi łącznie</f:facet>
+        #{form.responsesTotal}
       </h:column>
       <h:column>
         <f:facet name="header">Wersja</f:facet>
-        #{form.version}
+        #{form.formVersion}
       </h:column>
-       <h:column>
-        <f:facet name="header"></f:facet>
-  
-        
-        <div class="btn-group">
-          <p:link outcome="/support/administration/useraccess.jsf"
-             styleClass="btn btn-default" title="Publikacje">
-              <i class="fa fa-credit-card"></i>
-              <f:param name="id" value="#{form.skey}"></f:param>
-          </p:link>
-          <p:link outcome="/support/administration/useredit.jsf"
-             styleClass="btn btn-default" title="Wersje">
-              <i class="fa fa-tags"></i>
-              <f:param name="id" value="#{user.skey}"></f:param>
-          </p:link> 
-        </div>
+      <h:column>
+        <f:facet name="header">Aktywny</f:facet>
+        <h:outputText value="#{form.publication.active}" escape="false">
+          <f:converter converterId="pomoc.converter.BooleanToTick"></f:converter>
+        </h:outputText>
+
       </h:column>
     </h:dataTable>
-    </ui:define>
-    
-    <ui:define name="help">
-      <p class="help-block">Formularz określony jest tutaj jedynie jako wzór (struktura) formularza. Aby użyć formularza na jakiejś stronie,
-        należy go <i>opublikować</i>. Publikacja umożliwia dalszą kustomizację formularza - nadanie mu tytułu, stylu itd. 
-        Każdemu opublikowanemu formularzowi nadawany jest unikalny numer. Z każdym takim opublikowanym formularzem
-        związane są odpowiedzi użytkowników gromadzone w systemie. Daje to możliwość umieszczenia jednego formularza 
-        na dwóch osobnych stronach i osobne odbieranie zgłoszeń z tych dwóch stron.  
-      </p>
-    </ui:define>
-    
-    <ui:define name="footer-meta">
+  </ui:define>
+
+  <ui:define name="help">
+    <p class="help-block"></p>
+  </ui:define>
+
+  <ui:define name="footer-meta">
     <ui:decorate template="/WEB-INF/templates/dataTablesScript.xhtml">
       <ui:param name="id" value="formsDataTable" />
     </ui:decorate>
   </ui:define>
-  
-  <ui:define name="subtitle">
-    <div
-      class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-      <!-- span class="ui-button-text">Formularz</span-->
-      <p:button title="Stwórz nowy formularz" icon="ui-icon-plusthick"
-        value="Stwórz nowy" styleClass="float-right" outcome="form" disabled="true"/>
-      <p:button title="Rozpocznij od gotowego formularza"
-        icon="ui-icon-plusthick" value="Wybierz gotowy"
-        styleClass="float-right" outcome="selectform" disabled="true"/>
-    </div>
-  </ui:define>
-  <ui:define name="pageee">
-<h:form id="formsListForm">
-      <p:dataTable id="formsListDataTable" var="form"
-        value="#{formPublicationBean.partnerForms}"
-        rowKey="#{form.key}" selectionMode="single"
-        selection="#{formPublicationBean.selectedForm}">
-        <p:ajax event="rowSelect" listener="#{formPublicationBean.onRowSelect}"/>
-        <f:facet name="header">
-          Twoje formularze
-        </f:facet>
-        <p:column headerText="Nazwa">
-          <h:outputText value="#{form.name}" />
-        </p:column>
 
-        <p:column headerText="Tytuł">
-          <h:outputText value="#{form.title}" />
-        </p:column>
-
-      </p:dataTable>
-    </h:form>
-</ui:define>
 </ui:composition>

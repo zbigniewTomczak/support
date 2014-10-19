@@ -12,8 +12,8 @@ import org.ocpsoft.rewrite.annotation.RequestAction;
 import org.ocpsoft.rewrite.annotation.Rule;
 import org.ocpsoft.rewrite.faces.annotation.Deferred;
 
-import pomoc.company.form.FormPublicationService;
 import pomoc.partner.Partner;
+import pomoc.partner.form.FormPublicationService;
 import pomoc.partner.login.Current;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.partner.person.Person;

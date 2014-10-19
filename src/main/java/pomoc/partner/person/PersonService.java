@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import pomoc.partner.Partner;
-import pomoc.partner.FormPublication;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.Mailing;
 

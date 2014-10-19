@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
 import pomoc.email.MailboxCheckHistory;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.partner.person.Person;
 import pomoc.partner.preferences.Preferences;
 
