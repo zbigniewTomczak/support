@@ -1,5 +1,6 @@
 package pomoc.partner.form;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.persistence.TypedQuery;
 
 import pomoc.partner.Partner;
 import pomoc.partner.form.model.FormDefinition;
+import pomoc.partner.form.model.FormPublication;
 import pomoc.partner.form.qualifier.AllForms;
 import pomoc.partner.login.Current;
 
@@ -57,11 +59,36 @@ public class FormsService {
 	public List<FormDefinition> getForms() {
 		if (p == null || p.getId() == null) {
 			log.warning("Partner null");
+			return Collections.emptyList();
 		}
 		TypedQuery<FormDefinition> query = em.createQuery("SELECT f FROM FormDefinition f JOIN f.publication WHERE f.partner.id=:id", FormDefinition.class);
 		query.setParameter("id", p.getId());
 		List<FormDefinition> list = query.getResultList();
 		return list;
+	}
+
+	public FormPublication getFormPublication(String skey) {
+		if (p == null || p.getId() == null) {
+			log.warning("Partner null");
+			return null;
+		}
+		if (skey==null) {
+			return null;
+		}
+		
+		TypedQuery<FormPublication> query = em.createQuery(
+				"SELECT f FROM FormPublication f WHERE f.formDefinition.skey=:skey AND f.formDefinition.partner.id=:id"
+				, FormPublication.class);
+		query.setParameter("id", p.getId());
+		query.setParameter("skey", skey);
+		List<FormPublication> list = query.getResultList();
+		if (list.isEmpty()) {
+			return null;
+		}
+		if (list.size() > 1) {
+			log.warning("More than one FormDefinition for skey="+skey);
+		}
+		return list.get(0);
 	}
 	
 	

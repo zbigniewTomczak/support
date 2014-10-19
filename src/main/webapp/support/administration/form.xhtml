@@ -1,16 +1,124 @@
-<ui:composition template="/WEB-INF/template.xhtml"
+<ui:composition template="/WEB-INF/template2.xhtml"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
+  <ui:define name="header">
+    <h2>
+      #{formPublication.formDefinition.name}<small>#{formPublication.formDefinition.versionTitle}</small>
+    </h2>
+  </ui:define>
   <ui:define name="page">
-    <style>
-      .wide {
-	     width: 85%;
-      }
-    </style>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-lg-12">
+        <h:form>
+          <ul class="nav nav-pills">
+            <li><p:commandLink
+                action="#{formEditBean.savePublication()}"
+                styleClass="btn btn-default navbar-btn" value="Zapisz"
+                ajax="false" validateClient="true"></p:commandLink></li>
+            <li><p:link outcome="/support/administration/forms.jsf"
+                value="Anuluj" styleClass="btn btn-default navbar-btn">
+              </p:link></li>
+          </ul>
+          <div class="">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <p:messages styleClass="help-block"></p:messages>
+                  <div class="form-horizontal">
+                    <div class="form-group">
+                      <p:outputLabel for="title" value="Tytuł"
+                        styleClass="control-label col-sm-2"></p:outputLabel>
+                      <div class="col-sm-6">
+                        <p:inputText id="title"
+                          value="#{formPublication.title}"
+                          required="true" requiredMessage="Podaj tytuł"
+                          placeholder="Tytuł"
+                          title="Tytuł będzie pokazywany na stronie jako nagłówek formularza"
+                          styleClass="form-control">
+                          <ui:remove>
+                            <p:ajax update="preview"
+                              oncomplete="var iframe = document.getElementById('formFrame');iframe.src = iframe.src;" />
+                          </ui:remove>
+                        </p:inputText>
+                      </div>
+                      <div class="col-sm-4 help-block">
+                        <p:message for="title" errorClass="has-error" />
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <p:outputLabel value="Tekst potwierdzenia"
+                        styleClass="control-label col-sm-2" 
+                        for="confirmationMessage"/>
+                      <div class="col-sm-6">
+                        <p:inputText 
+                          id ="confirmationMessage"
+                          value="#{formPublication.confirmationMessage}"
+                          required="false"
+                          requiredMessage="Podaj tekst potwierdzenia"
+                          title="Tekst potweirdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza."
+                          styleClass="form-control"  />
+                      </div>
+                      <div class="col-sm-4 help-block">
+                        <p:message for="confirmationMessage" errorClass="has-error" />
+                      </div>
+                      
+                    </div>
+                    <div class="form-group">
+                      <p:outputLabel value="Szerokość"
+                        styleClass="control-label col-sm-2" />
+                      <div class="col-sm-6">
+                        <p:spinner
+                          value="#{formPublication.width}"
+                          min="0" stepFactor="10">
+                        </p:spinner>
+                        <h:outputText value=" px" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+
+                      <p:outputLabel value="Wysokość"
+                        styleClass="control-label col-sm-2" />
+                      <div class="col-sm-6">
+                        <p:spinner
+                          value="#{formPublication.height}"
+                          min="0" stepFactor="10">
+                        </p:spinner>
+                        <h:outputText value=" px" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+
+                      <p:outputLabel value="Styl CSS"
+                        styleClass="control-label col-sm-2"
+                        title="Styl CSS daje możliwość dostosowania formularza do wyglądu strony." />
+                      <div class="col-sm-6">
+                        <p:inputTextarea
+                          value="#{formPublication.css}"
+                          disabled="true" styleClass="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                  <!--/.form-horizontal  -->
+                </div>
+              </div>
+            </div>
+            <!--/.panel-body-->
+          </div>
+          <!--/.panel -->
+        </h:form>
+      </div>
+      <!-- /.col-lg-12 (nested) -->
+    </div>
+    <!-- /.row -->
+
+  </ui:define>
+  <ui:remove>
     <h:form>
       <div
         class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
@@ -28,13 +136,15 @@
       <p:messages autoUpdate="true"></p:messages>
       <p:panelGrid columns="2" styleClass="editform">
         <p:outputLabel value="Nazwa"></p:outputLabel>
-        <p:inputText value="#{formPublicationEditBean.formPublication.name}"
+        <p:inputText
+          value="#{formPublicationEditBean.formPublication.name}"
           required="true" requiredMessage="Podaj nazwę formularza."
           title="Nazwa formularza nie będzie pokazywana na stronie. "
           styleClass="wide">
         </p:inputText>
         <p:outputLabel value="Tytuł"></p:outputLabel>
-        <p:inputText value="#{formPublicationEditBean.formPublication.title}"
+        <p:inputText
+          value="#{formPublicationEditBean.formPublication.title}"
           required="true" requiredMessage="Podaj tytuł"
           title="Tytuł będzie pokazywany na stronie jako nagłówek formularza"
           styleClass="wide">
@@ -47,11 +157,12 @@
         <p:inputText
           value="#{formPublicationEditBean.formPublication.confirmationMessage}"
           required="false" requiredMessage="Podaj tekst potwierdzenia"
-          title="Tekst potweirdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza." 
-          styleClass="wide"/>
+          title="Tekst potweirdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza."
+          styleClass="wide" />
         <p:outputLabel value="Szerokość" />
         <h:panelGroup>
-          <p:spinner value="#{formPublicationEditBean.formPublication.width}"
+          <p:spinner
+            value="#{formPublicationEditBean.formPublication.width}"
             min="0" stepFactor="10">
             <p:ajax update="pasteCode preview" />
             <f:param name="key"
@@ -61,7 +172,8 @@
         </h:panelGroup>
         <p:outputLabel value="Wysokość" />
         <h:panelGroup>
-          <p:spinner value="#{formPublicationEditBean.formPublication.height}"
+          <p:spinner
+            value="#{formPublicationEditBean.formPublication.height}"
             min="0" stepFactor="10">
             <p:ajax update="pasteCode preview" />
             <f:param name="key"
@@ -71,9 +183,9 @@
         </h:panelGroup>
         <p:outputLabel value="Styl CSS"
           title="Styl CSS daje możliwość dostosowania formularza do wyglądu strony." />
-        <p:inputTextarea value="#{formPublicationEditBean.formPublication.css}"
-          disabled="true"
-          styleClass="wide"/>
+        <p:inputTextarea
+          value="#{formPublicationEditBean.formPublication.css}"
+          disabled="true" styleClass="wide" />
         <p:outputLabel value="Kod do wklejenia na stronę" />
         <h:outputText id="pasteCode"
           value="#{formPublicationEditBean.pasteCode}" />
@@ -83,5 +195,5 @@
           value="#{formPublicationEditBean.previewCode}" escape="false" />
       </p:panelGrid>
     </h:form>
-  </ui:define>
+  </ui:remove>
 </ui:composition>

@@ -11,7 +11,7 @@ public class SetUpForm {
 		FormDefinition form = new FormDefinition();
 		form.setName("Formularz kontaktowy");
 		form.setSkey("formularz-kontaktowy");
-		form.setFormVersion(1);
+		form.setFormVersion(2);
 		form.setPartner(partner);
 		return form;
 	}

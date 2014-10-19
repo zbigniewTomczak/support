@@ -54,6 +54,13 @@ public class FormDefinition {
 	@Transient
 	private Integer responsesTotal = 0;
 
+	public String getVersionTitle() {
+		if (formVersion != null && formVersion > 1) {
+			return String.format(" (wersja %d)", formVersion);
+		}
+		return null;
+	}
+	
 	public String getName() {
 		return name;
 	}
