@@ -26,7 +26,7 @@ public class CommunicationService {
 		Preconditions.checkNotNull(from);
 		Preconditions.checkNotNull(partner);
 		Preconditions.checkNotNull(partner.getId());
-		TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t WHERE t.number=:number AND t.supportFormResponse.email=:email AND t.partner.id=:id", Ticket.class);
+		TypedQuery<Ticket> query = em.createQuery("SELECT t FROM Ticket t WHERE t.number=:number AND t.formResponse.email=:email AND t.partner.id=:id", Ticket.class);
 		query.setParameter("number", number);
 		query.setParameter("email", from);
 		query.setParameter("id", partner.getId());

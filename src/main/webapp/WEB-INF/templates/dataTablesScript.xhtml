@@ -1,0 +1,17 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:outputScript library="js" name="jquery.dataTables.js"></h:outputScript>
+    <h:outputScript library="js" name="jasny-bootstrap.min.js"></h:outputScript>
+    <script>
+ 
+       $(document).ready( function () {
+         $('##{id}').DataTable();
+         $('##{id}').rowlink();
+    
+       } );
+    </script>
+</ui:composition>

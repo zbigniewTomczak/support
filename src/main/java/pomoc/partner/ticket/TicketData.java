@@ -13,9 +13,9 @@ public final class TicketData {
 	
 	public TicketData(Ticket ticket) {
 		this.number = ticket.getNumber();
-		this.formName = ticket.getSupportFormResponse().getSupportForm().getName();
-		this.fromName = ticket.getSupportFormResponse().getName();
-		this.fromEmail = ticket.getSupportFormResponse().getEmail();
+		this.formName = ticket.getFormResponse().getFormPublication().getName();
+		this.fromName = ticket.getFormResponse().getName();
+		this.fromEmail = ticket.getFormResponse().getEmail();
 		this.date = ticket.getDate();
 		this.status = ticket.getStatus();
 		if (ticket.getAssignee() != null) {

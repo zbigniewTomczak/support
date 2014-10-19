@@ -10,23 +10,23 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import pomoc.partner.SupportForm;
+import pomoc.partner.FormPublication;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.faces.FacesMessage;
 
 @Model
-public class SupportFormEditBean {
+public class FormPublicationEditBean {
 
 	@Inject
 	private FacesMessage facesMessage;
 	@Inject
-	private SupportFormService supportFormService;
+	private FormPublicationService formPublicationService;
 	@Inject
 	private LoggedPersonService loggedPersonService;
 	@Inject
 	private FacesContext facesContext;
 	
-	private SupportForm supportForm;
+	private FormPublication formPublication;
 	
 	@PostConstruct
 	public void init() {
@@ -40,23 +40,23 @@ public class SupportFormEditBean {
 			return;
 		}
 		// try
-		SupportForm sF = supportFormService.getSupportForm(key);
+		FormPublication sF = formPublicationService.getFormPublicationFormPublication(key);
 		if (sF == null) {
-			//todo post faces error
+			//todo post faces errorS
 			return;			
 		}
-		if (!supportFormService.hasAccess(sF, loggedPersonService.getLoggedPerson())) {
+		if (!formPublicationService.hasAccess(sF, loggedPersonService.getLoggedPerson())) {
 			//todo post faces error
 			return;
 		}
-		supportForm = sF;
+		formPublication = sF;
 	}
 
 	
 
 	public String save() {
 		try {
-			supportFormService.save(supportForm);
+			formPublicationService.save(formPublication);
 		} catch (EJBException e) {
 			facesMessage.postError("Wystąpił błąd podczas zapisywania.");
 		}
@@ -69,16 +69,16 @@ public class SupportFormEditBean {
 		return "/support/administration/forms?faces-redirect=true";
 	}
 	
-	public SupportForm getSupportForm() {
-		return supportForm;
+	public FormPublication getFormPublication() {
+		return formPublication;
 	}
 
-	public void setSupportForm(SupportForm supportForm) {
-		this.supportForm = supportForm;
+	public void setFormPublication(FormPublication formPublication) {
+		this.formPublication= formPublication;
 	}
 	
 	public String getPasteCode() throws MalformedURLException {
-	    if (supportForm != null && supportForm.getKey() != null) { 
+	    if (formPublication!= null && formPublication.getKey() != null) { 
 	    	HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
 	    	URL url = new URL(request.getRequestURL().toString());
 	    	URL newUrl = new URL(url.getProtocol(),
@@ -86,12 +86,12 @@ public class SupportFormEditBean {
 	    			url.getPort(),
 	    			request.getContextPath());
 	    	String sUrl  = newUrl.toString();
-	    	String pasteCode = String.format("<iframe src=\"%s/index.jsf?key=%s\"", sUrl, supportForm.getKey());
-	    	if (supportForm.getWidth() != null && supportForm.getWidth() > 0) {
-	    		pasteCode += String.format(" width=\"%d\"",supportForm.getWidth()); 
+	    	String pasteCode = String.format("<iframe src=\"%s/index.jsf?key=%s\"", sUrl, formPublication.getKey());
+	    	if (formPublication.getWidth() != null && formPublication.getWidth() > 0) {
+	    		pasteCode += String.format(" width=\"%d\"",formPublication.getWidth()); 
 	    	}
-	    	if (supportForm.getHeight() != null && supportForm.getHeight() > 0) {
-	    		pasteCode += String.format(" height=\"%d\"",supportForm.getHeight()); 
+	    	if (formPublication.getHeight() != null && formPublication.getHeight() > 0) {
+	    		pasteCode += String.format(" height=\"%d\"",formPublication.getHeight()); 
 	    	}
 
 	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"></iframe>";
@@ -102,7 +102,7 @@ public class SupportFormEditBean {
 	}
 
 	public String getPreviewCode() throws MalformedURLException {
-	    if (supportForm != null && supportForm.getKey() != null) { 
+	    if (formPublication!= null && formPublication.getKey() != null) { 
 	    	HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
 	    	URL url = new URL(request.getRequestURL().toString());
 	    	URL newUrl = new URL(url.getProtocol(),
@@ -110,12 +110,12 @@ public class SupportFormEditBean {
 	    			url.getPort(),
 	    			request.getContextPath());
 	    	String sUrl  = newUrl.toString();
-	    	String pasteCode = String.format("<iframe id=\"formFrame\" src=\"%s/index.jsf?key=%s\"", sUrl, supportForm.getKey());
-	    	if (supportForm.getWidth() != null && supportForm.getWidth() > 0) {
-	    		pasteCode += String.format(" width=\"%d\"",supportForm.getWidth()); 
+	    	String pasteCode = String.format("<iframe id=\"formFrame\" src=\"%s/index.jsf?key=%s\"", sUrl, formPublication.getKey());
+	    	if (formPublication.getWidth() != null && formPublication.getWidth() > 0) {
+	    		pasteCode += String.format(" width=\"%d\"",formPublication.getWidth()); 
 	    	}
-	    	if (supportForm.getHeight() != null && supportForm.getHeight() > 0) {
-	    		pasteCode += String.format(" height=\"%d\"",supportForm.getHeight()); 
+	    	if (formPublication.getHeight() != null && formPublication.getHeight() > 0) {
+	    		pasteCode += String.format(" height=\"%d\"",formPublication.getHeight()); 
 	    	}
 
 	    	pasteCode += " scrolling=\"no\" frameBorder=\"0\"></iframe>";

@@ -40,7 +40,7 @@ public class EmailSender {
 		email.setFrom(preferences.getAddress());
 		email.setSubject("#"+communicationCase.getTicket().getNumber());
 		email.setMsg(communicationCase.getContent());
-		email.addTo(communicationCase.getTicket().getSupportFormResponse().getEmail());
+		email.addTo(communicationCase.getTicket().getFormResponse().getEmail());
 		email.send();
 		
 	}

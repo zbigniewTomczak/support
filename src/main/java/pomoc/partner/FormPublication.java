@@ -1,28 +1,37 @@
 package pomoc.partner;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 import pomoc.form.SupportFormTemplate;
 
 @Entity
-public class SupportForm {
+public class FormPublication {
 
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private Integer version;
+	@Column(nullable=false)
 	private String name;
 	@ManyToOne
+	@Column(nullable=false)
 	private Partner partner;
+	@Column(nullable=false)
 	private String key;
+	
 	private String title;
 	private String confirmationMessage;
 	private Integer width;
 	private Integer height;
 	private String css;
 	@ManyToOne
+	@Column(nullable=false)
 	private SupportFormTemplate supportFormTemplate;
 	
 	@Override
@@ -41,7 +50,7 @@ public class SupportForm {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SupportForm other = (SupportForm) obj;
+		FormPublication other = (FormPublication) obj;
 		if (id == null || other.id == null) {
 			return false;
 		} else if (id.equals(other.id))

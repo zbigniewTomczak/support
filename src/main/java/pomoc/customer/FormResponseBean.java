@@ -12,18 +12,18 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import pomoc.company.form.SupportFormService;
+import pomoc.company.form.FormPublicationService;
 import pomoc.form.FormStyle;
-import pomoc.partner.SupportForm;
+import pomoc.partner.FormPublication;
 import pomoc.util.faces.FacesMessage;
 
 @Model
-public class SupportFormResponseBean {
+public class FormResponseBean {
 	
 	@Inject
-	private SupportFormResponseService supportFormResponseService;
+	private FormResponseService formResponseService;
 	@Inject
-	private SupportFormService supportFormService;
+	private FormPublicationService formPublicationervice;
 	@Inject
 	private FacesContext facesContext;
 	@Inject
@@ -33,9 +33,9 @@ public class SupportFormResponseBean {
 	
 	@Produces
 	@Named
-	private SupportFormResponse supportFormResponse = new SupportFormResponse();
+	private FormResponse formResponse = new FormResponse();
 
-	private SupportForm supportForm;
+	private FormPublication formPublication;
 	
 	private FormStyle formStyle;
 
@@ -51,23 +51,23 @@ public class SupportFormResponseBean {
 			return;
 		}
 		// try
-		SupportForm sF = supportFormService.getSupportForm(key);
+		FormPublication sF = formPublicationervice.getFormPublicationFormPublication(key);
 		if (sF == null) {
 			//todo post faces error
 			return;			
 		}
-		supportForm = sF;
-		formFile = supportFormService.getFormFile(key);
+		formPublication= sF;
+		formFile = formPublicationervice.getFormFile(key);
 	}
 
 	public void checkKey(ComponentSystemEvent event) throws IOException {
-		if (supportForm == null) {
+		if (formPublication== null) {
 			FacesContext fc = FacesContext.getCurrentInstance();
 		    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/noKey?faces-redirect=true");
 		}
 	}
 	
-	public String newSupportFormResponse() {
+	public String newFormResponse() {
 		String key = facesContext.getExternalContext().getRequestParameterMap().get("key");
 		logger.info("Creating ticket for form key: " + key);
 		if (key == null) {
@@ -76,16 +76,16 @@ public class SupportFormResponseBean {
 		}
 		
 		try {
-			supportFormResponseService.saveNewFormResponse(supportFormResponse, key);
+			formResponseService.saveNewFormResponse(formResponse, key);
 		} catch (EJBException e) {
 			facesMessage.postError("Wystąpił błąd. Sróbuj ponownie później.");
 			e.printStackTrace();
 			return null;
 		}
 		
-		supportFormResponse = new SupportFormResponse();
-		if (supportForm != null && supportForm.getConfirmationMessage() != null) {
-			facesMessage.postInfo(supportForm.getConfirmationMessage());
+		formResponse = new FormResponse();
+		if (formPublication!= null && formPublication.getConfirmationMessage() != null) {
+			facesMessage.postInfo(formPublication.getConfirmationMessage());
 		}
 		return null;
 	}
@@ -94,21 +94,21 @@ public class SupportFormResponseBean {
 	@Named
 	public FormStyle getFormStyle() {
 		if (formStyle == null) {
-			formStyle = new FormStyle(supportForm);
+			formStyle = new FormStyle(formPublication);
 		}
 		return formStyle;
 	}
 	
-	public SupportFormResponse getSupportFormResponse() {
-		return supportFormResponse;
+	public FormResponse getFormResponse() {
+		return formResponse;
 	}
 
-	public void setSupportFormResponse(SupportFormResponse supportFormResponse) {
-		this.supportFormResponse = supportFormResponse;
+	public void setFormResponse(FormResponse formResponse) {
+		this.formResponse = formResponse;
 	}
 
-	public SupportForm getSupportForm() {
-		return supportForm;
+	public FormPublication getFormPublication() {
+		return formPublication;
 	}
 
 	public String getFormFile() {

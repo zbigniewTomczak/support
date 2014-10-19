@@ -14,7 +14,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import pomoc.customer.SupportFormResponse;
+import pomoc.customer.FormResponse;
 import pomoc.customer.communication.CommunicationCase;
 import pomoc.partner.Partner;
 import pomoc.partner.person.Person;
@@ -26,7 +26,7 @@ public class Ticket {
 	private Long id;
 	private String number;
 	@ManyToOne
-	private SupportFormResponse supportFormResponse;
+	private FormResponse formResponse;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@ManyToOne
@@ -51,11 +51,11 @@ public class Ticket {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	public SupportFormResponse getSupportFormResponse() {
-		return supportFormResponse;
+	public FormResponse getFormResponse() {
+		return formResponse;
 	}
-	public void setSupportFormResponse(SupportFormResponse supportFormResponse) {
-		this.supportFormResponse = supportFormResponse;
+	public void setFormResponse(FormResponse formResponse) {
+		this.formResponse = formResponse;
 	}
 	public Status getStatus() {
 		return status;

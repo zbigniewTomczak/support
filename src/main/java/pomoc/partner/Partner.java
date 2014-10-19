@@ -34,7 +34,7 @@ public class Partner {
 	
 	@OneToMany(mappedBy="partner")
 	@OrderBy("name")
-	private List<SupportForm> partnerForms;
+	private List<FormPublication> partnerForms;
 	
 	public Long getId() {
 		return id;
@@ -81,11 +81,11 @@ public class Partner {
 		this.history = history;
 	}
 
-	public List<SupportForm> getPartnerForms() {
+	public List<FormPublication> getPartnerForms() {
 		return partnerForms;
 	}
 
-	public void setPartnerForms(List<SupportForm> partnerForms) {
+	public void setPartnerForms(List<FormPublication> partnerForms) {
 		this.partnerForms = partnerForms;
 	}
 

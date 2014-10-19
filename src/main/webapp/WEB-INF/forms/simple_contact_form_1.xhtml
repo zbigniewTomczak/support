@@ -32,25 +32,25 @@ px
   <input type="hidden" value="#{param['key']}" name="key" />
   <p:panelGrid columns="2"
     style="width:#{formStyle.panelWidth}px; height:#{formStyle.panelHeight}px;">
-    <f:facet name="header">#{supportFormResponseBean.supportForm.title}</f:facet>
+    <f:facet name="header">#{formResponseBean.formPublication.title}</f:facet>
     <p:outputLabel>Imię i nazwisko</p:outputLabel>
     <p:inputText styleClass="form_input" required="true"
       requiredMessage="Proszę podać imię i nazwisko."
-      value="#{supportFormResponse.name}" id="name"></p:inputText>
+      value="#{formResponse.name}" id="name"></p:inputText>
     <p:outputLabel>Email</p:outputLabel>
     <p:inputText id="email" styleClass="form_input" required="true"
       requiredMessage="Proszę email."
-      value="#{supportFormResponse.email}"
+      value="#{formResponse.email}"
       validatorMessage="Proszę podać poprawny adres email.">
       <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
     </p:inputText>
     <p:outputLabel>Treść wiadomości:</p:outputLabel>
     <p:inputTextarea id="message" styleClass="form_input form_textarea"
       required="true" requiredMessage="Proszę wpisać treść wiadomości."
-      value="#{supportFormResponse.content}"></p:inputTextarea>
+      value="#{formResponse.content}"></p:inputTextarea>
     <f:facet name="footer">
       <p:commandButton
-        action="#{supportFormResponseBean.newSupportFormResponse()}"
+        action="#{formResponseBean.newFormResponse()}"
         value="Wyślij" icon="ui-icon-check"
         update="messages, name, email, message"
         style="#{formStyle.submitButtonWidthStyle} 

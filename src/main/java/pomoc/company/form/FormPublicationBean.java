@@ -6,26 +6,30 @@ import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.annotation.Rule;
 import org.primefaces.event.SelectEvent;
 
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.faces.FacesMessage;
 
 @Model
-public class SupportFormBean {
+@Rule("forms")
+@Join(path="/admin/forms", to="/support/administration/forms.jsf")
+public class FormPublicationBean {
 	
 	@Inject
 	private LoggedPersonService loggedPersonService;
 	@Inject
 	private FacesMessage facesMessage;
 	@Inject
-	private SupportFormService formService;
+	private FormPublicationService formService;
 	
-	private List<SupportFormListData> partnerForms;
+	private List<FormPublicationListData> partnerForms;
 	
-	private SupportFormListData selectedForm;
+	private FormPublicationListData selectedForm;
 
-	public List<SupportFormListData> getPartnerForms() {
+	public List<FormPublicationListData> getPartnerForms() {
 		if (partnerForms == null) {
 			partnerForms = 
 					formService.getPartnerForms(loggedPersonService
@@ -35,8 +39,8 @@ public class SupportFormBean {
 	}
 	
 	public void onRowSelect(SelectEvent e) {
-		if (e.getObject() instanceof SupportFormListData) {
-			SupportFormListData form = (SupportFormListData) e.getObject();
+		if (e.getObject() instanceof FormPublicationListData) {
+			FormPublicationListData form = (FormPublicationListData) e.getObject();
 			if (form.getKey() != null) {
 				FacesContext fc = FacesContext.getCurrentInstance();
 			    fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "/support/administration/form?faces-redirect=true&key="+form.getKey());
@@ -47,11 +51,11 @@ public class SupportFormBean {
 			
 	}
 
-	public SupportFormListData getSelectedForm() {
+	public FormPublicationListData getSelectedForm() {
 		return selectedForm;
 	}
 
-	public void setSelectedForm(SupportFormListData selectedForm) {
+	public void setSelectedForm(FormPublicationListData selectedForm) {
 		this.selectedForm = selectedForm;
 	}
 }

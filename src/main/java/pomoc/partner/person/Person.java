@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import pomoc.partner.Partner;
-import pomoc.partner.SupportForm;
+import pomoc.partner.FormPublication;
 
 @Entity
 public class Person {
@@ -30,7 +30,7 @@ public class Person {
 	@ManyToOne
 	private Partner partner;
 	@ElementCollection
-	private Map<SupportForm, Right> formRights; 
+	private Map<FormPublication, Right> formRights; 
 	
 	public boolean isAdmin() {
 		if (role != null && role == Role.ADMIN) {
@@ -40,15 +40,15 @@ public class Person {
 		}
 	}
 	
-	public boolean canEdit(SupportForm sf) {
+	public boolean canEdit(FormPublication sf) {
 		return hasRight(sf, Right.EDIT);
 	}
 
-	public boolean canView(SupportForm sf) {
+	public boolean canView(FormPublication sf) {
 		return hasRight(sf, Right.READ_ONLY) || canEdit(sf);
 	}
 
-	private boolean hasRight(SupportForm sf, Right r) {
+	private boolean hasRight(FormPublication sf, Right r) {
 		if (isAdmin()) {
 			return true;
 		}
@@ -118,11 +118,11 @@ public class Person {
 		this.partner = partner;
 	}
 
-	public Map<SupportForm, Right> getFormRights() {
+	public Map<FormPublication, Right> getFormRights() {
 		return formRights;
 	}
 
-	public void setFormRights(Map<SupportForm, Right> formRights) {
+	public void setFormRights(Map<FormPublication, Right> formRights) {
 		this.formRights = formRights;
 	}
 

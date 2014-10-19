@@ -1,0 +1,14 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <ul class="nav nav-pills">
+      <li><p:link outcome="#{outcome}"
+          styleClass="btn btn-default navbar-btn">
+          <i class="fa fa-plus fa-fw"></i>#{value}
+          </p:link>
+      </li>
+    </ul>
+</ui:composition>

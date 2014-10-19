@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import pomoc.partner.Partner;
-import pomoc.partner.SupportForm;
+import pomoc.partner.FormPublication;
 import pomoc.partner.login.LoggedPersonService;
 import pomoc.util.Mailing;
 
@@ -119,7 +119,7 @@ public class PersonService {
 		return true;
 	}
 
-	public Map<SupportForm, Right> getFormRights(Person person) {
+	public Map<FormPublication, Right> getFormRights(Person person) {
 		Preconditions.checkNotNull(person);
 		Preconditions.checkNotNull(person.getId());
 		return em.find(Person.class, person.getId()).getFormRights();

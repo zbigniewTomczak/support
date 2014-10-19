@@ -12,7 +12,7 @@ import org.ocpsoft.rewrite.annotation.RequestAction;
 import org.ocpsoft.rewrite.annotation.Rule;
 import org.ocpsoft.rewrite.faces.annotation.Deferred;
 
-import pomoc.company.form.SupportFormService;
+import pomoc.company.form.FormPublicationService;
 import pomoc.partner.Partner;
 import pomoc.partner.login.Current;
 import pomoc.partner.login.LoggedPersonService;
@@ -48,7 +48,7 @@ public class UserAccessBean {
 	private Partner partner;
 	
 	@Inject
-	private SupportFormService formService;
+	private FormPublicationService formService;
 	
 	private boolean admin;
 

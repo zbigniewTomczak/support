@@ -1,14 +1,14 @@
 package pomoc.company.form;
 
-import pomoc.partner.SupportForm;
+import pomoc.partner.FormPublication;
 
-public class SupportFormListData {
+public class FormPublicationListData {
 	
 	private final String name;
 	private final String key;
 	private final String title;
 	
-	public SupportFormListData(SupportForm form) {
+	public FormPublicationListData(FormPublication form) {
 		this.key = form.getKey();
 		this.name = form.getName();
 		this.title = form.getTitle();

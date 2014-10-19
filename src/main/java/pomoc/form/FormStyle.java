@@ -1,11 +1,11 @@
 package pomoc.form;
 
-import pomoc.partner.SupportForm;
+import pomoc.partner.FormPublication;
 
 public class FormStyle {
 
-	public FormStyle(SupportForm supportForm) {
-		if (supportForm == null) {
+	public FormStyle(FormPublication formPublication) {
+		if (formPublication== null) {
 			this.uiGrowlLeft = 100;
 			this.uiGrowlTop = 100;
 			this.panelWidth = 700;
@@ -16,8 +16,8 @@ public class FormStyle {
 			return;
 		}
 		
-		this.panelWidth = (int) Math.round(supportForm.getWidth() * 0.98);;
-		this.panelHeight = (int) Math.round(supportForm.getHeight() * 0.98);;
+		this.panelWidth = (int) Math.round(formPublication.getWidth() * 0.98);;
+		this.panelHeight = (int) Math.round(formPublication.getHeight() * 0.98);;
 		this.uiGrowlLeft = (panelWidth - 301)/2;
 		this.uiGrowlTop = panelHeight/8;
 		this.submitButtonWidthStyle = "width: " + panelWidth/3 + "px;";

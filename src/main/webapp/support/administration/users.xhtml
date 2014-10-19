@@ -6,18 +6,14 @@
   xmlns:p="http://primefaces.org/ui">
 
   <ui:define name="meta">
-    <h:outputStylesheet library="css" name="jquery.dataTables.css" />
-    <h:outputStylesheet library="css" name="dataTables.bootstrap.css" />
-    <h:outputStylesheet library="css" name="jasny-bootstrap.min.css" />
+    <ui:include src="/WEB-INF/includes/dataTablesMeta.xhtml" />
   </ui:define>
 
   <ui:define name="header">
-    <ul class="nav nav-pills">
-      <li><p:link outcome="/support/administration/useredit.jsf"
-          styleClass="btn btn-default navbar-btn">
-          <i class="fa fa-plus fa-fw"></i>Nowy użytkownik
-</p:link></li>
-    </ul>
+    <ui:decorate template="/WEB-INF/templates/newItemLink.xhtml">
+        <ui:param name="outcome" value="/support/administration/useredit.jsf" />
+        <ui:param name="value" value="Nowy użytkownik" />
+    </ui:decorate>
   </ui:define>
 
   <ui:define name="page">
@@ -77,16 +73,9 @@
 
   </ui:define>
   <ui:define name="footer-meta">
-    <h:outputScript library="js" name="jquery.dataTables.js"></h:outputScript>
-    <h:outputScript library="js" name="jasny-bootstrap.min.js"></h:outputScript>
-    <script>
- 
- $(document).ready( function () {
-     $('#usersDataTable').DataTable();
-     $('#usersDataTable').rowlink();
-
- } );
- </script>
+    <ui:decorate template="/WEB-INF/templates/dataTablesScript.xhtml">
+      <ui:param name="id" value="usersDataTable" />
+    </ui:decorate>
   </ui:define>
 
 </ui:composition>

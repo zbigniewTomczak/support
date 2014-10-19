@@ -12,9 +12,9 @@ public class TicketStaticData {
 	
 	public TicketStaticData(Ticket ticket) {
 		number = ticket.getNumber();
-		fromName = ticket.getSupportFormResponse().getName();
-		fromEmail = ticket.getSupportFormResponse().getEmail();
-		content = ticket.getSupportFormResponse().getContent();
+		fromName = ticket.getFormResponse().getName();
+		fromEmail = ticket.getFormResponse().getEmail();
+		content = ticket.getFormResponse().getContent();
 		registeredDate = ticket.getDate();
 	}
 	public String getNumber() {

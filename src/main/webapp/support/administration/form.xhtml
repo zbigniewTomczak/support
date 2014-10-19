@@ -20,67 +20,67 @@
           styleClass="float-right" outcome="forms" />
         <p:commandButton icon="ui-icon-disk" value="Zapisz"
           styleClass="float-right"
-          action="#{supportFormEditBean.save()}">
+          action="#{formPublicationEditBean.save()}">
           <f:param name="key"
-            value="#{supportFormEditBean.supportForm.key}"></f:param>
+            value="#{formPublicationEditBean.formPublication.key}"></f:param>
         </p:commandButton>
       </div>
       <p:messages autoUpdate="true"></p:messages>
       <p:panelGrid columns="2" styleClass="editform">
         <p:outputLabel value="Nazwa"></p:outputLabel>
-        <p:inputText value="#{supportFormEditBean.supportForm.name}"
+        <p:inputText value="#{formPublicationEditBean.formPublication.name}"
           required="true" requiredMessage="Podaj nazwę formularza."
           title="Nazwa formularza nie będzie pokazywana na stronie. "
           styleClass="wide">
         </p:inputText>
         <p:outputLabel value="Tytuł"></p:outputLabel>
-        <p:inputText value="#{supportFormEditBean.supportForm.title}"
+        <p:inputText value="#{formPublicationEditBean.formPublication.title}"
           required="true" requiredMessage="Podaj tytuł"
           title="Tytuł będzie pokazywany na stronie jako nagłówek formularza"
           styleClass="wide">
           <p:ajax update="preview"
             oncomplete="var iframe = document.getElementById('formFrame');iframe.src = iframe.src;" />
           <f:param name="key"
-            value="#{supportFormEditBean.supportForm.key}"></f:param>
+            value="#{formPublicationEditBean.formPublication.key}"></f:param>
         </p:inputText>
         <p:outputLabel value="Tekst potwierdzenia" />
         <p:inputText
-          value="#{supportFormEditBean.supportForm.confirmationMessage}"
+          value="#{formPublicationEditBean.formPublication.confirmationMessage}"
           required="false" requiredMessage="Podaj tekst potwierdzenia"
           title="Tekst potweirdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza." 
           styleClass="wide"/>
         <p:outputLabel value="Szerokość" />
         <h:panelGroup>
-          <p:spinner value="#{supportFormEditBean.supportForm.width}"
+          <p:spinner value="#{formPublicationEditBean.formPublication.width}"
             min="0" stepFactor="10">
             <p:ajax update="pasteCode preview" />
             <f:param name="key"
-              value="#{supportFormEditBean.supportForm.key}"></f:param>
+              value="#{formPublicationEditBean.formPublication.key}"></f:param>
           </p:spinner>
           <h:outputText value=" px" />
         </h:panelGroup>
         <p:outputLabel value="Wysokość" />
         <h:panelGroup>
-          <p:spinner value="#{supportFormEditBean.supportForm.height}"
+          <p:spinner value="#{formPublicationEditBean.formPublication.height}"
             min="0" stepFactor="10">
             <p:ajax update="pasteCode preview" />
             <f:param name="key"
-              value="#{supportFormEditBean.supportForm.key}"></f:param>
+              value="#{formPublicationEditBean.formPublication.key}"></f:param>
           </p:spinner>
           <h:outputText value=" px" />
         </h:panelGroup>
         <p:outputLabel value="Styl CSS"
           title="Styl CSS daje możliwość dostosowania formularza do wyglądu strony." />
-        <p:inputTextarea value="#{supportFormEditBean.supportForm.css}"
+        <p:inputTextarea value="#{formPublicationEditBean.formPublication.css}"
           disabled="true"
           styleClass="wide"/>
         <p:outputLabel value="Kod do wklejenia na stronę" />
         <h:outputText id="pasteCode"
-          value="#{supportFormEditBean.pasteCode}" />
+          value="#{formPublicationEditBean.pasteCode}" />
 
         <h:outputText value="Podgląd:" />
         <h:outputText id="preview"
-          value="#{supportFormEditBean.previewCode}" escape="false" />
+          value="#{formPublicationEditBean.previewCode}" escape="false" />
       </p:panelGrid>
     </h:form>
   </ui:define>

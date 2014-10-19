@@ -5,10 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import pomoc.partner.SupportForm;
+import pomoc.partner.FormPublication;
 
 @Entity
-public class SupportFormResponse {
+public class FormResponse {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -16,11 +16,11 @@ public class SupportFormResponse {
 	private String email;
 	private String content;
 	@ManyToOne
-	private SupportForm supportForm;
+	private FormPublication formPublication;
 	
 	@Override
 	public String toString() {
-		return String.format("SupportFormResponse(%s, %s)",name, email);
+		return String.format("FormResponse(%s, %s)",name, email);
 	}
 	
 	
@@ -52,11 +52,11 @@ public class SupportFormResponse {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public SupportForm getSupportForm() {
-		return supportForm;
+	public FormPublication getFormPublication() {
+		return formPublication;
 	}
-	public void setSupportForm(SupportForm supportForm) {
-		this.supportForm = supportForm;
+	public void setFormPublication(FormPublication formPublication) {
+		this.formPublication= formPublication;
 	}
 	
 	
