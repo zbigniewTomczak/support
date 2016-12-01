@@ -4,7 +4,7 @@
 ### Back-office/administration panel:
 https://system-pomoc.rhcloud.com/
 
-Log in with: t@t.pl (password: asd)
+Sample log in: m.rozyczka@rozyczka.pl (password: asd)
 
 ### Embedded on example website
 http://skylight-pomoc.rhcloud.com/index.html
