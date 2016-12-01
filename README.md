@@ -1,4 +1,4 @@
-# Application for Service Deak 
+# Application for Service Desk 
 ## *System Pomoc*
 
 
