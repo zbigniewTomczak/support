@@ -1,9 +1,5 @@
-The app can be found at:
-
-http://skylight-pomoc.rhcloud.com/index.html
-
-http://pomoc-pomoc.rhcloud.com
-
+# Application for Service Deak 
+## *System Pomoc*
 
 
 
