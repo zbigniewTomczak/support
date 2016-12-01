@@ -2,7 +2,7 @@
 ## *System Pomoc*
 
 ### Back-office/administration panel:
-http://pomoc-pomoc.rhcloud.com/
+https://system-pomoc.rhcloud.com/
 
 Log in with: t@t.pl (password: asd)
 
