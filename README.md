@@ -22,7 +22,7 @@ Responses from Forms are stored and service desk agents are notified via e-mail.
 Application is multi-tenant and deployed as SAAS.
 
 #### WYSIWIG Form editing
-
+![Form editing](https://raw.githubusercontent.com/zbigniewTomczak/support/master/images/form-edition.PNG "Form editing")
 
 
 
