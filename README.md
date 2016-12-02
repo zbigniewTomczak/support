@@ -21,6 +21,8 @@ Responses from Forms are stored and service desk agents are notified via e-mail.
 
 Application is multi-tenant and deployed as SAAS.
 
+#### WYSIWIG Form editing
+
 
 
 
