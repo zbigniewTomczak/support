@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/template2.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+  <ui:param name="tabIndex" value="0" />
+  
+  <ui:define name="header">
+    <h1 class="page-header">Lista obsługiwanych przeze mnie zgłoszeń</h1>
+  </ui:define>
+  <ui:define name="page">
+    <h:dataTable id="ticketsDataTable" var="ticket"
+      value="#{allMyTickets}"
+      styleClass="table table-striped table-bordered table-hover table-condensed rowlink">
+      <f:facet name="header">
+      </f:facet>
+      <h:column>
+        <f:facet name="header">Numer</f:facet>
+        <p:link outcome="/support/ticket2.jsf">#{ticket.number}
+            <f:param name="number" value="#{ticket.number}"></f:param>
+        </p:link>
+      </h:column>
+      <h:column>
+        <f:facet name="header">Formularz</f:facet>
+        #{ticket.formName}
+      </h:column>
+      <h:column>
+        <f:facet name="header">Data zarejestrowania</f:facet>
+        #{ticket.date}
+      </h:column>
+      <h:column>
+        <f:facet name="header">Odpowiedzialność</f:facet>
+        #{ticket.assigneeEmail}
+      </h:column>
+      <h:column>
+        <f:facet name="header">SLA Deadline</f:facet>
+        #{ticket.slaDeadline}
+      </h:column>
+      <h:column>
+        <f:facet name="header">Status</f:facet>
+        #{ticket.status}
+
+      </h:column>
+    </h:dataTable>
+
+  </ui:define>
+  
+  <ui:define name="meta">
+    <ui:include src="/WEB-INF/includes/dataTablesMeta.xhtml" />
+  </ui:define>
+  
+  <ui:define name="footer-meta">
+    <ui:decorate template="/WEB-INF/templates/dataTablesScript.xhtml">
+      <ui:param name="id" value="ticketsDataTable" />
+    </ui:decorate>
+  </ui:define>
+  
+</ui:composition>

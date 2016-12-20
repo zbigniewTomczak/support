@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+  <p:inplace editor="true">
+    <f:facet name="output">
+      <p:outputLabel value="#{field.label}"
+        styleClass="control-label col-sm-2"></p:outputLabel>
+    </f:facet>
+    <f:facet name="input">
+      <p:inputText value="#{element.label}" />
+    </f:facet>
+
+  </p:inplace>
+  <h:panelGroup styleClass="col-sm-6 vcenter" layout="block">
+    <p:inputText placeholder="#{element.placeholder}" styleClass="form-control">
+    </p:inputText>
+  </h:panelGroup>
+
+</ui:composition>

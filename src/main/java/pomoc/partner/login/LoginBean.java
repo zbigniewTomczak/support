@@ -32,11 +32,11 @@ public class LoginBean {
 		} catch (EJBException e) {
 			facesMessage.postError("Błąd logowania. " + e.getCause().getMessage());
 			e.printStackTrace();
-			return null;
+			return "/support/signin2.jsf?faces-redirect=true";
 		}
 		if (person == null) {
 			facesMessage.postError("Nieudane logowanie. Sprawdź email i hasło i spróbuj ponownie.");
-			return null;
+			return "/support/signin2.jsf?faces-redirect=true";
 		}
 		return "/support/dashboard2.jsf?faces-redirect=true";
 	}
@@ -49,7 +49,7 @@ public class LoginBean {
 			e.printStackTrace();
 			//TODO error message
 		}
-		return "signin2.jsf?faces-redirect=true";
+		return "/support/signin2.jsf?faces-redirect=true";
 	}
 	
 	public String getEmail() {

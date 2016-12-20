@@ -15,6 +15,10 @@ public class Path {
 	}
 	
 	public Boolean getForms() {
-		return "/support/administration/forms.jsf".equalsIgnoreCase(fc.getViewRoot().getViewId());
+		return "/support/administration/forms.xhtml".equalsIgnoreCase(fc.getViewRoot().getViewId());
+	}
+	
+	public Boolean getMyTickets() {
+		return "/support/myTickets.xhtml".equalsIgnoreCase(fc.getViewRoot().getViewId());
 	}
 }

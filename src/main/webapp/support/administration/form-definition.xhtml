@@ -1,0 +1,254 @@
+<ui:composition template="/WEB-INF/template2.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:define name="meta">
+    <h:outputStylesheet library="css" name="jasny-bootstrap.min.css" />
+    <h:outputScript library="js" name="jasny-bootstrap.min.js"></h:outputScript>
+    <style>
+#elementTable,#elementTable input,#elementTable .control-label {
+	cursor: pointer;
+}
+
+.vcenter {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
+
+.control-label,.help-text {
+	color: #333;
+}
+</style>
+  </ui:define>
+
+  <ui:define name="footer-meta">
+
+  </ui:define>
+
+  <ui:define name="header">
+    <h2>
+      #{formDefinition.name}<small>#{formDefinition.versionTitle}</small>
+    </h2>
+  </ui:define>
+  <ui:define name="page">
+    <f:view transient="false" encoding="utf8">
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-lg-12">
+          <h:form id="definitionForm">
+            <ul class="nav nav-pills">
+              <li><p:commandLink
+                  action="#{formDefinitionEditBean.save()}"
+                  styleClass="btn btn-default navbar-btn" value="Zapisz"
+                  ajax="false" validateClient="true" process="@this"></p:commandLink></li>
+              <li><p:link
+                  outcome="/support/administration/form.jsf?skey=#{formDefinitionEditBean.skey}"
+                  value="Anuluj" styleClass="btn btn-default navbar-btn">
+                </p:link></li>
+            </ul>
+            <div class="">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <p:messages styleClass="help-block"></p:messages>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h1 class="panel-title text-center">#{formDefinition.publication.title}</h1>
+                      </div>
+                      <p:outputPanel id="elements"
+                        styleClass="form-horizontal panel-body">
+
+                        <ui:repeat var="field"
+                          value="#{formDefinition.elements}"
+                          varStatus="iter">
+                          <div class="form-group">
+                          
+                          
+                            <!-- input-text -->
+                            <h:panelGroup
+                              rendered="#{formDefinition.elements[iter.index].type eq 'input-text' or
+                                          formDefinition.elements[iter.index].type eq 'input-email'}">
+                              <p:inplace editor="true">
+                                <f:facet name="output">
+                                  <p:outputLabel value="#{field.label}"
+                                    styleClass="control-label col-sm-2"></p:outputLabel>
+                                </f:facet>
+                                <f:facet name="input">
+                                  <p:inputText
+                                    value="#{formDefinition.elements[iter.index].label}" />
+                                </f:facet>
+
+                              </p:inplace>
+                              <h:panelGroup
+                                styleClass="col-sm-6 vcenter"
+                                layout="block">
+                                <p:inputText placeholder="#{formDefinition.elements[iter.index].placeholder}"
+                                  styleClass="form-control">
+                                </p:inputText>
+                              </h:panelGroup>
+                            </h:panelGroup>
+                            <!-- end of input-text -->
+                            
+                            <!-- input-textarea -->
+                            <h:panelGroup
+                              rendered="#{formDefinition.elements[iter.index].type eq 'input-textarea'}">
+                              <p:inplace editor="true">
+                                <f:facet name="output">
+                                  <p:outputLabel value="#{field.label}"
+                                    styleClass="control-label col-sm-2"></p:outputLabel>
+                                </f:facet>
+                                <f:facet name="input">
+                                  <p:inputText
+                                    value="#{formDefinition.elements[iter.index].label}" />
+                                </f:facet>
+
+                              </p:inplace>
+                              <h:panelGroup
+                                styleClass="col-sm-6 vcenter"
+                                layout="block">
+                                <p:inputTextarea placeholder="#{formDefinition.elements[iter.index].placeholder}"
+                                  styleClass="form-control" rows="2"/>
+                              </h:panelGroup>
+                            </h:panelGroup>
+                            <!-- end of input-textarea -->
+
+                            <!-- input-checkbox -->
+                            <h:panelGroup
+                              rendered="#{formDefinition.elements[iter.index].type eq 'input-checkbox'}">
+                              <p:outputLabel value=""
+                                styleClass="control-label col-sm-2"></p:outputLabel>
+                              <h:panelGroup
+                                styleClass="col-sm-6 vcenter"
+                                layout="block">
+                                <div class="checkbox">
+                                  <label> <input type="checkbox"/> <p:inplace
+                                      editor="true">
+                                      <f:facet name="output">
+                                        <p:outputLabel
+                                          value="#{field.label}"></p:outputLabel>
+                                      </f:facet>
+                                      <f:facet name="input">
+                                        <p:inputText
+                                          value="#{formDefinition.elements[iter.index].label}" />
+                                      </f:facet>
+
+                                    </p:inplace>
+                                  </label>
+                                </div>
+
+                              </h:panelGroup>
+                            </h:panelGroup>
+                            <!-- end of input-checkbox -->
+                            
+                            <!-- comment -->
+                            <h:panelGroup
+                              rendered="#{formDefinition.elements[iter.index].type eq 'comment'}">
+                              <p:outputLabel value=""
+                                styleClass="control-label col-sm-2"></p:outputLabel>
+                              <h:panelGroup
+                                styleClass="col-sm-6 vcenter"
+                                layout="block">
+                                <p:inplace
+                                      editor="true">
+                                      <f:facet name="output">
+                                        <span class="help-block">#{formDefinition.elements[iter.index].text}</span>
+                                      </f:facet>
+                                      <f:facet name="input">
+                                        <p:inputTextarea styleClass="form-control" rows="2"
+                                          value="#{formDefinition.elements[iter.index].text}" />
+                                      </f:facet>
+
+                                    </p:inplace>
+                              </h:panelGroup>
+                            </h:panelGroup>
+                            <!-- comment -->
+
+
+                            <div class="col-sm-1 vcenter text-left">
+                              <p:commandLink
+                                rendered="#{not iter.first}"
+                                styleClass="text-primary col-sm-12"
+                                title="Przesuń do góry"
+                                action="#{formDefinitionEditBean.moveUp(field)}"
+                                update="@form">
+                                <i class="fa-arrow-circle-up fa"></i>
+                              </p:commandLink>
+                              <p:commandLink
+                                styleClass="text-danger col-sm-12"
+                                title="Usuń pole formularza"
+                                action="#{formDefinitionEditBean.removeField(field)}"
+                                update="@form">
+                                <i class="fa fa-minus-square fa"></i>
+                              </p:commandLink>
+                              <p:commandLink rendered="#{not iter.last}"
+                                styleClass="text-primary col-sm-12"
+                                title="Przesuń w dół"
+                                action="#{formDefinitionEditBean.moveDown(field)}"
+                                update="@form">
+                                <i class="fa fa-arrow-circle-down fa"></i>
+                              </p:commandLink>
+                            </div>
+                          </div>
+                        </ui:repeat>
+                        <ui:remove>
+                          <div class="form-group">
+                            <p:outputLabel for="title" value="Tytuł"
+                              styleClass="control-label col-sm-2"></p:outputLabel>
+                            <div class="col-sm-6">
+                              <p:inputText id="title"
+                                value="#{formPublication.title}"
+                                required="true"
+                                requiredMessage="Podaj tytuł"
+                                placeholder="Tytuł"
+                                title="Tytuł będzie pokazywany na stronie jako nagłówek formularza"
+                                styleClass="form-control">
+                                <ui:remove>
+                                  <p:ajax update="preview"
+                                    oncomplete="var iframe = document.getElementById('formFrame');iframe.src = iframe.src;" />
+                                </ui:remove>
+                              </p:inputText>
+                            </div>
+                            <div class="col-sm-4 help-block">
+                              <p:message for="title"
+                                errorClass="has-error" />
+                            </div>
+                          </div>
+                        </ui:remove>
+                        <a
+                          class="text-success col-sm-1 col-sm-offset-1 text-right"
+                          title="Dodaj pole formularza" href=""
+                          data-toggle="modal"
+                          data-target="#formElementDialog"> <i
+                          class="fa fa-plus-square fa-2x"></i>
+                        </a>
+                      </p:outputPanel>
+                      <!--/.form-horizontal  -->
+                      <div class="panel-footer text-center">
+                        <button type="button" class="btn btn-default">
+                          <i class="fa fa-check"></i> Wyślij
+                        </button>
+                      </div>
+                    </div>
+                    <!-- /.panel -->
+
+                  </div>
+                </div>
+              </div>
+              <!--/.panel-body-->
+            </div>
+            <!--/.panel -->
+            <ui:decorate template="form-element-dialog.xhtml">
+
+            </ui:decorate>
+          </h:form>
+        </div>
+        <!-- /.col-lg-12 (nested) -->
+      </div>
+      <!-- /.row -->
+    </f:view>
+  </ui:define>
+</ui:composition>

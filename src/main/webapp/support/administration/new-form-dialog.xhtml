@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+  <ui:composition>
+    <!-- Modal -->
+    <div class="modal" id="newFormDialog" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span><span
+                class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Podaj nazwę nowego formularza.</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-default">
+              <p:messages styleClass="help-block"></p:messages>
+              <div class="panel-body form-horizontal">
+                <div class="form-group">
+                  <p:outputLabel for="name" value="Nazwa"
+                    styleClass="control-label col-sm-2"></p:outputLabel>
+                  <div class="col-sm-6">
+                    <p:inputText id="name"
+                      value="#{newFormBean.name}" required="true"
+                      requiredMessage="Podaj tytuł" placeholder="Nazwa formularza"
+                      title="Nazwa nie będzie pokazywana na stronie. Służy do identyfikacji formularza w części administracyjnej."
+                      styleClass="form-control">
+                    </p:inputText>
+                  </div>
+                  <div class="col-sm-4 help-block">
+                    <p:message for="name" errorClass="has-error" />
+                  </div>
+                </div>
+              </div>
+              <!-- ./panel-body -->
+            </div>
+            <!-- ./panel -->
+          </div>
+          <!-- ./modal-body -->
+          <div class="modal-footer">
+            <p:commandLink action="#{newFormBean.newForm}"
+              styleClass="btn btn-default navbar-btn"
+              ajax="false">
+              Stwórz
+              </p:commandLink>
+            <button type="button" class="btn btn-default"
+              data-dismiss="modal">Anuluj</button>
+          </div>
+        </div>
+        <!-- ./modal-content -->
+      </div>
+      <!-- ./modal-dialog -->
+    </div>
+    <!-- ./modal -->
+
+  </ui:composition>
+
+</body>
+</html>

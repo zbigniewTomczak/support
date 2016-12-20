@@ -1,14 +1,21 @@
 package pomoc.partner.form.model;
 
+import java.util.Map;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 import pomoc.partner.Partner;
+import pomoc.partner.form.sla.SlaPlan;
 
 @Entity
 public class FormPublication {
@@ -23,18 +30,22 @@ public class FormPublication {
 	@ManyToOne
 	@Deprecated
 	private Partner partner;
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	private String key;
 	
 	private boolean active = true;
 	
 	private String title;
 	private String confirmationMessage;
-	private Integer width;
-	private Integer height;
+	private Integer width = 700;
+	private Integer height = 300;
 	private String css;
 	@OneToOne(optional=false)
 	private FormDefinition formDefinition;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@MapKeyEnumerated(EnumType.STRING)
+	private Map<SlaPlan, Integer> slaPlans;
 	
 	@Override
 	public int hashCode() {
@@ -128,6 +139,12 @@ public class FormPublication {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public Map<SlaPlan, Integer> getSlaPlans() {
+		return slaPlans;
+	}
+	public void setSlaPlans(Map<SlaPlan, Integer> slaPlans) {
+		this.slaPlans = slaPlans;
 	}
 	
 	

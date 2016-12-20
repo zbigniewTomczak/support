@@ -1,10 +1,16 @@
 package pomoc.partner.form.response;
 
+import java.util.Map;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import pomoc.form.FormElement;
 import pomoc.partner.form.model.FormDefinition;
 
 @Entity
@@ -12,27 +18,42 @@ public class FormResponse {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String name;
-	private String email;
-	private String content;
+
+	@ElementCollection
+	@CollectionTable(name="FORM_RESPONSES")
+	@Column(name="RESPONSE")
+	private Map<FormElement, String> responses;
+	
 	@ManyToOne
 	private FormDefinition formDefinition;
-	
-	@Override
-	public String toString() {
-		return String.format("FormResponse(%s, %s)",name, email);
-	}
-	
-	
+
 	public Long getId() {
 		return id;
 	}
 
-
-	public void setId(Long id) {
-		this.id = id;
+	public Map<FormElement, String> getResponses() {
+		return responses;
+	}
+	public void setResponses(Map<FormElement, String> responses) {
+		this.responses = responses;
 	}
 
+	public FormDefinition getFormDefinition() {
+		return formDefinition;
+	}
+
+
+	public void setFormDefinition(FormDefinition formDefinition) {
+		this.formDefinition = formDefinition;
+	}
+
+	@Deprecated
+	private String name;
+	@Deprecated
+	private String email;
+	@Deprecated
+	private String content;
+	
 
 	public String getName() {
 		return name;
@@ -54,14 +75,8 @@ public class FormResponse {
 	}
 
 
-	public FormDefinition getFormDefinition() {
-		return formDefinition;
-	}
 
-
-	public void setFormDefinition(FormDefinition formDefinition) {
-		this.formDefinition = formDefinition;
-	}
+	
 	
 	
 }

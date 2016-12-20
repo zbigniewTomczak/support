@@ -1,11 +1,86 @@
-<ui:composition template="/WEB-INF/template.xhtml"
+<ui:composition template="/WEB-INF/template2.xhtml"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <ui:define name="page">
+<ui:define name="header">
+  <h1 class="page-header">Ustawienia</h1>
+</ui:define>
+<ui:define name="page">
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-lg-12">
+        <h:form>
+          <ul class="nav nav-pills col-sm-2">
+            <li><p:commandLink
+                action="#{preferencesBean.save()}"
+                styleClass="btn btn-default navbar-btn" value="Zapisz"
+                ajax="false" validateClient="true"></p:commandLink></li>
+            <li><p:link outcome="/support/dashboard2"
+                value="Anuluj" styleClass="btn btn-default navbar-btn">
+              </p:link></li>
+          </ul>
+          <div class="">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <p:messages styleClass="help-block"></p:messages>
+                  <div class="form-horizontal">
+                    <div class="form-group">
+                      <p:outputLabel value="Nazwa" styleClass="control-label col-sm-2"
+                          title="Ukaże się w polu 'Od' wysyłanych e-maili"></p:outputLabel>
+                      <div class="col-sm-6">
+                        <p:inputText value="#{preferencesBean.preferences.fromName}" styleClass="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <p:outputLabel value="Server SMTP" styleClass="control-label col-sm-2"></p:outputLabel>
+                      <div class="col-sm-6">                      
+                        <p:inputText value="#{preferencesBean.preferences.smtpHost}" styleClass="form-control"></p:inputText>
+                      </div>
+                    </div>
+                      
+                    <div class="form-group">              
+                      <p:outputLabel value="Server POP3" styleClass="control-label col-sm-2"></p:outputLabel>
+                      <div class="col-sm-6">                      
+                        <p:inputText value="#{preferencesBean.preferences.pop3Host}" styleClass="form-control"></p:inputText>
+                      </div>
+                    </div>
+                      
+                    <div class="form-group">                      
+                      <p:outputLabel value="Adres E-mail" styleClass="control-label col-sm-2"></p:outputLabel>
+                      <div class="col-sm-6">
+                        <p:inputText value="#{preferencesBean.preferences.address}" styleClass="form-control"></p:inputText>
+                      </div>
+                    </div>
+              
+                    <div class="form-group">              
+                      <p:outputLabel value="Hasło E-mail" styleClass="control-label col-sm-2"></p:outputLabel>
+                      <div class="col-sm-6">
+                        <p:inputText type="password" value="#{preferencesBean.preferences.password}" styleClass="form-control"></p:inputText>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!--/.form-horizontal  -->
+                </div>
+              </div>
+            </div>
+            <!--/.panel-body-->
+          </div>
+          <!--/.panel -->
+        </h:form>
+      </div>
+      <!-- /.col-lg-12 (nested) -->
+    </div>
+    <!-- /.row -->
+
+  </ui:define>
+
+<ui:remove>
     <h:form>
       <div
         class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
@@ -34,5 +109,5 @@
 
       </p:panelGrid>
     </h:form>
-  </ui:define>
+</ui:remove>
 </ui:composition>

@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 public class TicketStaticData {
-	private final String number;
+	private final Integer number;
 	private final String fromName;
 	private final String fromEmail;
 	private final String content;
@@ -17,7 +17,7 @@ public class TicketStaticData {
 		content = ticket.getFormResponse().getContent();
 		registeredDate = ticket.getDate();
 	}
-	public String getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 	public String getFromName() {

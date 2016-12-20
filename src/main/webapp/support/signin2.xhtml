@@ -33,6 +33,7 @@
 					</div>
 					<div class="panel-body">
 						<h:form>
+                            <p:messages />
 							<fieldset>
 								<div class="form-group">
 									<ui:remove><input class="form-control" placeholder="E-mail" name="email"
@@ -61,10 +62,11 @@
 									<small>
 									<h:outputText value="Nie masz konta? " />
 									<p:link value="Przejdź do strony rejestracji"
-										outcome="/support/signup" styleClass="link"></p:link>
+										outcome="/support/signup2.jsf" styleClass="link"></p:link>
 										<br/>
-									<h:outputText value="Konto testowe: 'admin@example.com', Hasło: 'asd'."
+									<ui:remove><h:outputText value="Konto testowe: 'admin@example.com', Hasło: 'asd'."
 										style="font-weight:normal;" styleClass="link" />
+                                    </ui:remove>
 										</small>
 								</div>
 							</fieldset>

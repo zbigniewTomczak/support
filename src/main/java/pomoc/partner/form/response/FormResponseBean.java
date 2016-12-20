@@ -1,6 +1,10 @@
 package pomoc.partner.form.response;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -12,8 +16,11 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import pomoc.form.FormElement;
 import pomoc.form.FormStyle;
+import pomoc.partner.form.FormDefinitionService;
 import pomoc.partner.form.FormPublicationService;
+import pomoc.partner.form.model.FormDefinition;
 import pomoc.partner.form.model.FormPublication;
 import pomoc.util.faces.FacesMessage;
 
@@ -23,7 +30,9 @@ public class FormResponseBean {
 	@Inject
 	private FormResponseService formResponseService;
 	@Inject
-	private FormPublicationService formPublicationervice;
+	private FormPublicationService formPublicationService;
+	@Inject
+	private FormDefinitionService formDefinitionService;
 	@Inject
 	private FacesContext facesContext;
 	@Inject
@@ -34,8 +43,11 @@ public class FormResponseBean {
 	@Produces
 	@Named
 	private FormResponse formResponse = new FormResponse();
+	
+	private Object[] responses;
 
 	private FormPublication formPublication;
+	private FormDefinition formDefinition;
 	
 	private FormStyle formStyle;
 
@@ -47,17 +59,18 @@ public class FormResponseBean {
 	public void init() {
 		key = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("key");
 		if (key == null) {
-			//todo post faces error
+			formFile = "noKey.xhtml";
 			return;
 		}
 		// try
-		FormPublication sF = formPublicationervice.getFormPublicationFormPublication(key);
-		if (sF == null) {
+		formPublication = formPublicationService.getFormPublicationFormPublication(key);
+		if (formPublication == null) {
 			//todo post faces error
 			return;			
 		}
-		formPublication= sF;
-		formFile = formPublicationervice.getFormFile(key);
+		formDefinition = formDefinitionService.getFormDefinition(formPublication);
+		responses = new Object[formDefinition.getElements().size()];
+		formFile = formPublicationService.getFormFile(key);
 	}
 
 	public void checkKey(ComponentSystemEvent event) throws IOException {
@@ -69,12 +82,24 @@ public class FormResponseBean {
 	
 	public String newFormResponse() {
 		String key = facesContext.getExternalContext().getRequestParameterMap().get("key");
-		logger.info("Creating ticket for form key: " + key);
+		logger.info("Creating ticket for form key: " + key + " with values: " + Arrays.toString(responses));
 		if (key == null) {
 			facesMessage.postError("We are sorry. We cannot perform your request.");
 			return null;
 		}
 		
+		
+		
+		formResponse = new FormResponse();
+		formResponse.setFormDefinition(formDefinition);
+		List<FormElement> elements = formDefinition.getElements();
+		Map<FormElement, String> responses = new HashMap<>();
+		for(int i=0; i < elements.size(); i++) {
+			if (this.responses[i] != null) {
+				responses.put(elements.get(i), this.responses[i].toString());
+			}
+		}
+		formResponse.setResponses(responses);
 		try {
 			formResponseService.saveNewFormResponse(formResponse, key);
 		} catch (EJBException e) {
@@ -82,10 +107,9 @@ public class FormResponseBean {
 			e.printStackTrace();
 			return null;
 		}
-		
-		formResponse = new FormResponse();
 		if (formPublication!= null && formPublication.getConfirmationMessage() != null) {
 			facesMessage.postInfo(formPublication.getConfirmationMessage());
+			this.responses = new Object[formDefinition.getElements().size()];
 		}
 		return null;
 	}
@@ -112,10 +136,19 @@ public class FormResponseBean {
 	}
 
 	public String getFormFile() {
-		if (formFile == null) {
-			return "noKey.xhtml";
-		}
 		return formFile;
+	}
+
+	public FormDefinition getFormDefinition() {
+		return formDefinition;
+	}
+
+	public Object[] getResponses() {
+		return responses;
+	}
+
+	public void setResponses(Object[] responses) {
+		this.responses = responses;
 	}
 	
 }

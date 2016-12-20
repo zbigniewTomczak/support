@@ -16,10 +16,17 @@ public class FacesMessage {
 	
 	public void postError(String message) {
 		postMessage(message, javax.faces.application.FacesMessage.SEVERITY_ERROR);
+		keep();
+	}
+	
+	public void postWarning(String message) {
+		postMessage(message, javax.faces.application.FacesMessage.SEVERITY_WARN);
+		keep();
 	}
 	
 	public void postInfo(String message) {
 		postMessage(message, javax.faces.application.FacesMessage.SEVERITY_INFO);
+		keep();
 	}
 
 	private void postMessage(String message, Severity severity) {
@@ -31,5 +38,9 @@ public class FacesMessage {
 		log.log(Level.SEVERE, string, e);
 		postError(string);
 		
+	}
+
+	public void keep() {
+		fc.getExternalContext().getFlash().setKeepMessages(true);
 	}
 }

@@ -45,8 +45,8 @@ public class TicketEditBean {
 			//todo post faces error
 			return;
 		}
-		staticData =  ticketService.getStaticData(number, loggedPersonService.getLoggedPerson());
-		editable =  ticketService.getEditableData(number, loggedPersonService.getLoggedPerson());
+		staticData =  ticketService.getStaticData(Integer.parseInt(number), loggedPersonService.getLoggedPerson());
+		editable =  ticketService.getEditableData(Integer.parseInt(number), loggedPersonService.getLoggedPerson());
 	}
 	
 	public String save() {

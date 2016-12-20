@@ -65,7 +65,7 @@ public class FormPublicationService {
 	public List<FormPublication> getPartnerForms(Partner partner) {
 		Preconditions.checkNotNull(partner);
 		Preconditions.checkNotNull(partner.getId());
-		TypedQuery<FormPublication> query = em.createQuery("SELECT sp from FormPublication sp WHERE sp.partner.id=:id", FormPublication.class);
+		TypedQuery<FormPublication> query = em.createQuery("SELECT sp from FormPublication sp WHERE sp.formDefinition.partner.id=:id", FormPublication.class);
 		query.setParameter("id", partner.getId());
 		return query.getResultList();
 	}

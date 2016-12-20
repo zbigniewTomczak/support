@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-horizontal">
+        <h2 class="page-header col-sm-#{col} col-sm-offset-4">Odczyt</h2>
+        <h2 class="page-header col-sm-#{col}">Edycja</h2>
+        <div class="clearfix" />
+        <ui:repeat var="form"
+          value="#{model.forms}"
+          varStatus="status">
+          <div class="form-group #{form.key}">
+            <p:outputLabel value="#{form.formDefinition.name}"
+              styleClass="control-label col-sm-4"></p:outputLabel>
+            <div class="col-sm-#{col}">
+              <h:selectBooleanCheckbox
+                readonly="#{disabled}"
+                value="#{model.readRights[status.index]}"
+                styleClass="toogle-switch read #{form.key}">
+              </h:selectBooleanCheckbox>
+            </div>
+            <div class="col-sm-#{col}">
+              <h:selectBooleanCheckbox
+                readonly="#{disabled}"
+                value="#{model.writeRights[status.index]}"
+                styleClass="toogle-switch write #{form.key}">
+              </h:selectBooleanCheckbox>
+            </div>
+          </div>
+        </ui:repeat>
+
+
+
+      </div>
+      <!--/.form-horizontal  -->
+    </div>
+  </div>
+  
+</ui:composition>

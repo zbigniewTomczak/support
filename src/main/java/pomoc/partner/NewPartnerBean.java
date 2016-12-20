@@ -7,11 +7,16 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.annotation.Rule;
+
 import pomoc.partner.person.Person;
 import pomoc.partner.person.PersonRegistrationService;
 import pomoc.util.faces.FacesMessage;
 
 @Model
+@Rule("new-partner")
+@Join(path = "/signup", to = "/support/signup2.jsf")
 public class NewPartnerBean {
 	
 	@Produces
@@ -48,8 +53,7 @@ public class NewPartnerBean {
 			return null;
 		}
 		facesMessage.postInfo("Rejestracja przebiegła pomyślnie. Zaloguj się na swoje konto.");
-		facesContext.getExternalContext().getFlash().setKeepMessages(true);
-		return "/support/signin?faces-redirect=true";
+		return "/support/signin2?faces-redirect=true";
 	}
 
 	public Partner getNewPartner() {

@@ -6,9 +6,13 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 
 import pomoc.partner.Partner;
@@ -17,6 +21,12 @@ import pomoc.partner.form.model.FormPublication;
 @Entity
 public class Person {
 
+	@PrePersist
+	@PreUpdate
+	public void pre() {
+		System.out.println("Name: " + name);
+	}
+	
     @Id
     @GeneratedValue
     private Long id;
@@ -29,7 +39,8 @@ public class Person {
 	private Role role;
 	@ManyToOne
 	private Partner partner;
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
+	@MapKeyJoinColumn(name="FormPublication_id")
 	private Map<FormPublication, Right> formRights; 
 	
 	public boolean isAdmin() {

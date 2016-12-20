@@ -1,0 +1,158 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+    <style>
+.form_input {
+	width: 96%;
+}
+
+.ui-growl {
+	left: #{formStyle.uiGrowlLeft}px;
+ top: #{formStyle.uiGrowlTop}px;
+}
+</style>
+
+  <input type="hidden" value="#{param['key']}" name="key" />
+  <div class="panel-body" style="width:#{formStyle.panelWidth}px; height:#{formStyle.panelHeight}px;">
+    <div class="row">
+      <div class="col-sm-12">
+        <ui:remove>
+          <p:messages styleClass="help-block" id="static_messages"></p:messages>
+        </ui:remove>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h1 class="panel-title text-center">#{formResponseBean.formPublication.title}</h1>
+          </div>
+          <p:outputPanel id="elements"
+            styleClass="form-horizontal panel-body">
+
+            <ui:repeat var="field"
+              value="#{formResponseBean.formDefinition.elements}"
+              varStatus="iter">
+              <div class="form-group">
+                <!-- input-text -->
+                <h:panelGroup
+                  rendered="#{formResponseBean.formDefinition.elements[iter.index].type eq 'input-text' or
+                                          formResponseBean.formDefinition.elements[iter.index].type eq 'input-email'}">
+                  <p:outputLabel value="#{field.label}"
+                    styleClass="control-label col-sm-4"></p:outputLabel>
+                  <h:panelGroup styleClass="col-sm-8 vcenter"
+                    layout="block">
+                    <p:inputText value="#{formResponseBean.responses[iter.index]}"
+                      placeholder="#{formResponseBean.formDefinition.elements[iter.index].placeholder}"
+                      styleClass="form-control" required="#{formResponseBean.formDefinition.elements[iter.index].type eq 'input-email'}"
+                      requiredMessage="Proszę podać email">
+                      <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" 
+                      disabled="#{formResponseBean.formDefinition.elements[iter.index].type ne 'input-email'}" />
+                    </p:inputText>
+                  </h:panelGroup>
+                </h:panelGroup>
+                <!-- end of input-text -->
+
+                <!-- input-textarea -->
+                <h:panelGroup
+                  rendered="#{formResponseBean.formDefinition.elements[iter.index].type eq 'input-textarea'}">
+                  <p:outputLabel value="#{field.label}"
+                    styleClass="control-label col-sm-4"></p:outputLabel>
+                  <h:panelGroup styleClass="col-sm-8 vcenter"
+                    layout="block">
+                    <p:inputTextarea value="#{formResponseBean.responses[iter.index]}"
+                      placeholder="#{formResponseBean.formDefinition.elements[iter.index].placeholder}"
+                      styleClass="form-control" rows="2" />
+                  </h:panelGroup>
+                </h:panelGroup>
+                <!-- end of input-textarea -->
+
+                <!-- input-checkbox -->
+                <h:panelGroup
+                  rendered="#{formResponseBean.formDefinition.elements[iter.index].type eq 'input-checkbox'}">
+                  <p:outputLabel value=""
+                    styleClass="control-label col-sm-4"></p:outputLabel>
+                  <h:panelGroup styleClass="col-sm-8 vcenter"
+                    layout="block">
+                    <div class="checkbox">
+                      <label> 
+                       <h:selectBooleanCheckbox value="#{formResponseBean.responses[iter.index]}" />
+                        <p:outputLabel value="#{field.label}"></p:outputLabel>
+                      </label>
+                    </div>
+
+                  </h:panelGroup>
+                </h:panelGroup>
+                <!-- end of input-checkbox -->
+
+                <!-- comment -->
+                <h:panelGroup
+                  rendered="#{formResponseBean.formDefinition.elements[iter.index].type eq 'comment'}">
+                  <p:outputLabel value=""
+                    styleClass="control-label col-sm-4"></p:outputLabel>
+                  <h:panelGroup styleClass="col-sm-8 vcenter"
+                    layout="block">
+                    <span class="help-block">#{formResponseBean.formDefinition.elements[iter.index].text}</span>
+                  </h:panelGroup>
+                </h:panelGroup>
+                <!-- comment -->
+
+
+              </div>
+            </ui:repeat>
+          </p:outputPanel>
+          <!--/.form-horizontal  -->
+          <div class="panel-footer text-center">
+            <p:commandButton
+              action="#{formResponseBean.newFormResponse()}"
+              value="Wyślij" icon="ui-icon-check" update="form"
+              styleClass="btn btn-default">
+              <i class="fa fa-check"></i>
+            </p:commandButton>
+          </div>
+        </div>
+        <!-- /.panel -->
+
+      </div>
+    </div>
+  </div>
+  <!--/.panel-body-->
+
+
+
+
+
+
+
+
+
+  <ui:remove>
+    <p:panelGrid columns="2"
+      style="width:#{formStyle.panelWidth}px; height:#{formStyle.panelHeight}px;">
+      <f:facet name="header">#{formResponseBean.formPublication.title}</f:facet>
+      <p:outputLabel>Imię i nazwisko</p:outputLabel>
+      <p:inputText styleClass="form_input" required="true"
+        requiredMessage="Proszę podać imię i nazwisko."
+        value="#{formResponse.name}" id="name"></p:inputText>
+      <p:outputLabel>Email</p:outputLabel>
+      <p:inputText id="email" styleClass="form_input" required="true"
+        requiredMessage="Proszę email." value="#{formResponse.email}"
+        validatorMessage="Proszę podać poprawny adres email.">
+        <f:validateRegex
+          pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+      </p:inputText>
+      <p:outputLabel>Treść wiadomości:</p:outputLabel>
+      <p:inputTextarea id="message"
+        styleClass="form_input form_textarea" required="true"
+        requiredMessage="Proszę wpisać treść wiadomości."
+        value="#{formResponse.content}"></p:inputTextarea>
+      <f:facet name="footer">
+        <p:commandButton action="#{formResponseBean.newFormResponse()}"
+          value="Wyślij" icon="ui-icon-check"
+          update="messages, name, email, message"
+          style="#{formStyle.submitButtonWidthStyle} 
+            #{formStyle.submitButtonMarginLeftStyle}" />
+      </f:facet>
+
+    </p:panelGrid>
+  </ui:remove>
+</ui:composition>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+<f:view transient="true">
+<h:head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Rejestracja nowego klienta</title>
+
+  <h:outputStylesheet library="css" name="bootstrap.min.css" />
+
+  <style>
+.login-panel {
+  margin-top: 25%;
+}
+</style>
+</h:head>
+<h:body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="login-panel panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Zarejestruj się</h3>
+          </div>
+          <div class="panel-body">
+            <h:form>
+              <p:messages />
+              <fieldset>
+                <div class="form-group">
+                  <p:inputText value="#{newAdmin.name}" required="true" requiredMessage="Podaj imię i nazwisko"
+                    styleClass="form-control" placeholder="Imię i nazwisko">
+                  </p:inputText>
+                </div>
+                <div class="form-group">
+                  <p:inputText value="#{newPartner.name}" required="true" requiredMessage="Podaj nazwę"
+                    styleClass="form-control" placeholder="Nazwa">
+                  </p:inputText>
+                </div>
+                <div class="form-group">
+                  <p:inputText value="#{newAdmin.email}" required="true"
+                    requiredMessage="Podaj email" type="email"
+                    styleClass="form-control" placeholder="E-mail"
+                    validatorMessage="Podaj poprawny adres email">
+                    <f:validateRegex
+                      pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                  </p:inputText>
+                </div>
+                <div class="form-group">
+                  <p:password value="#{newAdmin.password}" required="true"
+                    requiredMessage="Podaj hasło" placeholder="Hasło" styleClass="form-control"/>
+                </div>
+                <div class="form-group">
+                  <p:password placeholder="Powrórz hasło" 
+                    value="#{newPartnerBean.passwordConfirm}" required="true" 
+                    requiredMessage="Powtórz hasło" styleClass="form-control"/>
+                </div>
+                <p:commandLink action="#{newPartnerBean.register()}" value="Zarejestruj"
+                        class="btn btn-lg btn-success btn-block" ajax="false"/>
+                <div class="checkbox">
+                  <small>
+                    <p:link value="Przejdź do strony logowania"
+                      outcome="/support/signin2.jsf" styleClass="link"></p:link>
+                  </small>
+                </div>
+              </fieldset>
+            </h:form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Core JavaScript -->
+  <h:outputScript library="js" name="bootstrap.min.js" />
+
+</h:body>
+</f:view>
+</html>

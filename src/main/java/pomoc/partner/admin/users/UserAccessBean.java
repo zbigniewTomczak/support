@@ -67,7 +67,7 @@ public class UserAccessBean {
 			userAccessModel = UserAccessModel.getWithAllRights(formService.getPartnerForms(partner));
 		} else {
 			userAccessModel = new UserAccessModel(formService.getPartnerForms(partner), 
-					personService.getFormRights(loggedUser));
+					personService.getFormRights(user));
 		}
 		
 	}
@@ -75,16 +75,16 @@ public class UserAccessBean {
 	public String save() {
 			try {
 				if (admin) {
-					fm.postError("Cannot edit admin rights");
-					return null;
+					fm.postWarning("Cannot edit admin rights");
+					return "/support/administration/useraccess.jsf?faces-redirect=true&id="+id;
 				} 
 				if (user.getId() != null) {
 					user.setFormRights(userAccessModel.getFormRights());
 					user = personService.saveUser(user);
 				} 
 			} catch (EJBException e) {
-				fm.postError("Cannot Save user ("+ e.getMessage() + ")", e);
-				return null;
+				fm.postError("Error Save user ("+ e.getMessage() + ")", e);
+				return "/support/administration/useraccess.jsf?faces-redirect=true&id="+id;
 			}
 			return "/support/administration/users.jsf?faces-redirect=true";
 	}

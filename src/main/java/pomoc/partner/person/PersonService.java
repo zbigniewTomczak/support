@@ -122,6 +122,20 @@ public class PersonService {
 	public Map<FormPublication, Right> getFormRights(Person person) {
 		Preconditions.checkNotNull(person);
 		Preconditions.checkNotNull(person.getId());
-		return em.find(Person.class, person.getId()).getFormRights();
+		Map<FormPublication, Right> formRights = em.find(Person.class, person.getId()).getFormRights();
+		formRights.size();
+		return formRights;
+	}
+	
+	public List<SelectItem> getAdministrators(Partner partner) {
+		Preconditions.checkNotNull(partner);
+		Preconditions.checkNotNull(partner.getId());
+		TypedQuery<SelectItem> query = em.createQuery(
+				"SELECT new javax.faces.model.SelectItem(p.id, p.name) from Person p WHERE p.partner.id=:id AND p.role=:role"
+				+ " order by p.name", 
+				SelectItem.class);
+		query.setParameter("id", partner.getId());
+		query.setParameter("role", Role.ADMIN);
+		return query.getResultList();
 	}
 }

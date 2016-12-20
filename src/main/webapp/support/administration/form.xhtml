@@ -15,13 +15,19 @@
     <div class="row">
       <div class="col-lg-12">
         <h:form>
-          <ul class="nav nav-pills">
+          <ul class="nav nav-pills col-sm-3">
             <li><p:commandLink
-                action="#{formEditBean.savePublication()}"
+                action="#{formEditBean.save}"
                 styleClass="btn btn-default navbar-btn" value="Zapisz"
                 ajax="false" validateClient="true"></p:commandLink></li>
             <li><p:link outcome="/support/administration/forms.jsf"
                 value="Anuluj" styleClass="btn btn-default navbar-btn">
+              </p:link></li>
+          </ul>
+          <ul class="nav nav-pills">
+            <li><p:link outcome="/support/administration/form-definition.jsf"
+                value="Edycja" styleClass="btn btn-default navbar-btn">
+                <f:param name="skey" value="#{formPublication.formDefinition.skey}"></f:param>
               </p:link></li>
           </ul>
           <div class="">
@@ -32,7 +38,7 @@
                   <div class="form-horizontal">
                     <div class="form-group">
                       <p:outputLabel for="title" value="Tytuł"
-                        styleClass="control-label col-sm-2"></p:outputLabel>
+                        styleClass="control-label col-sm-3"></p:outputLabel>
                       <div class="col-sm-6">
                         <p:inputText id="title"
                           value="#{formPublication.title}"
@@ -53,7 +59,7 @@
 
                     <div class="form-group">
                       <p:outputLabel value="Tekst potwierdzenia"
-                        styleClass="control-label col-sm-2" 
+                        styleClass="control-label col-sm-3" 
                         for="confirmationMessage"/>
                       <div class="col-sm-6">
                         <p:inputText 
@@ -61,7 +67,7 @@
                           value="#{formPublication.confirmationMessage}"
                           required="false"
                           requiredMessage="Podaj tekst potwierdzenia"
-                          title="Tekst potweirdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza."
+                          title="Tekst potwierdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza."
                           styleClass="form-control"  />
                       </div>
                       <div class="col-sm-4 help-block">
@@ -71,7 +77,7 @@
                     </div>
                     <div class="form-group">
                       <p:outputLabel value="Szerokość"
-                        styleClass="control-label col-sm-2" />
+                        styleClass="control-label col-sm-3" />
                       <div class="col-sm-6">
                         <p:spinner
                           value="#{formPublication.width}"
@@ -83,7 +89,7 @@
                     <div class="form-group">
 
                       <p:outputLabel value="Wysokość"
-                        styleClass="control-label col-sm-2" />
+                        styleClass="control-label col-sm-3" />
                       <div class="col-sm-6">
                         <p:spinner
                           value="#{formPublication.height}"
@@ -95,14 +101,64 @@
                     <div class="form-group">
 
                       <p:outputLabel value="Styl CSS"
-                        styleClass="control-label col-sm-2"
+                        styleClass="control-label col-sm-3"
                         title="Styl CSS daje możliwość dostosowania formularza do wyglądu strony." />
                       <div class="col-sm-6">
                         <p:inputTextarea
                           value="#{formPublication.css}"
-                          disabled="true" styleClass="form-control" />
+                          disabled="false" styleClass="form-control" />
                       </div>
                     </div>
+                    
+                    <div class="form-group">
+
+                      <p:outputLabel value="Kod do wklejenia na stronę"
+                        styleClass="control-label col-sm-3"/>
+                      <div class="col-sm-6">
+                        <div class="well">
+                        <h:outputText id="pasteCode" 
+                          value="#{pasteCode}" />                      
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <p:outputLabel value="Plan SLA: otwarcie zgłoszenia"
+                        styleClass="control-label col-sm-3" />
+                      <div class="col-sm-6">
+                        <h:selectOneMenu title="Czas po jakim zgłoszenie musi zostać otwarte" converter="javax.faces.Integer"
+                          value="#{formEditBean.openingPlanHours}" styleClass="form-control">
+                          <f:selectItems value="#{formEditBean.slaHours}"/>
+                        </h:selectOneMenu>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <p:outputLabel value="Plan SLA: zamknięcie zgłoszenia"
+                        styleClass="control-label col-sm-3" />
+                      <div class="col-sm-6">
+                        <h:selectOneMenu title="Czas od otwarcia po jakim zgłoszenie musi zostać rozwiązane" converter="javax.faces.Integer"
+                          value="#{formEditBean.resolvingPlanHours}" styleClass="form-control">
+                          <f:selectItems value="#{formEditBean.slaHours}"/>
+                        </h:selectOneMenu>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+
+                      <p:outputLabel value=""
+                        styleClass="control-label col-sm-3" />
+                      <div class="col-sm-6 checkbox">
+                        <label>
+                        <h:selectBooleanCheckbox title="Aktywny formularz będzie dostępny do wysyłania."
+                          value="#{formPublication.active}"
+                           />
+                        Aktywny
+                        </label>
+                        
+                      </div>
+                    </div>
+                    
                   </div>
                   <!--/.form-horizontal  -->
                 </div>
@@ -118,82 +174,4 @@
     <!-- /.row -->
 
   </ui:define>
-  <ui:remove>
-    <h:form>
-      <div
-        class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-        <!-- span class="ui-menuitem-text" style="font-weight: bold;">Stwórz
-        nowy formularz do umieszczenia na stronie.</span-->
-        <p:button icon="ui-icon-cancel" value="Anuluj"
-          styleClass="float-right" outcome="forms" />
-        <p:commandButton icon="ui-icon-disk" value="Zapisz"
-          styleClass="float-right"
-          action="#{formPublicationEditBean.save()}">
-          <f:param name="key"
-            value="#{formPublicationEditBean.formPublication.key}"></f:param>
-        </p:commandButton>
-      </div>
-      <p:messages autoUpdate="true"></p:messages>
-      <p:panelGrid columns="2" styleClass="editform">
-        <p:outputLabel value="Nazwa"></p:outputLabel>
-        <p:inputText
-          value="#{formPublicationEditBean.formPublication.name}"
-          required="true" requiredMessage="Podaj nazwę formularza."
-          title="Nazwa formularza nie będzie pokazywana na stronie. "
-          styleClass="wide">
-        </p:inputText>
-        <p:outputLabel value="Tytuł"></p:outputLabel>
-        <p:inputText
-          value="#{formPublicationEditBean.formPublication.title}"
-          required="true" requiredMessage="Podaj tytuł"
-          title="Tytuł będzie pokazywany na stronie jako nagłówek formularza"
-          styleClass="wide">
-          <p:ajax update="preview"
-            oncomplete="var iframe = document.getElementById('formFrame');iframe.src = iframe.src;" />
-          <f:param name="key"
-            value="#{formPublicationEditBean.formPublication.key}"></f:param>
-        </p:inputText>
-        <p:outputLabel value="Tekst potwierdzenia" />
-        <p:inputText
-          value="#{formPublicationEditBean.formPublication.confirmationMessage}"
-          required="false" requiredMessage="Podaj tekst potwierdzenia"
-          title="Tekst potweirdzenia będzie wyświetlony w momencie poprawnego wypełnienia formularza."
-          styleClass="wide" />
-        <p:outputLabel value="Szerokość" />
-        <h:panelGroup>
-          <p:spinner
-            value="#{formPublicationEditBean.formPublication.width}"
-            min="0" stepFactor="10">
-            <p:ajax update="pasteCode preview" />
-            <f:param name="key"
-              value="#{formPublicationEditBean.formPublication.key}"></f:param>
-          </p:spinner>
-          <h:outputText value=" px" />
-        </h:panelGroup>
-        <p:outputLabel value="Wysokość" />
-        <h:panelGroup>
-          <p:spinner
-            value="#{formPublicationEditBean.formPublication.height}"
-            min="0" stepFactor="10">
-            <p:ajax update="pasteCode preview" />
-            <f:param name="key"
-              value="#{formPublicationEditBean.formPublication.key}"></f:param>
-          </p:spinner>
-          <h:outputText value=" px" />
-        </h:panelGroup>
-        <p:outputLabel value="Styl CSS"
-          title="Styl CSS daje możliwość dostosowania formularza do wyglądu strony." />
-        <p:inputTextarea
-          value="#{formPublicationEditBean.formPublication.css}"
-          disabled="true" styleClass="wide" />
-        <p:outputLabel value="Kod do wklejenia na stronę" />
-        <h:outputText id="pasteCode"
-          value="#{formPublicationEditBean.pasteCode}" />
-
-        <h:outputText value="Podgląd:" />
-        <h:outputText id="preview"
-          value="#{formPublicationEditBean.previewCode}" escape="false" />
-      </p:panelGrid>
-    </h:form>
-  </ui:remove>
 </ui:composition>

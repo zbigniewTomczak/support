@@ -15,6 +15,7 @@ import pomoc.partner.person.Person;
 import pomoc.partner.ticket.Ticket;
 
 @Entity
+@Deprecated
 public class CommunicationCase {
 
 	@Id

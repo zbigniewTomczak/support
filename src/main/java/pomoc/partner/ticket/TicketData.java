@@ -1,18 +1,26 @@
 package pomoc.partner.ticket;
 
 import java.util.Date;
+import java.util.List;
+
+import pomoc.partner.ticket.event.Event;
+import pomoc.partner.ticket.event.SlaDeadlineEvent;
 
 public final class TicketData {
-	private final String number;
+	private final Integer number;
 	private final String formName;
+	@Deprecated
 	private final String fromName;
+	@Deprecated
 	private final String fromEmail;
 	private final Date date;
 	private final Status status;
 	private final String assigneeEmail;
+	private Date slaDeadline;
 	
 	public TicketData(Ticket ticket) {
 		this.number = ticket.getNumber();
+		this.setSlaDeadline(getLastDeadline(ticket.getEvents()));
 		this.formName = ticket.getFormResponse().getFormDefinition().getName();
 		this.fromName = ticket.getFormResponse().getName();
 		this.fromEmail = ticket.getFormResponse().getEmail();
@@ -26,7 +34,16 @@ public final class TicketData {
 		
 	}
 	
-	public String getNumber() {
+	private Date getLastDeadline(List<Event> events) {
+		for (Event event : events) {
+			if (event instanceof SlaDeadlineEvent) {
+				return event.getDate();
+			}
+		}
+		return null;
+	}
+
+	public Integer getNumber() {
 		return number;
 	}
 	
@@ -60,6 +77,14 @@ public final class TicketData {
 	@Override
 	public boolean equals(Object obj) {
 		return this.equals(obj);
+	}
+
+	public Date getSlaDeadline() {
+		return slaDeadline;
+	}
+
+	public void setSlaDeadline(Date slaDeadline) {
+		this.slaDeadline = slaDeadline;
 	}
 	
 }

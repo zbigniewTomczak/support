@@ -6,7 +6,7 @@
   xmlns:p="http://primefaces.org/ui"
   xmlns:pe="http://primefaces.org/ui/extensions">
 <f:view transient="true"
-  locale="#{facesContext.externalContext.requestLocale}">
+  locale="#{facesContext.externalContext.requestLocale}" contentType="text/html" encoding="UTF-8">
   <f:event listener="#{personBean.checkPermissions}"
     type="preRenderView" />
   <h:head>
@@ -22,9 +22,7 @@
 
     <h:outputStylesheet library="css" name="metisMenu.min.css" />
 
-    <ui:remove>
-      <h:outputStylesheet library="css" name="timeline.css" />
-    </ui:remove>
+    <h:outputStylesheet library="css" name="timeline.css" />
 
     <!-- Custom Fonts -->
     <link
@@ -41,6 +39,12 @@
     <style>
       .form-button {
         margin-left: 5px;
+      }
+      .alert {
+        font-weight: bold;
+      }
+      .ui-growl {
+        top: 50px;
       }
     </style>
     <ui:insert name="meta"></ui:insert>
@@ -72,73 +76,44 @@
               class="fa fa-caret-down"></i>
           </a>
             <ul class="dropdown-menu dropdown-messages">
-              <ui:remove>
                 <li class="divider"></li>
-                <li><a href="#">
+                <li><a>
                     <div>
-                      <strong>John Smith</strong> <span
-                        class="pull-right text-muted"> <em>Yesterday</em>
+                       <strong>Sprawdzono skrzynkę</strong> <span
+                        class="pull-right text-muted"> <small><i class="fa fa-clock-o"></i> #{empty lastCheck ? 'Nigdy' : lastCheck.date}</small>
                       </span>
                     </div>
-                    <div>Lorem ipsum dolor sit amet, consectetur
-                      adipiscing elit. Pellentesque eleifend...</div>
-                </a></li>
-              </ui:remove>
+                    <h:panelGroup layout="block" rendered="#{not empty lastCheck}">
+                      <p>#{lastCheck.processedNumber} wiadomości.</p>
+                    </h:panelGroup>
+                    </a>
+                </li>
               <li class="divider"></li>
-              <li><p:commandLink rendered="#{person.admin}"
-                  action="#{emailBean.check()}">
-                  <i class="fa fa-gear fa-fw"></i> Synchronizuj pocztę
-                          </p:commandLink></li>
+              <li>
+                <h:form>
+                  <p:commandLink rendered="#{person.admin}"
+                    action="#{emailBean.check()}" ajax="false">
+                    <i class="fa fa-gear fa-fw"></i> Synchronizuj pocztę
+                  </p:commandLink>
+                </h:form>
+             </li>
             </ul> <!-- /.dropdown-messages --></li>
           <!-- /.dropdown -->
           <li class="dropdown"><a class="dropdown-toggle"
             data-toggle="dropdown" href="#"> <i
               class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
           </a>
+            <p:growl life="2500" />
             <ul class="dropdown-menu dropdown-alerts">
-              <li><a href="#">
-                  <div>
-                    <i class="fa fa-comment fa-fw"></i> New Comment <span
-                      class="pull-right text-muted small">4
-                      minutes ago</span>
-                  </div>
-              </a></li>
-              <li class="divider"></li>
-              <li><a href="#">
-                  <div>
-                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                    <span class="pull-right text-muted small">12
-                      minutes ago</span>
-                  </div>
-              </a></li>
-              <li class="divider"></li>
-              <li><a href="#">
-                  <div>
-                    <i class="fa fa-envelope fa-fw"></i> Message Sent <span
-                      class="pull-right text-muted small">4
-                      minutes ago</span>
-                  </div>
-              </a></li>
-              <li class="divider"></li>
-              <li><a href="#">
-                  <div>
-                    <i class="fa fa-tasks fa-fw"></i> New Task <span
-                      class="pull-right text-muted small">4
-                      minutes ago</span>
-                  </div>
-              </a></li>
-              <li class="divider"></li>
-              <li><a href="#">
-                  <div>
-                    <i class="fa fa-upload fa-fw"></i> Server Rebooted <span
-                      class="pull-right text-muted small">4
-                      minutes ago</span>
-                  </div>
-              </a></li>
+                <p:messages globalOnly="true" autoUpdate="true" />
+              
+              
+              <ui:remove>
               <li class="divider"></li>
               <li><a class="text-center" href="#"> <strong>See
                     All Alerts</strong> <i class="fa fa-angle-right"></i>
               </a></li>
+              </ui:remove>
             </ul> <!-- /.dropdown-alerts --></li>
           <!-- /.dropdown -->
           <li class="dropdown"><a class="dropdown-toggle"
@@ -185,7 +160,10 @@
                   styleClass="#{path.dashboard ? 'active' : ''}"
                   outcome="/support/dashboard2.jsf">
                   <i class="fa fa-dashboard fa-fw"></i> Podsumowanie</p:link></li>
-
+              <li><p:link
+                  styleClass="#{path.myTickets ? 'active' : ''}"
+                  outcome="/support/myTickets.jsf">
+                  <i class="fa fa-flag-checkered fa-fw"></i> Moje zgłoszenia</p:link></li>
               <li><p:link rendered="#{person.admin}"
                   styleClass="#{path.forms ? 'active' : ''}"
                   outcome="/support/administration/forms.jsf">
@@ -200,7 +178,7 @@
 
       <div id="page-wrapper">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-xs-12 header">
             <ui:insert name="header">
               <h1 class="page-header">Dashboard</h1>
             </ui:insert>

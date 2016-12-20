@@ -39,15 +39,14 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-sm-12">
-                  <p:messages styleClass="help-block"></p:messages>
                   <div class="form-horizontal">
                     <div class="form-group">
-                      <p:outputLabel for="name" value="Imię"
+                      <p:outputLabel for="name" value="Nazwa"
                         styleClass="control-label col-sm-2"></p:outputLabel>
                       <div class="col-sm-6">
                         <p:inputText id="name"
                           value="#{userEditBean.user.name}"
-                          placeholder="Imię" required="true"
+                          placeholder="Imię i nazwisko" required="true"
                           styleClass="form-control">
                           <p:clientValidator />
                         </p:inputText>

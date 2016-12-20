@@ -1,11 +1,13 @@
 package pomoc.partner.preferences;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBException;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import pomoc.partner.PartnerService;
 import pomoc.partner.login.LoggedPersonService;
+import pomoc.util.faces.FacesMessage;
 
 @Model
 public class PreferencesBean {
@@ -15,6 +17,8 @@ public class PreferencesBean {
 	@Inject
 	private PartnerService partnerService;
 	
+	@Inject
+	private FacesMessage fm;
 	
 	private Preferences preferences;
 
@@ -29,8 +33,13 @@ public class PreferencesBean {
 	}
 	
 	public String save() {
-		partnerService.save(preferences);
-		return "/support/dashboard";
+		try {
+			partnerService.save(preferences);
+			fm.postInfo("Zapisano ustawienia");
+		} catch (EJBException e) {
+			fm.postError("Błąd zapisu");
+		}
+		return "/support/dashboard2?faces-redirect=true";
 	}
 
 	public Preferences getPreferences() {

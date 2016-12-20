@@ -38,6 +38,7 @@ public class UserAccessModel {
 			FormPublication form = forms[i];
 			if (writeRights[i]) {
 				rightsMap.put(form, Right.EDIT);
+				continue;
 			}
 			
 			if (readRights[i]) {

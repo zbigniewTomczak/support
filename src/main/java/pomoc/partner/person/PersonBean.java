@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
@@ -33,12 +34,21 @@ public class PersonBean {
 	@Inject
 	private SetUpSampleData sampleData;
 	
+	@Produces
+	@Named
+	private Person loggedPerson;
+	
+	@PostConstruct
+	public void init() {
+		loggedPerson = loggedPersonService.getLoggedPerson();
+	}
+	
 	public String newPerson() {
 		return "people?faces-redirect=true";
 	}
 	
 	public void checkPermissions(ComponentSystemEvent event) throws IOException {
-		if (loggedPersonService.getLoggedPerson()==null) {
+		if (loggedPerson==null) {
 			String bootstrapData = fc.getExternalContext().getInitParameter("pomoc.hooks.bootstrap.data");
 			if (Boolean.valueOf(bootstrapData)) {
 				sampleData.setUp();
@@ -58,11 +68,21 @@ public class PersonBean {
 	@Produces
 	@Named
 	public List<SelectItem> getPartnerPersons() {
-		if (loggedPersonService.getLoggedPerson() != null) {
-			return personService.getColleagues(loggedPersonService.getLoggedPerson());
+		if (loggedPerson != null) {
+			return personService.getColleagues(loggedPerson);
 		} 
 		
 		//todo report error
 		return null;
 	}
+
+	public Person getLoggedPerson() {
+		return loggedPerson;
+	}
+
+	public void setLoggedPerson(Person loggedPerson) {
+		this.loggedPerson = loggedPerson;
+	}
+	
+	
 }

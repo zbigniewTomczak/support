@@ -61,6 +61,7 @@ public class UserEditBean {
 	   
 	public String saveUser() {
 		boolean ok = false;
+		String samePage = "/support/administration/useredit.jsf?faces-redirect=true&id="+id;
 		if (id==null) {
 			ok = userValidator.validateNew(user);
 		} else {
@@ -74,7 +75,7 @@ public class UserEditBean {
 				} else {
 					if (user.getId() != null && personService.willBeNoAdmin(user.getId(), partner)) {
 						fm.postError("Musi pozostać co najmniej jeden aktywny administrator.");
-						return null;
+						return samePage;
 					}
 					user.setRole(Role.USER);
 				}
@@ -88,11 +89,11 @@ public class UserEditBean {
 				}
 			} catch (EJBException e) {
 				fm.postError("Cannot Save user ("+ e.getMessage() + ")", e);
-				return null;
+				return samePage;
 			}
 			return "/support/administration/users.jsf?faces-redirect=true";
 		}
-		return null;
+		return samePage;
 	}
 
 

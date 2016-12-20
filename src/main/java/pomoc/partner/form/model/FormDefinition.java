@@ -2,6 +2,7 @@ package pomoc.partner.form.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class FormDefinition {
 	private Integer formVersion;
 	
 	
-	@OneToMany(mappedBy="form")
+	@OneToMany(mappedBy="form", cascade=CascadeType.ALL, orphanRemoval=true)
 	@OrderColumn(name="elementOrder")
 	private List<FormElement> elements;
 	

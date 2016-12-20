@@ -18,6 +18,7 @@ public class RewriteConfigurationProvider extends HttpConfigurationProvider {
 		return ConfigurationBuilder.begin()
 				.addRule(Join.path("/").to("/support/signin2.jsf").withInboundCorrection())
 				.addRule(Join.path("/dashboard").to("/support/dashboard2.jsf").withInboundCorrection())
+				.addRule(Join.path("/my-tickets").to("/support/myTickets.jsf").withInboundCorrection())
 				.addRule(Join.path("/preferences").to("/support/administration/preferences.jsf").withInboundCorrection())
 				.addRule(Join.path("/profile").to("/support/myprofile.jsf").withInboundCorrection())
 				.addRule(Join.path("/admin/forms").to("/support/administration/forms.jsf").withInboundCorrection())

@@ -1,10 +1,48 @@
-<ui:composition template="/WEB-INF/template.xhtml"
+<ui:composition template="/WEB-INF/template2.xhtml"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
+  <ui:define name="meta">
+    <h:outputStylesheet library="css" name="bootstrap-switch.min.css"></h:outputStylesheet>
+  </ui:define>
+  <ui:define name="footer-meta">
+    <h:outputScript library="js" name="bootstrap-switch.min.js"></h:outputScript>
+    <h:outputScript library="js" name="access-table-switch.js"></h:outputScript>
+  </ui:define>
+  <ui:define name="header">
+    <h1 class="page-header">Profil</h1>
+
+  </ui:define>
   <ui:define name="page">
-Mój profil użytkownika
-</ui:define>
+    <div class="col-sm-12">
+      <div class="row">
+        <h4 class="col-sm-4">Nazwa</h4>
+        <h5 class="col-sm-4">#{loggedPerson.name}</h5>
+      </div>
+      <div class="row">
+        <h4 class="col-sm-4">Email</h4>
+        <h5 class="col-sm-4">#{loggedPerson.email}</h5>
+      </div>
+      <div class="row">
+        <h4 class="col-sm-4">Rola</h4>
+        <h5 class="col-sm-4">#{loggedPerson.admin ? 'Administrator'
+          : 'Użytkownik'}</h5>
+      </div>
+    </div>
+    <div class="row">
+      <h2 class="page-header col-sm-12">Uprawnienia</h2>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <ui:decorate template="/WEB-INF/includes/accessTable.xhtml">
+          <ui:param name="model"
+            value="#{myProfileBean.userAccessModel}" />
+          <ui:param name="disabled" value="true" />
+          <ui:param name="col" value="2" />
+        </ui:decorate>
+      </div>
+    </div>
+  </ui:define>
 </ui:composition>

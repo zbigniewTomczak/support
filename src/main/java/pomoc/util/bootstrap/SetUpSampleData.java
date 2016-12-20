@@ -7,8 +7,10 @@ import javax.persistence.EntityManager;
 import pomoc.partner.Partner;
 import pomoc.partner.form.model.FormDefinition;
 import pomoc.partner.form.model.FormPublication;
+import pomoc.partner.form.response.FormResponse;
 import pomoc.partner.person.Person;
 import pomoc.partner.preferences.Preferences;
+import pomoc.partner.ticket.Ticket;
 
 @Stateless
 public class SetUpSampleData {
@@ -26,6 +28,13 @@ public class SetUpSampleData {
 		em.persist(form);
 		FormPublication formPub = new SetUpForm().setUpPublication(form);
 		em.persist(formPub);
+		Person user = new SetUpUser().setUp(partner, formPub);
+		em.persist(user);
+		FormResponse formRes = new SetUpResponse().setUp(form);
+		em.persist(formRes);
+		Ticket ticket = new SetUpTicket().setUp(formRes);
+		em.persist(ticket);
+		
 		
 
 //

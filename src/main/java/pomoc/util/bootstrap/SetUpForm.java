@@ -1,5 +1,11 @@
 package pomoc.util.bootstrap;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pomoc.form.FormCheckbox;
+import pomoc.form.FormElement;
+import pomoc.form.FormInputText;
 import pomoc.partner.Partner;
 import pomoc.partner.form.model.FormDefinition;
 import pomoc.partner.form.model.FormPublication;
@@ -13,6 +19,19 @@ public class SetUpForm {
 		form.setSkey("formularz-kontaktowy");
 		form.setFormVersion(2);
 		form.setPartner(partner);
+		FormElement e = new FormInputText();
+		e.setForm(form);
+		e.setLabel("Imię i Nazwisko");
+		List<FormElement> elements = new ArrayList<>();
+		elements.add(e);
+		e = FormElement.create("input-email");
+		elements.add(e);
+		e.setForm(form);
+		e = new FormCheckbox();
+		e.setLabel("Chę otrzymywać newsletter");
+		elements.add(e);
+		e.setForm(form);
+		form.setElements(elements);
 		return form;
 	}
 

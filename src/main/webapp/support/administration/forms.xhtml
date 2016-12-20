@@ -11,10 +11,13 @@
   </ui:define>
 
   <ui:define name="header">
-    <ui:decorate template="/WEB-INF/templates/newItemLink.xhtml">
-      <ui:param name="outcome" value="/support/administration/form.jsf" />
-      <ui:param name="value" value="Nowy formularz" />
-    </ui:decorate>
+    <ul class="nav nav-pills">
+      <li><a data-toggle="modal" data-target="#newFormDialog"
+          class="btn btn-default navbar-btn">
+          <i class="fa fa-plus fa-fw"></i>Nowy formularz
+          </a>
+      </li>
+    </ul>
   </ui:define>
 
   <ui:define name="page">
@@ -44,6 +47,11 @@
 
       </h:column>
     </h:dataTable>
+    <h:form>
+      <ui:decorate template="new-form-dialog.xhtml">
+
+      </ui:decorate>
+    </h:form>
   </ui:define>
 
   <ui:define name="help">

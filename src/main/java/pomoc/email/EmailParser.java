@@ -9,8 +9,11 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -29,6 +32,7 @@ import pomoc.partner.Partner;
 import pomoc.partner.preferences.Preferences;
 
 @Stateless
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class EmailParser {
 	
 	@Inject
@@ -38,15 +42,22 @@ public class EmailParser {
 	@Inject
 	private Logger log;
 	
-	@Schedule(minute="*/5",hour="*/1", persistent=false)
-	public void checkMailbox() throws MimeException {
-		Partner partner = em.find(Partner.class, 0L);
-		Preferences preferences = partner.getPreferences();
-		List<MailboxCheckHistory> history = partner.getHistory();
-		Date lastCheck = null;
-		if (!history.isEmpty()) {
-			lastCheck = history.get(0).getDate(); 
+	@Schedule(minute="*/10",hour="*/1", persistent=false)
+	@Asynchronous
+	public void checkMailbox() {
+		try {
+			List<Partner> partners = em.createQuery("SELECT p FROM Partner p", Partner.class).getResultList();
+			for (Partner partner : partners) {
+				MailboxCheckHistory lastCheck = communicationService.getLastCheck(partner);
+				Date lastCheckDate = lastCheck == null ? null : lastCheck.getDate();
+				check(partner, partner.getPreferences(), lastCheckDate);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+	
+	private void check(Partner partner, Preferences preferences, Date lastCheck) throws MimeException {
 		POP3Client pop3 = new POP3SClient("TLS", true);
         pop3.setDefaultPort(995);
         pop3.setDefaultTimeout(60000);
@@ -84,9 +95,9 @@ public class EmailParser {
             else if (messages.length == 0)
             {
                 log.info("No messages");
-                pop3.logout();
-                pop3.disconnect();
-                return;
+                //pop3.logout();
+                //pop3.disconnect();
+                //return;
             }
 
             for (POP3MessageInfo msginfo : messages) {
@@ -110,7 +121,7 @@ public class EmailParser {
             h.setDate(now);
             h.setPartner(partner);
             h.setProcessedNumber(counter);
-            em.persist(h);
+            communicationService.save(h);
         }
         catch (IOException e)
         {

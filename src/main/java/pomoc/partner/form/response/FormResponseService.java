@@ -1,17 +1,15 @@
 package pomoc.partner.form.response;
 
-import java.util.Date;
-import java.util.logging.Logger;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import pomoc.partner.form.FormPublicationService;
 import pomoc.partner.form.model.FormPublication;
-import pomoc.partner.ticket.Status;
+import pomoc.partner.form.sla.SlaPlan;
+import pomoc.partner.ticket.NewTicketService;
 import pomoc.partner.ticket.Ticket;
-import pomoc.partner.ticket.TicketService;
+import pomoc.partner.ticket.event.SlaDeadlineEvent;
 
 import com.google.common.base.Preconditions;
 
@@ -20,18 +18,11 @@ public class FormResponseService {
 
 	@Inject
 	private EntityManager em;
-	@Inject 
-	private Logger logger;
 	@Inject
 	private FormPublicationService formPublicationervice;
 	@Inject
-	private TicketService ticketService;
+	private NewTicketService newTicketService;
 	
-	public void save(FormResponse formResponse) {
-		logger.info("Saved " + formResponse);
-		
-	}
-
 	public void saveNewFormResponse(FormResponse formResponse,
 			String key) {
 		Preconditions.checkNotNull(formResponse);
@@ -40,13 +31,16 @@ public class FormResponseService {
 		Preconditions.checkNotNull(formPublication);
 //		formResponse.setPublication(formPublication);
 		em.persist(formResponse);
-		Ticket newTicket = new Ticket();
+		Ticket newTicket = newTicketService.getNewTicket();
 		newTicket.setFormResponse(formResponse);
-		newTicket.setDate(new Date());
-		newTicket.setNumber(ticketService.getNewTicketNumber(formPublication.getPartner()));
-		newTicket.setStatus(Status.NEW);
-		newTicket.setPartner(formPublication.getPartner());
-		em.persist(newTicket);
+		if (formPublication.getSlaPlans() != null && formPublication.getSlaPlans().containsKey(SlaPlan.FOR_OPENING)) {
+			Integer planHours = formPublication.getSlaPlans().get(SlaPlan.FOR_OPENING);
+			if (planHours != null) {
+				newTicket.getEvents().add(new SlaDeadlineEvent(SlaPlan.FOR_OPENING, planHours));
+			}
+		}
+		//newTicket.setPartner(formPublication.getPartner());
+		em.merge(newTicket);
 	}
 
 }

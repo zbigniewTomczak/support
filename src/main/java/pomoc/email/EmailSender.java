@@ -2,7 +2,6 @@ package pomoc.email;
 
 import java.util.logging.Logger;
 
-import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -15,6 +14,7 @@ import org.apache.commons.mail.SimpleEmail;
 
 import pomoc.customer.communication.CommunicationCase;
 import pomoc.partner.preferences.Preferences;
+import pomoc.partner.ticket.Ticket;
 
 import com.google.common.base.Preconditions;
 
@@ -45,12 +45,35 @@ public class EmailSender {
 		
 	}
 	
+	public void send(Ticket ticket, String emailString, String message, Preferences preferences) {
+		Preconditions.checkNotNull(ticket);
+		Preconditions.checkNotNull(emailString);
+		Preconditions.checkNotNull(message);
+		Preconditions.checkNotNull(preferences);
+		Email email = new HtmlEmail();
+		email.setHostName(preferences.getSmtpHost());
+		email.setSmtpPort(465);
+		email.setAuthenticator(new DefaultAuthenticator(preferences.getAddress(), preferences.getPassword()));
+		email.setSSLOnConnect(true);
+		email.setSubject("#"+ticket.getNumber());
+		try {
+			email.setFrom(preferences.getAddress());
+			email.setMsg(message);
+			email.addTo(emailString);
+			email.send();
+		} catch (EmailException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
 	//@Schedule(minute="*/2",hour="*", persistent=false)
 	public void heatbeat() throws EmailException {
 		log.info("Heartbeat");
 	}
 	
-	@Schedule(hour="*/2", persistent=false)
+	//@Schedule(hour="*/2", persistent=false)
 	public void heatbeatEmail() throws EmailException {
 		Preferences preferences = em.find(Preferences.class, 0L);
 		Email email = new SimpleEmail();
