@@ -1,5 +1,5 @@
-# Application for Service Desk 
-## *System Pomoc*
+# System Pomoc
+## Customizable & embeddable forms
 
 ### Back-office/administration panel:
 https://system-pomoc.rhcloud.com/
