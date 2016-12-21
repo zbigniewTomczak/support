@@ -73,8 +73,13 @@ public class TicketService {
 	@AllTickets
 	public List<TicketData> getAllPartnerTickets() {
 		TypedQuery<TicketData> query = em.createQuery(
-				"SELECT DISTINCT new pomoc.partner.ticket.TicketData(t) from Ticket t LEFT JOIN t.events WHERE t.formResponse.formDefinition.partner.id=:id order by t.date ASC", 
-				TicketData.class);
+				"SELECT DISTINCT "
+						+ "new pomoc.partner.ticket.TicketData(t) "
+						+ "from Ticket t "
+						+ "LEFT JOIN t.events "
+						+ "WHERE t.formResponse.formDefinition.partner.id=:id "
+//						+ "order by t.date DESC"
+				, TicketData.class);
 		query.setParameter("id", p.getId());
 		return query.getResultList();
 	}
@@ -88,8 +93,13 @@ public class TicketService {
 		Preconditions.checkNotNull(loggedPerson);
 		
 		TypedQuery<TicketData> query = em.createQuery(
-				"SELECT DISTINCT new pomoc.partner.ticket.TicketData(t) from Ticket t LEFT JOIN t.events WHERE t.formResponse.formDefinition.partner.id=:id AND t.assignee IS NULL order by t.number DESC", 
-				TicketData.class);
+				"SELECT DISTINCT new pomoc.partner.ticket.TicketData(t) "
+						+ "from Ticket t "
+						+ "LEFT JOIN t.events "
+						+ "WHERE t.formResponse.formDefinition.partner.id=:id "
+						+ "AND t.assignee IS NULL "
+//						+ "order by t.number DESC"
+				, TicketData.class);
 		query.setParameter("id", loggedPerson.getPartner().getId());
 		return query.getResultList();
 	}
@@ -105,8 +115,13 @@ public class TicketService {
 		Preconditions.checkNotNull(loggedPerson);
 		
 		TypedQuery<TicketData> query = em.createQuery(
-				"SELECT DISTINCT new pomoc.partner.ticket.TicketData(t) from Ticket t LEFT JOIN  t.events WHERE t.formResponse.formDefinition.partner.id=:partnerId AND t.assignee.id=:personId order by t.number DESC", 
-				TicketData.class);
+				"SELECT DISTINCT new pomoc.partner.ticket.TicketData(t) "
+						+ "from Ticket t "
+						+ "LEFT JOIN  t.events "
+						+ "WHERE t.formResponse.formDefinition.partner.id=:partnerId "
+						+ "AND t.assignee.id=:personId "
+//						+ "order by t.number DESC"
+				, TicketData.class);
 		query.setParameter("partnerId", loggedPerson.getPartner().getId());
 		query.setParameter("personId", loggedPerson.getId());
 		return query.getResultList();
@@ -129,10 +144,12 @@ public class TicketService {
 			publicationIds.add(pub.getId());
 		}
 		TypedQuery<TicketData> query = em.createQuery(
-				"SELECT new pomoc.partner.ticket.TicketData(t) from Ticket t WHERE t.formResponse.formDefinition.partner.id=:partnerId"
-				+ " AND t.formResponse.formDefinition.publication.id IN :publications"
-				+ " order by t.number DESC", 
-				TicketData.class);
+				"SELECT new pomoc.partner.ticket.TicketData(t) "
+						+ "from Ticket t "
+						+ "WHERE t.formResponse.formDefinition.partner.id=:partnerId"
+					+ " AND t.formResponse.formDefinition.publication.id IN :publications"
+//					+ " order by t.number DESC"
+				, TicketData.class);
 		query.setParameter("partnerId", loggedPerson.getPartner().getId());
 		query.setParameter("publications", publicationIds);
 		return query.getResultList();

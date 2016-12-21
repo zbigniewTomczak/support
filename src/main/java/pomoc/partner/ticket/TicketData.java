@@ -6,7 +6,7 @@ import java.util.List;
 import pomoc.partner.ticket.event.Event;
 import pomoc.partner.ticket.event.SlaDeadlineEvent;
 
-public final class TicketData {
+public final class TicketData implements Comparable<TicketData> {
 	private final Integer number;
 	private final String formName;
 	@Deprecated
@@ -86,5 +86,12 @@ public final class TicketData {
 	public void setSlaDeadline(Date slaDeadline) {
 		this.slaDeadline = slaDeadline;
 	}
-	
+
+	@Override
+	public int compareTo(TicketData o) {
+		if (number != null && o.number != null) {
+			return number.compareTo(o.number);
+		}
+		return 0;
+	}
 }
