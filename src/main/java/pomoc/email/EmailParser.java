@@ -58,6 +58,10 @@ public class EmailParser {
 	}
 	
 	private void check(Partner partner, Preferences preferences, Date lastCheck) throws MimeException {
+		if (preferences == null) {
+			log.warning("No preferences for partner: " + partner.getId());
+			return;
+		}
 		POP3Client pop3 = new POP3SClient("TLS", true);
         pop3.setDefaultPort(995);
         pop3.setDefaultTimeout(60000);
