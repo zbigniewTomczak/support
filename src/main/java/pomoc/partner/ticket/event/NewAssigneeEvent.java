@@ -22,7 +22,7 @@ public class NewAssigneeEvent extends Event {
 
 	public String toString() {
 		String name = assignee != null ? assignee.getName() : "";
-		return "Nowa odpowiedzialność: " + name;
+		return "New Responsibility: " + name;
 	}
 
 	public Person getAssignee() {

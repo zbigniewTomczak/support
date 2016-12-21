@@ -11,8 +11,12 @@
 	</lifecycle-->
 	<application>
 		<resource-bundle>
-			<base-name>pomoc.locale.bundles.Paths</base-name>
+			<base-name>locale.Paths</base-name>
 			<var>Paths</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>locale.messages</base-name>
+			<var>i</var>
 		</resource-bundle>
 	</application>
 </faces-config>

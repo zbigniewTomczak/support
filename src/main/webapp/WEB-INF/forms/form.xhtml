@@ -104,7 +104,7 @@
           <div class="panel-footer text-center">
             <p:commandButton
               action="#{formResponseBean.newFormResponse()}"
-              value="Wyślij" icon="ui-icon-check" update="form"
+              value="Send" icon="ui-icon-check" update="form"
               styleClass="btn btn-default">
               <i class="fa fa-check"></i>
             </p:commandButton>
@@ -147,7 +147,7 @@
         value="#{formResponse.content}"></p:inputTextarea>
       <f:facet name="footer">
         <p:commandButton action="#{formResponseBean.newFormResponse()}"
-          value="Wyślij" icon="ui-icon-check"
+          value="Send" icon="ui-icon-check"
           update="messages, name, email, message"
           style="#{formStyle.submitButtonWidthStyle} 
             #{formStyle.submitButtonMarginLeftStyle}" />

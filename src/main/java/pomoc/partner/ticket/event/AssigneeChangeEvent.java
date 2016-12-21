@@ -28,7 +28,7 @@ public class AssigneeChangeEvent extends Event {
 	public String toString() {
 		String before = assigneeBefore != null ? assigneeBefore.getName() : "";
 		String after = assigneeAfter != null ? assigneeAfter.getName() : "";
-		return "Odpowiedzialność: " + before + " -> " + after;
+		return "Responsibility: " + before + " -> " + after;
 	}
 	
 	public Person getAssigneeBefore() {

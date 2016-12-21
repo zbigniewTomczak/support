@@ -43,11 +43,11 @@
             <ul class="nav nav-pills">
               <li><p:commandLink
                   action="#{formDefinitionEditBean.save()}"
-                  styleClass="btn btn-default navbar-btn" value="Zapisz"
+                  styleClass="btn btn-default navbar-btn" value="Save"
                   ajax="false" validateClient="true" process="@this"></p:commandLink></li>
               <li><p:link
                   outcome="/support/administration/form.jsf?skey=#{formDefinitionEditBean.skey}"
-                  value="Anuluj" styleClass="btn btn-default navbar-btn">
+                  value="Cancel" styleClass="btn btn-default navbar-btn">
                 </p:link></li>
             </ul>
             <div class="">
@@ -196,15 +196,15 @@
                         </ui:repeat>
                         <ui:remove>
                           <div class="form-group">
-                            <p:outputLabel for="title" value="Tytuł"
+                            <p:outputLabel for="title" value="Title"
                               styleClass="control-label col-sm-2"></p:outputLabel>
                             <div class="col-sm-6">
                               <p:inputText id="title"
                                 value="#{formPublication.title}"
                                 required="true"
                                 requiredMessage="Podaj tytuł"
-                                placeholder="Tytuł"
-                                title="Tytuł będzie pokazywany na stronie jako nagłówek formularza"
+                                placeholder="Title"
+                                title="Title będzie pokazywany na stronie jako nagłówek formularza"
                                 styleClass="form-control">
                                 <ui:remove>
                                   <p:ajax update="preview"
@@ -229,7 +229,7 @@
                       <!--/.form-horizontal  -->
                       <div class="panel-footer text-center">
                         <button type="button" class="btn btn-default">
-                          <i class="fa fa-check"></i> Wyślij
+                          <i class="fa fa-check"></i> Send
                         </button>
                       </div>
                     </div>

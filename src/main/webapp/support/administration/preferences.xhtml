@@ -16,10 +16,10 @@
           <ul class="nav nav-pills col-sm-2">
             <li><p:commandLink
                 action="#{preferencesBean.save()}"
-                styleClass="btn btn-default navbar-btn" value="Zapisz"
+                styleClass="btn btn-default navbar-btn" value="Save"
                 ajax="false" validateClient="true"></p:commandLink></li>
             <li><p:link outcome="/support/dashboard2"
-                value="Anuluj" styleClass="btn btn-default navbar-btn">
+                value="Cancel" styleClass="btn btn-default navbar-btn">
               </p:link></li>
           </ul>
           <div class="">
@@ -29,7 +29,7 @@
                   <p:messages styleClass="help-block"></p:messages>
                   <div class="form-horizontal">
                     <div class="form-group">
-                      <p:outputLabel value="Nazwa" styleClass="control-label col-sm-2"
+                      <p:outputLabel value="Name" styleClass="control-label col-sm-2"
                           title="Ukaże się w polu 'Od' wysyłanych e-maili"></p:outputLabel>
                       <div class="col-sm-6">
                         <p:inputText value="#{preferencesBean.preferences.fromName}" styleClass="form-control"/>
@@ -85,13 +85,13 @@
       <div
         class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
         <span class="ui-menuitem-text" style="font-weight: bold;"></span>
-        <p:button icon="ui-icon-cancel" value="Anuluj"
+        <p:button icon="ui-icon-cancel" value="Cancel"
           styleClass="float-right" outcome="/support/dashboard" />
-        <p:commandButton icon="ui-icon-disk" value="Zapisz"
+        <p:commandButton icon="ui-icon-disk" value="Save"
           styleClass="float-right" action="#{preferencesBean.save()}" />
       </div>
       <p:panelGrid columns="2">
-        <p:outputLabel value="Nazwa"
+        <p:outputLabel value="Name"
           title="Ukaże się w polu 'Od' wysyłanych e-maili"></p:outputLabel>
         <p:inputText value="#{preferencesBean.preferences.fromName}"></p:inputText>
 

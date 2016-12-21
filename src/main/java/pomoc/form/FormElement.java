@@ -41,13 +41,13 @@ public abstract class FormElement {
 		switch (elementType) {
 		case "input-text": 
 			element = new FormInputText();
-			element.setLabel("Tytuł");
-			element.setPlaceholder("Podpowiedź");
+			element.setLabel("Title");
+			element.setPlaceholder("");
 			break;
 		case "input-textarea": 
 			element = new FormInputTextarea();
-			element.setLabel("Tytuł");
-			element.setPlaceholder("Podpowiedź");
+			element.setLabel("Title");
+			element.setPlaceholder("");
 			break;
 		case "comment": 
 			element = new FormText("Kliknij aby wyedytować tekst.");

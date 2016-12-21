@@ -57,7 +57,7 @@ public class FormDefinition {
 
 	public String getVersionTitle() {
 		if (formVersion != null && formVersion > 1) {
-			return String.format(" (wersja %d)", formVersion);
+			return String.format(" (version %d)", formVersion);
 		}
 		return null;
 	}

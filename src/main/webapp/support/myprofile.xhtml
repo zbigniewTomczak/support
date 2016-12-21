@@ -12,13 +12,13 @@
     <h:outputScript library="js" name="access-table-switch.js"></h:outputScript>
   </ui:define>
   <ui:define name="header">
-    <h1 class="page-header">Profil</h1>
+    <h1 class="page-header">Profile</h1>
 
   </ui:define>
   <ui:define name="page">
     <div class="col-sm-12">
       <div class="row">
-        <h4 class="col-sm-4">Nazwa</h4>
+        <h4 class="col-sm-4">Name</h4>
         <h5 class="col-sm-4">#{loggedPerson.name}</h5>
       </div>
       <div class="row">
@@ -26,13 +26,13 @@
         <h5 class="col-sm-4">#{loggedPerson.email}</h5>
       </div>
       <div class="row">
-        <h4 class="col-sm-4">Rola</h4>
+        <h4 class="col-sm-4">Role</h4>
         <h5 class="col-sm-4">#{loggedPerson.admin ? 'Administrator'
           : 'Użytkownik'}</h5>
       </div>
     </div>
     <div class="row">
-      <h2 class="page-header col-sm-12">Uprawnienia</h2>
+      <h2 class="page-header col-sm-12">Capabilities</h2>
     </div>
     <div class="row">
       <div class="col-sm-12">

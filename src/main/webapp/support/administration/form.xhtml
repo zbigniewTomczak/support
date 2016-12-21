@@ -18,15 +18,15 @@
           <ul class="nav nav-pills col-sm-3">
             <li><p:commandLink
                 action="#{formEditBean.save}"
-                styleClass="btn btn-default navbar-btn" value="Zapisz"
+                styleClass="btn btn-default navbar-btn" value="Save"
                 ajax="false" validateClient="true"></p:commandLink></li>
             <li><p:link outcome="/support/administration/forms.jsf"
-                value="Anuluj" styleClass="btn btn-default navbar-btn">
+                value="Cancel" styleClass="btn btn-default navbar-btn">
               </p:link></li>
           </ul>
           <ul class="nav nav-pills">
             <li><p:link outcome="/support/administration/form-definition.jsf"
-                value="Edycja" styleClass="btn btn-default navbar-btn">
+                value="Edit" styleClass="btn btn-default navbar-btn">
                 <f:param name="skey" value="#{formPublication.formDefinition.skey}"></f:param>
               </p:link></li>
           </ul>
@@ -37,14 +37,14 @@
                   <p:messages styleClass="help-block"></p:messages>
                   <div class="form-horizontal">
                     <div class="form-group">
-                      <p:outputLabel for="title" value="Tytuł"
+                      <p:outputLabel for="title" value="Title"
                         styleClass="control-label col-sm-3"></p:outputLabel>
                       <div class="col-sm-6">
                         <p:inputText id="title"
                           value="#{formPublication.title}"
                           required="true" requiredMessage="Podaj tytuł"
-                          placeholder="Tytuł"
-                          title="Tytuł będzie pokazywany na stronie jako nagłówek formularza"
+                          placeholder="Title"
+                          title="Title będzie pokazywany na stronie jako nagłówek formularza"
                           styleClass="form-control">
                           <ui:remove>
                             <p:ajax update="preview"
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="form-group">
-                      <p:outputLabel value="Tekst potwierdzenia"
+                      <p:outputLabel value="Confirmation message"
                         styleClass="control-label col-sm-3" 
                         for="confirmationMessage"/>
                       <div class="col-sm-6">
@@ -76,7 +76,7 @@
                       
                     </div>
                     <div class="form-group">
-                      <p:outputLabel value="Szerokość"
+                      <p:outputLabel value="Width"
                         styleClass="control-label col-sm-3" />
                       <div class="col-sm-6">
                         <p:spinner
@@ -88,7 +88,7 @@
                     </div>
                     <div class="form-group">
 
-                      <p:outputLabel value="Wysokość"
+                      <p:outputLabel value="Height"
                         styleClass="control-label col-sm-3" />
                       <div class="col-sm-6">
                         <p:spinner
@@ -100,7 +100,7 @@
                     </div>
                     <div class="form-group">
 
-                      <p:outputLabel value="Styl CSS"
+                      <p:outputLabel value="CSS Style"
                         styleClass="control-label col-sm-3"
                         title="Styl CSS daje możliwość dostosowania formularza do wyglądu strony." />
                       <div class="col-sm-6">
@@ -112,7 +112,7 @@
                     
                     <div class="form-group">
 
-                      <p:outputLabel value="Kod do wklejenia na stronę"
+                      <p:outputLabel value="Paste this code on your website"
                         styleClass="control-label col-sm-3"/>
                       <div class="col-sm-6">
                         <div class="well">
@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="form-group">
-                      <p:outputLabel value="Plan SLA: otwarcie zgłoszenia"
+                      <p:outputLabel value="SLA plan: first response"
                         styleClass="control-label col-sm-3" />
                       <div class="col-sm-6">
                         <h:selectOneMenu title="Czas po jakim zgłoszenie musi zostać otwarte" converter="javax.faces.Integer"
@@ -134,7 +134,7 @@
                     </div>
                     
                     <div class="form-group">
-                      <p:outputLabel value="Plan SLA: zamknięcie zgłoszenia"
+                      <p:outputLabel value="SLA plan: closing"
                         styleClass="control-label col-sm-3" />
                       <div class="col-sm-6">
                         <h:selectOneMenu title="Czas od otwarcia po jakim zgłoszenie musi zostać rozwiązane" converter="javax.faces.Integer"
@@ -150,10 +150,10 @@
                         styleClass="control-label col-sm-3" />
                       <div class="col-sm-6 checkbox">
                         <label>
-                        <h:selectBooleanCheckbox title="Aktywny formularz będzie dostępny do wysyłania."
+                        <h:selectBooleanCheckbox title="Active formularz będzie dostępny do wysyłania."
                           value="#{formPublication.active}"
                            />
-                        Aktywny
+                        Active
                         </label>
                         
                       </div>

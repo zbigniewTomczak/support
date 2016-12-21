@@ -8,7 +8,7 @@
 
   <ui:define name="header">
     <div class="col-sm-5">
-      <h1>Zgłoszenie ##{number}</h1>
+      <h1>Issue ##{number}</h1>
       <h3><em>#{ticket.formResponse.formDefinition.name}</em></h3>
       <ui:repeat var="response" value="#{responses}"
         varStatus="varStatus">
@@ -30,11 +30,11 @@
         <h:panelGroup styleClass="form-group" layout="block" rendered="#{ticketEditBean2.editRights}"> 
           <ul class="nav nav-pills">
             <li><p:commandLink action="#{ticketEditBean2.save()}"
-                styleClass="btn btn-default navbar-btn" value="Zapisz"
+                styleClass="btn btn-default navbar-btn" value="Save"
                 ajax="false" validateClient="true" process="@this"></p:commandLink></li>
             <li><p:link
                 outcome="/support/ticket2.jsf?faces-redirect=true&amp;number=#{number}"
-                ajax="false" value="Anuluj"
+                ajax="false" value="Cancel"
                 styleClass="btn btn-default navbar-btn">
               </p:link></li>
           </ul>
@@ -47,7 +47,7 @@
           </h:selectOneMenu>
         </div>
         <div class="form-group">
-          <p:outputLabel value="Odpowiedzialność"
+          <p:outputLabel value="Responsibility"
             styleClass="control-label"></p:outputLabel>
           <h:selectOneMenu styleClass="form-control" value="#{ticket.assigneeId}" readonly="#{not ticketEditBean2.editRights}">
             <f:selectItems value="#{peopleWithEditRights}"></f:selectItems>
@@ -63,15 +63,15 @@
             <div class="timeline-badge info"><i class="fa fa-envelope-o"></i></div>
             <div class="timeline-panel">
               <div class="timeline-heading">
-                <h4 class="timeline-title">Odpowiedz</h4>
+                <h4 class="timeline-title">Respond</h4>
               </div>
               <div class="timeline-body">
                 <h:form >
                   
                   <p:inputTextarea value="#{ticketEditBean2.message}"
-                      placeholder="Wpisz tekst. Odpowiedź zostanie wysłana na e-mail podany przy wypełnianiu formularza."
+                      placeholder="Type response. It will be send to this person e-mail."
                       styleClass="form-control" rows="4" required="true" requiredMessage="Wpisz tekst odpowiedzi"/>
-                  <p:commandLink action="#{ticketEditBean2.sendMessage}"  ajax="false" value="Wyślij odpowiedź" styleClass="btn btn-default"></p:commandLink>
+                  <p:commandLink action="#{ticketEditBean2.sendMessage}"  ajax="false" value="Send response" styleClass="btn btn-default"></p:commandLink>
                 </h:form>
               </div>
               
@@ -115,7 +115,7 @@
             <div class="timeline-badge #{event.type eq 'incoming-event' ? 'success' : 'info'}"><i class="fa fa-envelope-o"></i></div>
             <div class="timeline-panel">
               <div class="timeline-heading">
-                <h4 class="timeline-title">Wiadomość #{event.type eq 'incoming-event' ? 'odebrana' : 'wysłana'}</h4>
+                <h4 class="timeline-title">Message #{event.type eq 'incoming-event' ? 'send' : 'received'}</h4>
                 <p><small class="text-muted"><i class="fa fa-clock-o"></i> #{event.date} #{event.performer.name}</small></p>
               </div>
               <div class="timeline-body">

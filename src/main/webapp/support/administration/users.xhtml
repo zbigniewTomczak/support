@@ -12,7 +12,7 @@
   <ui:define name="header">
     <ui:decorate template="/WEB-INF/templates/newItemLink.xhtml">
         <ui:param name="outcome" value="/support/administration/useredit.jsf" />
-        <ui:param name="value" value="Nowy użytkownik" />
+        <ui:param name="value" value="New user" />
     </ui:decorate>
   </ui:define>
 
@@ -24,7 +24,7 @@
       <f:facet name="header">
       </f:facet>
       <h:column>
-        <f:facet name="header">Nazwa</f:facet>
+        <f:facet name="header">Name</f:facet>
         <p:link outcome="/support/administration/useredit.jsf">#{user.name}
             <f:param name="id" value="#{user.id}"></f:param>
         </p:link>
@@ -45,12 +45,12 @@
         
         <div class="btn-group">
           <p:link outcome="/support/administration/useraccess.jsf"
-             styleClass="btn btn-default" title="Uprawnienia">
+             styleClass="btn btn-default" title="Capabilities">
               <i class="fa fa-sliders"></i>
               <f:param name="id" value="#{user.id}"></f:param>
           </p:link>
           <p:link outcome="/support/administration/useredit.jsf"
-             styleClass="btn btn-default" title="Edycja">
+             styleClass="btn btn-default" title="Edit">
               <i class="fa fa-edit"></i>
               <f:param name="id" value="#{user.id}"></f:param>
           </p:link> 

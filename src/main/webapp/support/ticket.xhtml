@@ -11,9 +11,9 @@
       <h:panelGroup
         class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
         <span class="ui-menuitem-text" style="font-weight: bold;"></span>
-        <p:button icon="ui-icon-cancel" value="Anuluj"
+        <p:button icon="ui-icon-cancel" value="Cancel"
           styleClass="float-right" outcome="dashboard" />
-        <p:commandButton icon="ui-icon-disk" value="Zapisz i wyślij"
+        <p:commandButton icon="ui-icon-disk" value="Save i wyślij"
           styleClass="float-right" action="#{ticketEditBean.save()}" 
           onstart="PF('growl').renderMessage({summary: 'Rozpoczęto sprawdzanie poczty', detail:'',severity: 'info'});"
             oncomplete="PF('growl').renderMessage({summary: 'Sprawdzanie poczty zostało zakończone', detail:'',severity: 'info'});"

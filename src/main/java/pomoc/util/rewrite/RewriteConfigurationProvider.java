@@ -14,7 +14,7 @@ public class RewriteConfigurationProvider extends HttpConfigurationProvider {
 	static int i=0;
 	@Override
 	public Configuration getConfiguration(ServletContext arg0) {
-//		LocaleTransposition bundle = LocaleTransposition.bundle("pomoc.locale.bundles.Paths", "lang");
+//		LocaleTransposition bundle = LocaleTransposition.bundle("pomoc.locale.locale.Paths", "lang");
 		return ConfigurationBuilder.begin()
 				.addRule(Join.path("/").to("/support/signin2.jsf").withInboundCorrection())
 				.addRule(Join.path("/dashboard").to("/support/dashboard2.jsf").withInboundCorrection())
@@ -34,7 +34,7 @@ public class RewriteConfigurationProvider extends HttpConfigurationProvider {
 //	               .addRule()
 //	               .when(Path.matches("/{lang}/{path}").withRequestBinding())
 //	               .perform(Forward.to("/{path}.jsf"))
-//	               .where("path").transposedBy(LocaleTransposition.bundle("pomoc.locale.bundles.Paths", "lang"))
+//	               .where("path").transposedBy(LocaleTransposition.bundle("pomoc.locale.locale.Paths", "lang"))
 
 				;
 	}

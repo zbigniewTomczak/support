@@ -13,10 +13,10 @@
         <h:form>
           <ul class="nav nav-pills">
             <li><p:commandLink action="#{userEditBean.saveUser()}"
-                styleClass="btn btn-default navbar-btn" value="Zapisz"
+                styleClass="btn btn-default navbar-btn" value="Save"
                 ajax="false" validateClient="true"></p:commandLink></li>
             <li><p:link outcome="/support/administration/users.jsf"
-                value="Anuluj" styleClass="btn btn-default navbar-btn">
+                value="Cancel" styleClass="btn btn-default navbar-btn">
               </p:link></li>
           </ul>
           <div class="">
@@ -26,10 +26,10 @@
                   <div class="col-lg-4 col-lg-offset-2 btn-group">
                     <p:commandLink action="#{userEditBean.saveUser()}"
                       styleClass="btn btn-default form-button"
-                      value="Zapisz" ajax="false" validateClient="true">
+                      value="Save" ajax="false" validateClient="true">
                     </p:commandLink>
                     <p:link outcome="/support/administration/users.jsf"
-                      value="Anuluj"
+                      value="Cancel"
                       styleClass="btn btn-default form-button">
                     </p:link>
                   </div>
@@ -41,7 +41,7 @@
                 <div class="col-sm-12">
                   <div class="form-horizontal">
                     <div class="form-group">
-                      <p:outputLabel for="name" value="Nazwa"
+                      <p:outputLabel for="name" value="Name"
                         styleClass="control-label col-sm-2"></p:outputLabel>
                       <div class="col-sm-6">
                         <p:inputText id="name"

@@ -14,7 +14,7 @@
     <ul class="nav nav-pills">
       <li><a data-toggle="modal" data-target="#newFormDialog"
           class="btn btn-default navbar-btn">
-          <i class="fa fa-plus fa-fw"></i>Nowy formularz
+          <i class="fa fa-plus fa-fw"></i>New form
           </a>
       </li>
     </ul>
@@ -26,21 +26,21 @@
       <f:facet name="header">
       </f:facet>
       <h:column>
-        <f:facet name="header">Nazwa</f:facet>
+        <f:facet name="header">Name</f:facet>
         <p:link outcome="/support/administration/form.jsf">#{form.name}
             <f:param name="skey" value="#{form.skey}"></f:param>
         </p:link>
       </h:column>
       <h:column>
-        <f:facet name="header">Odpowiedzi łącznie</f:facet>
+        <f:facet name="header">Total responses</f:facet>
         #{form.responsesTotal}
       </h:column>
       <h:column>
-        <f:facet name="header">Wersja</f:facet>
+        <f:facet name="header">Version</f:facet>
         #{form.formVersion}
       </h:column>
       <h:column>
-        <f:facet name="header">Aktywny</f:facet>
+        <f:facet name="header">Active</f:facet>
         <h:outputText value="#{form.publication.active}" escape="false">
           <f:converter converterId="pomoc.converter.BooleanToTick"></f:converter>
         </h:outputText>

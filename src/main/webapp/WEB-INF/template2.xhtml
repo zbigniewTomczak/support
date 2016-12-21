@@ -79,12 +79,12 @@
                 <li class="divider"></li>
                 <li><a>
                     <div>
-                       <strong>Sprawdzono skrzynkę</strong> <span
-                        class="pull-right text-muted"> <small><i class="fa fa-clock-o"></i> #{empty lastCheck ? 'Nigdy' : lastCheck.date}</small>
+                       <strong>Mailbox checked</strong> <span
+                        class="pull-right text-muted"> <small><i class="fa fa-clock-o"></i> #{empty lastCheck ? 'Never' : lastCheck.date}</small>
                       </span>
                     </div>
                     <h:panelGroup layout="block" rendered="#{not empty lastCheck}">
-                      <p>#{lastCheck.processedNumber} wiadomości.</p>
+                      <p>#{lastCheck.processedNumber} messages.</p>
                     </h:panelGroup>
                     </a>
                 </li>
@@ -93,7 +93,7 @@
                 <h:form>
                   <p:commandLink rendered="#{person.admin}"
                     action="#{emailBean.check()}" ajax="false">
-                    <i class="fa fa-gear fa-fw"></i> Synchronizuj pocztę
+                    <i class="fa fa-gear fa-fw"></i> Update Mailbox
                   </p:commandLink>
                 </h:form>
              </li>
@@ -122,19 +122,19 @@
           </a>
             <ul class="dropdown-menu dropdown-user">
               <li><p:link outcome="/support/myprofile">
-                  <i class="fa fa-user fa-fw"></i> Profil</p:link></li>
+                  <i class="fa fa-user fa-fw"></i> Profile</p:link></li>
 
               <li><p:link rendered="#{person.admin}"
                   outcome="/support/administration/users">
-                  <i class="fa fa-users fa-fw"></i> Użytkownicy</p:link></li>
+                  <i class="fa fa-users fa-fw"></i> Users</p:link></li>
 
               <li><p:link rendered="#{person.admin}"
                   outcome="/support/administration/preferences">
-                  <i class="fa fa-gear fa-fw"></i> Ustawienia</p:link></li>
+                  <i class="fa fa-gear fa-fw"></i> Settings</p:link></li>
 
               <li class="divider"></li>
               <li><p:commandLink action="#{loginBean.logout()}">
-                  <i class="fa fa-sign-out fa-fw"></i> Wyloguj</p:commandLink></li>
+                  <i class="fa fa-sign-out fa-fw"></i> Sign out</p:commandLink></li>
             </ul> <!-- /.dropdown-user --></li>
           <!-- /.dropdown -->
         </ul>
@@ -159,15 +159,15 @@
               <li><p:link
                   styleClass="#{path.dashboard ? 'active' : ''}"
                   outcome="/support/dashboard2.jsf">
-                  <i class="fa fa-dashboard fa-fw"></i> Podsumowanie</p:link></li>
+                  <i class="fa fa-dashboard fa-fw"></i> Summary</p:link></li>
               <li><p:link
                   styleClass="#{path.myTickets ? 'active' : ''}"
                   outcome="/support/myTickets.jsf">
-                  <i class="fa fa-flag-checkered fa-fw"></i> Moje zgłoszenia</p:link></li>
+                  <i class="fa fa-flag-checkered fa-fw"></i> My issues</p:link></li>
               <li><p:link rendered="#{person.admin}"
                   styleClass="#{path.forms ? 'active' : ''}"
                   outcome="/support/administration/forms.jsf">
-                  <i class="fa fa-edit fa-fw"></i> Formularze
+                  <i class="fa fa-edit fa-fw"></i> Forms
                             </p:link></li>
             </ul>
           </div>

@@ -29,7 +29,7 @@
 				<div class="login-panel panel panel-default">
 					<div class="panel-heading">
 						<ui:remove><h3 class="panel-title">Please Sign In</h3></ui:remove>
-						<h3 class="panel-title">Zaloguj się</h3>
+						<h3 class="panel-title">Sign in to System Pomoc</h3>
 					</div>
 					<div class="panel-body">
 						<h:form>
@@ -50,18 +50,18 @@
 									<ui:remove><input class="form-control" placeholder="Password"
 										name="password" type="password" value="" /></ui:remove>
 									<p:password value="#{loginBean.password}" required="true"
-										requiredMessage="Podaj hasło" placeholder="Hasło" styleClass="form-control"/>
+										requiredMessage="Podaj hasło" placeholder="Password" styleClass="form-control"/>
 								</div>
 								<ui:remove><a href="index.html" class="btn btn-lg btn-success btn-block">Login</a></ui:remove>
-								<p:commandLink action="#{loginBean.login()}" value="Zaloguj"
+								<p:commandLink action="#{loginBean.login()}" value="Sign in"
             						class="btn btn-lg btn-success btn-block" ajax="false"/>
 								<div class="checkbox">
 									<ui:remove><label> <input name="remember" type="checkbox"
 										value="Remember Me" />Remember Me
 									</label></ui:remove>
 									<small>
-									<h:outputText value="Nie masz konta? " />
-									<p:link value="Przejdź do strony rejestracji"
+									<h:outputText value="#{i.no_account} " />
+									<p:link value="#{i.register_account}"
 										outcome="/support/signup2.jsf" styleClass="link"></p:link>
 										<br/>
 									<ui:remove><h:outputText value="Konto testowe: 'admin@example.com', Hasło: 'asd'."
@@ -79,7 +79,7 @@
 
 	<!-- Bootstrap Core JavaScript -->
 	<h:outputScript library="js" name="bootstrap.min.js" />
-
+	<ui:debug hotkey="x" />
 </h:body>
 </f:view>
 </html>

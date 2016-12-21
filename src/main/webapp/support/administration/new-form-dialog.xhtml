@@ -18,20 +18,20 @@
               <span aria-hidden="true">&times;</span><span
                 class="sr-only">Close</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Podaj nazwę nowego formularza.</h4>
+            <h4 class="modal-title" id="myModalLabel">New form name</h4>
           </div>
           <div class="modal-body">
             <div class="panel panel-default">
               <p:messages styleClass="help-block"></p:messages>
               <div class="panel-body form-horizontal">
                 <div class="form-group">
-                  <p:outputLabel for="name" value="Nazwa"
+                  <p:outputLabel for="name" value="Name"
                     styleClass="control-label col-sm-2"></p:outputLabel>
                   <div class="col-sm-6">
                     <p:inputText id="name"
                       value="#{newFormBean.name}" required="true"
-                      requiredMessage="Podaj tytuł" placeholder="Nazwa formularza"
-                      title="Nazwa nie będzie pokazywana na stronie. Służy do identyfikacji formularza w części administracyjnej."
+                      requiredMessage="Podaj tytuł" placeholder="Form name"
+                      title="Name nie będzie pokazywana na stronie. Służy do identyfikacji formularza w części administracyjnej."
                       styleClass="form-control">
                     </p:inputText>
                   </div>
@@ -49,10 +49,10 @@
             <p:commandLink action="#{newFormBean.newForm}"
               styleClass="btn btn-default navbar-btn"
               ajax="false">
-              Stwórz
+              Create
               </p:commandLink>
             <button type="button" class="btn btn-default"
-              data-dismiss="modal">Anuluj</button>
+              data-dismiss="modal">Cancel</button>
           </div>
         </div>
         <!-- ./modal-content -->
